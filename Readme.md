@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
 
 * Студент: [Полина Шкуро](https://up.htmlacademy.ru/react/4/user/1221841).
-* Наставник: `Неизвестно`.
+* Наставник: `Денис Быков`(https://htmlacademy.ru/profile/id66426).
 
 ---
 
