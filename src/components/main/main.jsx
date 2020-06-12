@@ -146,6 +146,6 @@ Main.propTypes = {
   advertsInfo: PropTypes.shape({
     advertsCount: PropTypes.number.isRequired,
     advertsDescription: PropTypes.arrayOf(PropTypes.string.isRequired),
-  }),
+  }).isRequired,
 };
 
