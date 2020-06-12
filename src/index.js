@@ -2,11 +2,12 @@ import React from "react";
 import ReactDom from "react-dom";
 import App from "./components/app/app.jsx";
 
-const Info = {
-  ADVERTS_COUNT: 152,
+const AdvertsInfo = {
+  advertsCount: 152,
+  advertsDescription: [`Beautiful & luxurious apartment at great location`, `Wood and stone place`, `Beautyful seaview`, `Fantastic house with swimming pull`],
 };
 
 ReactDom.render(
-    <App advertsCount={Info.ADVERTS_COUNT}/>,
+    <App advertsInfo={AdvertsInfo}/>,
     document.querySelector(`#root`)
 );
