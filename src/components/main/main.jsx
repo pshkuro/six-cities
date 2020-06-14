@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-export default function Main({advertsInfo}) {
+export default function Main({advertsInfo, onAdvertCardTitleClick}) {
   const {advertsCount, advertsDescription} = advertsInfo;
 
   return (
@@ -123,7 +123,9 @@ export default function Main({advertsInfo}) {
                           <span className="visually-hidden">Rating</span>
                         </div>
                       </div>
-                      <h2 className="place-card__name">
+                      <h2
+                        className="place-card__name"
+                        onClick={onAdvertCardTitleClick}>
                         <a href="#">{description}</a>
                       </h2>
                       <p className="place-card__type">Apartment</p>
@@ -147,5 +149,6 @@ Main.propTypes = {
     advertsCount: PropTypes.number.isRequired,
     advertsDescription: PropTypes.arrayOf(PropTypes.string.isRequired),
   }).isRequired,
+  onAdvertCardTitleClick: PropTypes.func.isRequired,
 };
 

@@ -7,11 +7,13 @@ const AdvertsInfo = {
   advertsDescription: [`Beautiful & luxurious apartment at great location`, `Wood and stone place`, `Beautyful seaview`, `Fantastic house with swimming pull`],
 };
 
+
 it(`Render Main`, () => {
   const tree = renderer
   .create(
       <Main
         advertsInfo={AdvertsInfo}
+        onAdvertCardTitleClick={() => {}}
       />
   )
   .toJSON();
