@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import {OfferInfo} from "../../const";
 
 const ratingStars = {
   '0': 0,
@@ -63,7 +64,7 @@ PlaceCard.propTypes = {
     premium: PropTypes.bool,
     cost: PropTypes.number,
     description: PropTypes.string,
-    type: PropTypes.string,
+    type: PropTypes.oneOf(OfferInfo.TYPE),
     rating: PropTypes.number,
 
   }).isRequired,
