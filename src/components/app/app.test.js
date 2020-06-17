@@ -2,16 +2,35 @@ import React from "react";
 import renderer from "react-test-renderer";
 import App from "./app.jsx";
 
-const AdvertsInfo = {
-  advertsCount: 10,
-  advertsDescription: [`Beautiful & luxurious apartment at great location`, `Wood and stone place`, `Beautyful seaview`, `Fantastic house with swimming pull`],
-};
+const offers = [
+  {
+    picture: `img/apartment-01.jpg`,
+    premium: false,
+    cost: 130,
+    description: `Wood and stone place`,
+    type: `Apartment`,
+    rating: 1.8,
+  }, {
+    picture: `img/apartment-02.jpg`,
+    premium: true,
+    cost: 40,
+    description: `Wood and stone place`,
+    type: `Hotel`,
+    rating: 4,
+  }, {
+    picture: `img/apartment-01.jpg`,
+    premium: true,
+    cost: 500,
+    description: `Good hotel`,
+    type: `Apartment`,
+    rating: 1,
+  }];
 
 it(`Render App`, () => {
   const tree = renderer
   .create(
       <App
-        advertsInfo={AdvertsInfo}
+        offers={offers}
       />
   )
   .toJSON();
