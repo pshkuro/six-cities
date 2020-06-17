@@ -16,11 +16,12 @@ export default class PlaceCard extends PureComponent {
   }
 
   render() {
-    const {offer, onAdvertCardTitleClick} = this.props;
+    const {offer, onAdvertCardTitleClick, onAdvertCardMouseOver} = this.props;
     const {picture, premium, cost, description, type, rating} = offer;
 
     return (
-      <article className="cities__place-card place-card">
+      <article className="cities__place-card place-card"
+        onMouseOver={() => onAdvertCardMouseOver(offer)}>
         {premium ?
           <div className="place-card__mark">
             <span>Premium</span>
@@ -46,7 +47,7 @@ export default class PlaceCard extends PureComponent {
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
-              <span style={{width: `${ratingStars[rating]}%`}}></span>
+              <span style={{width: `${ratingStars[Math.round(rating)]}%`}}></span>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
@@ -73,5 +74,6 @@ PlaceCard.propTypes = {
 
   }).isRequired,
   onAdvertCardTitleClick: PropTypes.func.isRequired,
+  onAdvertCardMouseOver: PropTypes.func.isRequired,
 };
 

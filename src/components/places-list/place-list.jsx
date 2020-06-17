@@ -7,8 +7,10 @@ export default class PlaceList extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      activeComponent: 0,
+      activeCard: null,
     };
+
+    this._handleAdvertCardMouseOver = this._handleAdvertCardMouseOver.bind(this);
   }
 
   render() {
@@ -20,10 +22,15 @@ export default class PlaceList extends PureComponent {
           <PlaceCard
             offer={offer}
             onAdvertCardTitleClick={onAdvertCardTitleClick}
+            onAdvertCardMouseOver={this._handleAdvertCardMouseOver}
             key={`${i}-${offer.description}`}/>
         ))}
       </div>
     );
+  }
+
+  _handleAdvertCardMouseOver(card) {
+    this.setState({activeCard: card});
   }
 }
 
