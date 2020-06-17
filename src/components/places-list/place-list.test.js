@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import PlaceList from "./place-list";
+import PlaceList from "./place-list.jsx";
 
 const offers = [
   {
