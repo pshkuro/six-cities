@@ -1,21 +1,15 @@
 import Main from "../main/main.jsx";
 import PropTypes from "prop-types";
 import React from "react";
+import {offers} from "../../mocks/offers.js";
 
 const advertCardTitleHandler = () => {};
 
-export default function App({advertsInfo}) {
-
+export default function App() {
   return (
-    <Main advertsInfo={advertsInfo}
+    <Main offers={offers}
       onAdvertCardTitleClick={advertCardTitleHandler}/>
   );
 }
 
-App.propTypes = {
-  advertsInfo: PropTypes.shape({
-    advertsCount: PropTypes.number.isRequired,
-    advertsDescription: PropTypes.arrayOf(PropTypes.string.isRequired),
-  }).isRequired,
-};
 

@@ -1,5 +1,6 @@
 import {getRandomArrayItem, getRandomIntegerNumber, getRandomIntegerRoundingNumber} from "../utils/common.js";
 
+const OFFERS_NUMBER = 4;
 const OfferInfo = {
   PICTURE: [`img/apartment-01.jpg`, `img/apartment-02.jpg`, `img/apartment-03.jpg`],
   DESCRIPTION: [`Beautiful & luxurious apartment at great location`, `Wood and stone place`, `Beautyful seaview`, `Fantastic house with swimming pull`],
@@ -9,7 +10,7 @@ const OfferInfo = {
 const generateOffer = () => {
   return {
     picture: getRandomArrayItem(OfferInfo.PICTURE),
-    premium: getRandomIntegerNumber(0, 1),
+    premium: getRandomIntegerNumber(0, 2),
     cost: getRandomIntegerNumber(50, 999),
     description: getRandomArrayItem(OfferInfo.DESCRIPTION),
     type: getRandomArrayItem(OfferInfo.TYPE),
@@ -23,6 +24,6 @@ const generateOffers = (count) => {
   .map(generateOffer);
 };
 
-export const offers = generateOffers(4);
+export const offers = generateOffers(OFFERS_NUMBER);
 
 
