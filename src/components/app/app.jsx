@@ -1,5 +1,4 @@
 import Main from "../main/main.jsx";
-import PropTypes from "prop-types";
 import React from "react";
 import {offers} from "../../mocks/offers.js";
 
@@ -11,5 +10,4 @@ export default function App() {
       onAdvertCardTitleClick={advertCardTitleHandler}/>
   );
 }
-
 

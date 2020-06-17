@@ -61,3 +61,17 @@ export default class PlaceCard extends PureComponent {
     );
   }
 }
+
+PlaceCard.propTypes = {
+  offer: PropTypes.exact({
+    picture: PropTypes.string,
+    premium: PropTypes.bool,
+    cost: PropTypes.number,
+    description: PropTypes.string,
+    type: PropTypes.string,
+    rating: PropTypes.number,
+
+  }).isRequired,
+  onAdvertCardTitleClick: PropTypes.func.isRequired,
+};
+

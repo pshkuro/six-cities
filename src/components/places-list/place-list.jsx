@@ -1,5 +1,6 @@
-import React, {PureComponent} from "react";
 import PlaceCard from "../place-card/place-card.jsx";
+import PropTypes from "prop-types";
+import React, {PureComponent} from "react";
 
 
 export default class PlaceList extends PureComponent {
@@ -24,6 +25,10 @@ export default class PlaceList extends PureComponent {
       </div>
     );
   }
-
-
 }
+
+PlaceList.propTypes = {
+  offers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onAdvertCardTitleClick: PropTypes.func.isRequired,
+};
+

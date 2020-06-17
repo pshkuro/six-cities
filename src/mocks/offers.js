@@ -1,4 +1,4 @@
-import {getRandomArrayItem, getRandomIntegerNumber, getRandomIntegerRoundingNumber} from "../utils/common.js";
+import {getRandomArrayItem, getRandomIntegerNumber} from "../utils/common.js";
 
 const OFFERS_NUMBER = 4;
 const OfferInfo = {
@@ -10,11 +10,11 @@ const OfferInfo = {
 const generateOffer = () => {
   return {
     picture: getRandomArrayItem(OfferInfo.PICTURE),
-    premium: getRandomIntegerNumber(0, 2),
+    premium: Boolean(getRandomIntegerNumber(0, 2)),
     cost: getRandomIntegerNumber(50, 999),
     description: getRandomArrayItem(OfferInfo.DESCRIPTION),
     type: getRandomArrayItem(OfferInfo.TYPE),
-    rating: getRandomIntegerRoundingNumber(0, 5, 0),
+    rating: getRandomIntegerNumber(0, 5),
   };
 };
 

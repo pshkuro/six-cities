@@ -107,6 +107,7 @@ export default function Main({offers, onAdvertCardTitleClick}) {
 }
 
 Main.propTypes = {
+  offers: PropTypes.array.isRequired,
   onAdvertCardTitleClick: PropTypes.func.isRequired,
 };
 
