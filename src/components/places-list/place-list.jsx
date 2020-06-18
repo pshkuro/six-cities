@@ -18,12 +18,12 @@ export default class PlaceList extends PureComponent {
 
     return (
       <div className="cities__places-list places__list tabs__content">
-        {offers.map((offer, i) => (
+        {offers.map((offer) => (
           <PlaceCard
             offer={offer}
             onAdvertCardTitleClick={onAdvertCardTitleClick}
             onAdvertCardMouseOver={this._handleAdvertCardMouseOver}
-            key={`${i}-${offer.description}`}/>
+            key={offer.id}/>
         ))}
       </div>
     );

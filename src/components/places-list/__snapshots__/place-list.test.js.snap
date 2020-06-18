@@ -87,7 +87,7 @@ exports[`Render PlaceList 1`] = `
       </div>
       <h2
         className="place-card__name"
-        onClick={[Function]}
+        onClick={[MockFunction]}
       >
         <a
           href="#"
@@ -191,7 +191,7 @@ exports[`Render PlaceList 1`] = `
       </div>
       <h2
         className="place-card__name"
-        onClick={[Function]}
+        onClick={[MockFunction]}
       >
         <a
           href="#"
@@ -289,7 +289,7 @@ exports[`Render PlaceList 1`] = `
       </div>
       <h2
         className="place-card__name"
-        onClick={[Function]}
+        onClick={[MockFunction]}
       >
         <a
           href="#"

@@ -15,6 +15,7 @@ const generateOffer = () => {
     description: getRandomArrayItem(OfferInfo.DESCRIPTION),
     type: getRandomArrayItem(OfferInfo.TYPE),
     rating: getRandomIntegerNumber(0, 5),
+    id: Math.random(),
   };
 };
 
