@@ -21,7 +21,7 @@ const props = {
     },
     id: 1212,
   },
-  onAdvertCardTitleClick: jest.fn(),
+  onAdvertCardTitleClick: jest.fn((x) => x),
   onAdvertCardMouseOver: jest.fn((x) => x),
 };
 
@@ -35,4 +35,19 @@ it(`Hovering PlaceCard get to callback info about itself`, () => {
 
   expect(props.onAdvertCardMouseOver).toHaveBeenCalledTimes(1);
   expect(props.onAdvertCardMouseOver.mock.results[0].value).toMatchObject(props.offer);
+});
+
+
+it(`PlaceCard title should be clicked and get to callback info about itself`, () => {
+
+  const placeCard = shallow(
+      <PlaceCard {...props}/>
+  );
+
+  const advertCardTitle = placeCard.find(`.place-card__name`);
+  advertCardTitle.simulate(`click`);
+
+  expect(props.onAdvertCardTitleClick).toHaveBeenCalledTimes(1);
+  expect(props.onAdvertCardTitleClick.mock.results[0].value).toMatchObject(props.offer);
+
 });

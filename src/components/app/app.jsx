@@ -16,7 +16,7 @@ export default class App extends PureComponent {
 
     this.state = {
       step: PageState.DEFAULT,
-      activeOfferId: null,
+      activeOffer: null,
     };
   }
 
@@ -38,16 +38,15 @@ export default class App extends PureComponent {
 
   _renderApp() {
     const {offers} = this.props;
-    const activeOfferId = this.state.activeOfferId;
-    const activeOffer = offers.find((offer) => offer.id === activeOfferId);
+
 
     switch (this.state.step) {
       case PageState.DEFAULT:
         return (
           <Main offers={offers}
-            onAdvertCardTitleClick={(id) => {
+            onAdvertCardTitleClick={(offer) => {
               this.setState({
-                activeOfferId: id,
+                activeOffer: offer,
                 step: PageState.DETAILS
               });
             }}/>
@@ -55,7 +54,7 @@ export default class App extends PureComponent {
 
       case PageState.DETAILS:
         return (
-          <PlaceProperty offer={activeOffer}/>
+          <PlaceProperty offer={this.state.activeOffer}/>
         );
     }
 

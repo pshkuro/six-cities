@@ -15,7 +15,7 @@ const OfferInfo = {
 
 const generateOffer = () => {
   return {
-    pictures: shuffleArray(OfferInfo.PICTURES),
+    pictures: shuffleArray([...OfferInfo.PICTURES]),
     title: getRandomArrayItem(OfferInfo.TITLE),
     description: OfferInfo.DESCRIPTION,
     premium: Boolean(getRandomIntegerNumber(0, 2)),
@@ -37,7 +37,7 @@ const generateOffer = () => {
 const generateOffers = (count) => {
   return new Array(count)
   .fill(``)
-  .map(generateOffer);
+  .map(() => generateOffer());
 };
 
 export const offers = generateOffers(OFFERS_NUMBER);
