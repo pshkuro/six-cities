@@ -1,37 +1,65 @@
 import Main from "../main/main.jsx";
-import PlaceProperty from "../place-property/place-properrty.jsx";
+import PlaceProperty from "../place-property/place-property.jsx";
 import PropTypes from "prop-types";
 import React, {PureComponent} from "react";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 
+const PageState = {
+  DEFAULT: `default`,
+  DETAILS: `details`,
+};
 
-const advertCardTitleHandler = () => {};
 
 export default class App extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      step: -1,
+      step: PageState.DEFAULT,
+      activeOfferId: null,
     };
   }
 
   render() {
     const {offers} = this.props;
-
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            <Main offers={offers}
-              onAdvertCardTitleClick={advertCardTitleHandler}/>
+            {this._renderApp()}
           </Route>
           <Route exact path="/property">
-            <PlaceProperty/>
+            <PlaceProperty offer={offers[0]}/>
           </Route>
         </Switch>
       </BrowserRouter>
     );
+  }
+
+  _renderApp() {
+    const {offers} = this.props;
+    const activeOfferId = this.state.activeOfferId;
+    const activeOffer = offers.find((offer) => offer.id === activeOfferId);
+
+    switch (this.state.step) {
+      case PageState.DEFAULT:
+        return (
+          <Main offers={offers}
+            onAdvertCardTitleClick={(id) => {
+              this.setState({
+                activeOfferId: id,
+                step: PageState.DETAILS
+              });
+            }}/>
+        );
+
+      case PageState.DETAILS:
+        return (
+          <PlaceProperty offer={activeOffer}/>
+        );
+    }
+
+    return null;
   }
 
 }

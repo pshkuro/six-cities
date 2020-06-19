@@ -19,16 +19,14 @@ export const getRandomCountRandomArrayItem = (array, count) => {
 };
 
 
-export const shuffleArray = (arr) => {
-  let j = 0;
-  let temp = 0;
-  for (let i = arr.length - 1; i > 0; i--) {
+export const shuffleArray = (array) => {
+  let j; let x; let i;
+  for (i = array.length - 1; i > 0; i--) {
     j = Math.floor(Math.random() * (i + 1));
-    temp = arr[j];
-    arr[j] = arr[i];
-    arr[i] = temp;
+    x = array[i];
+    array[i] = array[j];
+    array[j] = x;
   }
-  return arr;
+  return array;
 };
-
 

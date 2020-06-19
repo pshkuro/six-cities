@@ -1,19 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {OfferInfo} from "../../constants/offer";
+import {OfferInfo, ratingStars} from "../../constants/offer";
 
-const ratingStars = {
-  '0': 0,
-  '1': 20,
-  '2': 40,
-  '3': 60,
-  '4': 80,
-  '5': 100
-};
 
 export default function PlaceCard({offer, onAdvertCardTitleClick, onAdvertCardMouseOver}) {
-  const {pictures, premium, cost, title, type, rating} = offer;
-
+  const {pictures, premium, cost, title, type, rating, id} = offer;
   return (
     <article className="cities__place-card place-card"
       onMouseOver={() => onAdvertCardMouseOver(offer)}>
@@ -48,7 +39,7 @@ export default function PlaceCard({offer, onAdvertCardTitleClick, onAdvertCardMo
         </div>
         <h2
           className="place-card__name"
-          onClick={onAdvertCardTitleClick}>
+          onClick={() => onAdvertCardTitleClick(id)}>
           <a href="#">{title}</a>
         </h2>
         <p className="place-card__type">{type}</p>
@@ -69,11 +60,11 @@ PlaceCard.propTypes = {
     bedrooms: PropTypes.number,
     guests: PropTypes.number,
     cost: PropTypes.number,
-    comfort: PropTypes.arrayOf(PropTypes.string),
+    conveniences: PropTypes.arrayOf(PropTypes.string),
     owner: PropTypes.exact({
-      picture: PropTypes.string,
+      avatar: PropTypes.string,
       name: PropTypes.string,
-      super: PropTypes.bool,
+      pro: PropTypes.bool,
     }).isRequired,
     id: PropTypes.number,
   }).isRequired,
