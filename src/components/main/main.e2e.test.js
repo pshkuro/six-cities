@@ -1,31 +1,49 @@
-import Adapter from "enzyme-adapter-react-16";
-import Enzyme, {shallow} from "enzyme";
+import {mount} from "enzyme";
 import Main from "./main.jsx";
 import React from "react";
 
-const AdvertsInfo = {
-  advertsCount: 10,
-  advertsDescription: [`Beautiful & luxurious apartment at great location`, `Wood and stone place`, `Beautyful seaview`, `Fantastic house with swimming pull`],
+const props = {
+  offers: [
+    {
+      picture: `img/apartment-02.jpg`,
+      premium: true,
+      cost: 1245,
+      description: `Dodo`,
+      type: `Apartment`,
+      rating: 2.4,
+      id: 868686,
+    }, {
+      picture: `img/apartment-02.jpg`,
+      premium: false,
+      cost: 45045,
+      description: `Cool`,
+      type: `Hotel`,
+      rating: 4,
+      id: 40404,
+    }, {
+      picture: `img/apartment-01.jpg`,
+      premium: false,
+      cost: 56045,
+      description: `Good hotel`,
+      type: `Apartment`,
+      rating: 5,
+      id: 1212,
+    }],
+  onAdvertCardTitleClick: jest.fn(),
 };
 
-Enzyme.configure({
-  adapter: new Adapter(),
-});
 
 describe(`AdvertCard`, () => {
   it(`Advert card titles should be clicked`, () => {
-    const onAdvertCardTitleMockClick = jest.fn();
 
-    const mainComponent = shallow(
-        <Main advertsInfo={AdvertsInfo}
-          onAdvertCardTitleClick={onAdvertCardTitleMockClick}
-        />
+    const mainComponent = mount(
+        <Main {...props}/>
     );
 
     const advertCardTitles = mainComponent.find(`.place-card__name`);
-    advertCardTitles.forEach((advertCardTitle) => advertCardTitle.simulate(`click`));
+    advertCardTitles.forEach((advertCardTitle) => advertCardTitle.simulate(`click`, {preventDefault() {}}));
 
-    expect(onAdvertCardTitleMockClick).toHaveBeenCalledTimes(advertCardTitles.length);
+    expect(props.onAdvertCardTitleClick).toHaveBeenCalledTimes(advertCardTitles.length);
 
   });
 });
