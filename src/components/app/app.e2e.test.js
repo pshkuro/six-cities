@@ -61,7 +61,7 @@ const props = {
   // onAdvertCardTitleClick: jest.fn((x) => x),
 };
 
-it(`yura`, () => {
+it(`Clicked place card get the same object that place property render`, () => {
   const appComponent = mount(
       <App {...props} />
   );
