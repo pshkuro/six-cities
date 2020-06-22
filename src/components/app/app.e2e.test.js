@@ -1,8 +1,8 @@
-import App from "../app/app.jsx";
 import {mount} from "enzyme";
+import React from "react";
+import App from "../app/app.jsx";
 import PlaceProperty from "../place-property/place-property.jsx";
 import PlaceCard from "../place-card/place-card.jsx";
-import React from "react";
 
 const props = {
   offers: [

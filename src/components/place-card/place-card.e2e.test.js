@@ -1,6 +1,6 @@
+import React from "react";
 import {shallow} from "enzyme";
 import PlaceCard from "./place-card.jsx";
-import React from "react";
 
 const props = {
   offer: {

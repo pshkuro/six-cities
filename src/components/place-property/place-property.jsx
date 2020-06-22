@@ -1,6 +1,6 @@
-import {OfferInfo, ratingStars} from "../../constants/offer";
-import PropTypes from "prop-types";
 import React from "react";
+import PropTypes from "prop-types";
+import {OfferInfo, ratingStars} from "../../constants/offer";
 
 
 export default function PlaceProperty({offer}) {
