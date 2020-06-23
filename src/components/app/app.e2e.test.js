@@ -1,6 +1,8 @@
+import {mount} from "enzyme";
 import React from "react";
-import renderer from "react-test-renderer";
-import App from "./app.jsx";
+import App from "../app/app.jsx";
+import PlaceProperty from "../place-property/place-property.jsx";
+import PlaceCard from "../place-card/place-card.jsx";
 
 const props = {
   offers: [
@@ -56,14 +58,23 @@ const props = {
       },
       id: 1012,
     }],
+  // onAdvertCardTitleClick: jest.fn((x) => x),
 };
 
-it(`Render App`, () => {
-  const tree = renderer
-  .create(
-      <App {...props}/>
-  )
-  .toJSON();
+it(`Clicked place card get the same object that place property render`, () => {
+  const appComponent = mount(
+      <App {...props} />
+  );
 
-  expect(tree).toMatchSnapshot();
+  const placeCard = appComponent.find(PlaceCard).first();
+  const placeCardOffer = placeCard.props().offer;
+  const placeCardTitle = placeCard.find(`.place-card__name`);
+
+  placeCardTitle.simulate(`click`, {preventDefault() {}});
+
+  const placeProperty = appComponent.find(PlaceProperty);
+  const placePropertyOffer = placeProperty.props().offer;
+
+
+  expect(placePropertyOffer).toEqual(placeCardOffer);
 });

@@ -1,6 +1,6 @@
+import React from "react";
 import PropTypes from "prop-types";
 import PlaceList from "../places-list/place-list.jsx";
-import React from "react";
 
 export default function Main({offers, onAdvertCardTitleClick}) {
   return (

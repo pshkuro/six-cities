@@ -87,12 +87,12 @@ exports[`Render PlaceList 1`] = `
       </div>
       <h2
         className="place-card__name"
-        onClick={[MockFunction]}
+        onClick={[Function]}
       >
         <a
           href="#"
         >
-          Good apartment
+          Place cool
         </a>
       </h2>
       <p
@@ -191,12 +191,12 @@ exports[`Render PlaceList 1`] = `
       </div>
       <h2
         className="place-card__name"
-        onClick={[MockFunction]}
+        onClick={[Function]}
       >
         <a
           href="#"
         >
-          Nice
+          House in forest
         </a>
       </h2>
       <p
@@ -289,12 +289,12 @@ exports[`Render PlaceList 1`] = `
       </div>
       <h2
         className="place-card__name"
-        onClick={[MockFunction]}
+        onClick={[Function]}
       >
         <a
           href="#"
         >
-          Good hotel
+          Place cool
         </a>
       </h2>
       <p

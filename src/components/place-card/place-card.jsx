@@ -1,19 +1,10 @@
-import PropTypes from "prop-types";
 import React from "react";
-import {OfferInfo} from "../../constants/offer";
+import PropTypes from "prop-types";
+import {OfferInfo, ratingStars} from "../../constants/offer";
 
-const ratingStars = {
-  '0': 0,
-  '1': 20,
-  '2': 40,
-  '3': 60,
-  '4': 80,
-  '5': 100
-};
 
 export default function PlaceCard({offer, onAdvertCardTitleClick, onAdvertCardMouseOver}) {
-  const {picture, premium, cost, description, type, rating} = offer;
-
+  const {pictures, premium, cost, title, type, rating} = offer;
   return (
     <article className="cities__place-card place-card"
       onMouseOver={() => onAdvertCardMouseOver(offer)}>
@@ -24,7 +15,7 @@ export default function PlaceCard({offer, onAdvertCardTitleClick, onAdvertCardMo
         : ``}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src={picture} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={pictures[0]} width="260" height="200" alt="Place image" />
         </a>
       </div>
       <div className="place-card__info">
@@ -48,8 +39,8 @@ export default function PlaceCard({offer, onAdvertCardTitleClick, onAdvertCardMo
         </div>
         <h2
           className="place-card__name"
-          onClick={onAdvertCardTitleClick}>
-          <a href="#">{description}</a>
+          onClick={() => onAdvertCardTitleClick(offer)}>
+          <a href="#">{title}</a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -60,14 +51,22 @@ export default function PlaceCard({offer, onAdvertCardTitleClick, onAdvertCardMo
 
 PlaceCard.propTypes = {
   offer: PropTypes.exact({
-    picture: PropTypes.string,
+    pictures: PropTypes.arrayOf(PropTypes.string),
+    title: PropTypes.string,
+    description: PropTypes.arrayOf(PropTypes.string),
     premium: PropTypes.bool,
-    cost: PropTypes.number,
-    description: PropTypes.string,
     type: PropTypes.oneOf(OfferInfo.TYPE),
     rating: PropTypes.number,
+    bedrooms: PropTypes.number,
+    guests: PropTypes.number,
+    cost: PropTypes.number,
+    conveniences: PropTypes.arrayOf(PropTypes.string),
+    owner: PropTypes.exact({
+      avatar: PropTypes.string,
+      name: PropTypes.string,
+      pro: PropTypes.bool,
+    }).isRequired,
     id: PropTypes.number,
-
   }).isRequired,
   onAdvertCardTitleClick: PropTypes.func.isRequired,
   onAdvertCardMouseOver: PropTypes.func.isRequired,

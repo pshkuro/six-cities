@@ -313,12 +313,12 @@ exports[`Render Main 1`] = `
                 </div>
                 <h2
                   className="place-card__name"
-                  onClick={[MockFunction]}
+                  onClick={[Function]}
                 >
                   <a
                     href="#"
                   >
-                    Wood and stone place
+                    Place cool
                   </a>
                 </h2>
                 <p
@@ -398,7 +398,7 @@ exports[`Render Main 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "100%",
                         }
                       }
                     />
@@ -411,12 +411,12 @@ exports[`Render Main 1`] = `
                 </div>
                 <h2
                   className="place-card__name"
-                  onClick={[MockFunction]}
+                  onClick={[Function]}
                 >
                   <a
                     href="#"
                   >
-                    Wood and stone place
+                    Place cool
                   </a>
                 </h2>
                 <p
@@ -496,7 +496,7 @@ exports[`Render Main 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "100%",
+                          "width": "40%",
                         }
                       }
                     />
@@ -509,12 +509,12 @@ exports[`Render Main 1`] = `
                 </div>
                 <h2
                   className="place-card__name"
-                  onClick={[MockFunction]}
+                  onClick={[Function]}
                 >
                   <a
                     href="#"
                   >
-                    Good hotel
+                    Place cool
                   </a>
                 </h2>
                 <p
