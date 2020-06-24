@@ -2,7 +2,10 @@
 
 exports[`Render App 1`] = `
 <div
-  className="page page--gray page--main"
+  className="page
+      page--gray
+      page--main
+    "
 >
   <header
     className="header"
@@ -17,7 +20,8 @@ exports[`Render App 1`] = `
           className="header__left"
         >
           <a
-            className="header__logo-link header__logo-link--active"
+            className="header__logo-link"
+            href="main.html"
           >
             <img
               alt="6 cities logo"

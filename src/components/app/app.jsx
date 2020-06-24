@@ -2,20 +2,16 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main.jsx";
+import PlaceScreen from "../place-screen/place-screen.jsx";
 import PlaceProperty from "../place-property/place-property.jsx";
-
-const PageState = {
-  DEFAULT: `default`,
-  DETAILS: `details`,
-};
-
+import {PageType} from "../../constants/page.js";
 
 export default class App extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      step: PageState.DEFAULT,
+      step: PageType.MAIN,
       activeOffer: null,
     };
 
@@ -43,15 +39,22 @@ export default class App extends PureComponent {
 
 
     switch (this.state.step) {
-      case PageState.DEFAULT:
+      case PageType.MAIN:
         return (
-          <Main offers={offers}
-            onAdvertCardTitleClick={this._handleAdvertCardTitleClick}/>
+          <PlaceScreen
+            type={this.state.step}
+            color="gray">
+            <Main offers={offers}
+              onAdvertCardTitleClick={this._handleAdvertCardTitleClick}/>
+          </PlaceScreen>
         );
 
-      case PageState.DETAILS:
+      case PageType.DETAILS:
         return (
-          <PlaceProperty offer={this.state.activeOffer}/>
+          <PlaceScreen
+            type={this.state.step}>
+            <PlaceProperty offer={this.state.activeOffer}/>
+          </PlaceScreen>
         );
     }
 
@@ -61,7 +64,7 @@ export default class App extends PureComponent {
   _handleAdvertCardTitleClick(offer) {
     this.setState({
       activeOffer: offer,
-      step: PageState.DETAILS
+      step: PageType.DETAILS
     });
   }
 
