@@ -15,6 +15,7 @@ const props = {
       bedrooms: 2,
       guests: 10,
       conveniences: [`Beautiful`],
+      coordinates: [52.3909553943508, 4.85309666406198],
       owner: {
         avatar: `img/avatar-angelina.jpg`,
         name: `Clara`,
@@ -32,6 +33,7 @@ const props = {
       bedrooms: 22,
       guests: 100,
       conveniences: [`Tolter`],
+      coordinates: [52.3909553943508, 4.85309666406198],
       owner: {
         avatar: `img/avatar-angelina.jpg`,
         name: `Poporo`,
@@ -49,6 +51,7 @@ const props = {
       bedrooms: 22,
       guests: 1,
       conveniences: [`TV`, `Toilet`],
+      coordinates: [52.3909553943508, 4.85309666406198],
       owner: {
         avatar: `img/avatar-angelina.jpg`,
         name: `Feder`,

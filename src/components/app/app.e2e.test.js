@@ -17,6 +17,7 @@ const props = {
       guests: 1,
       cost: 120,
       conveniences: [`Cool vary cool place`],
+      coordinates: [52.3909553943508, 4.85309666406198],
       owner: {
         avatar: `img/avatar-angelina.jpg`,
         name: `Lolo`,
@@ -34,6 +35,7 @@ const props = {
       bedrooms: 2,
       guests: 10,
       conveniences: [`Beautiful`, `Cize`, `Olo`],
+      coordinates: [52.3909553943508, 4.85309666406198],
       owner: {
         avatar: `img/avatar-angelina.jpg`,
         name: `Clara`,
@@ -51,6 +53,7 @@ const props = {
       bedrooms: 1,
       guests: 15,
       conveniences: [`Beautiful`],
+      coordinates: [52.3909553943508, 4.85309666406198],
       owner: {
         avatar: `img/avatar-angelina.jpg`,
         name: `Clara`,
@@ -58,7 +61,6 @@ const props = {
       },
       id: 1012,
     }],
-  // onAdvertCardTitleClick: jest.fn((x) => x),
 };
 
 it(`Clicked place card get the same object that place property render`, () => {

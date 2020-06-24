@@ -14,6 +14,7 @@ const props = {
     bedrooms: 1,
     guests: 1,
     conveniences: [`Beautiful`],
+    coordinates: [52.3909553943508, 4.85309666406198],
     owner: {
       avatar: `img/avatar-angelina.jpg`,
       name: `Clara`,

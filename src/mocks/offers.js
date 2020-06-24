@@ -8,6 +8,7 @@ const OfferInfo = {
   DESCRIPTION: [`A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
     `An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`],
   CONVENIENCES: [`Wifi`, `Heating`, `Kitchen`, `Cable TV`, `Washing machine`, `Coffee machine`, `Dishwasher`, `Towels`, `Baby seat`, `Cabel TV`],
+  COORDINATES: [[52.3909553943508, 4.85309666406198], [52.369553943507, 4.85309666406197], [52.3909553943506, 4.929309666406196], [52.3809553943505, 4.939309666406195]],
   OWNER_NAME: [`Karl`, `Peter`, `Stas`, `Kolya`, `Andrew`, `Ann`, `Lia`],
   OWNER_PICTURE: [`img/avatar-angelina.jpg`, `img/avatar-max.jpg`],
 
@@ -25,6 +26,7 @@ const generateOffer = () => {
     guests: getRandomIntegerNumber(0, 10),
     cost: getRandomIntegerNumber(50, 999),
     conveniences: getRandomCountRandomArrayItem(OfferInfo.CONVENIENCES),
+    coordinates: getRandomArrayItem(OfferInfo.COORDINATES),
     owner: {
       avatar: getRandomArrayItem(OfferInfo.OWNER_PICTURE),
       name: getRandomArrayItem(OfferInfo.OWNER_NAME),

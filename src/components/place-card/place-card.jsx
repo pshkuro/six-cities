@@ -64,6 +64,7 @@ PlaceCard.propTypes = {
     guests: PropTypes.number,
     cost: PropTypes.number,
     conveniences: PropTypes.arrayOf(PropTypes.string),
+    coordinates: PropTypes.arrayOf(PropTypes.number),
     owner: PropTypes.exact({
       avatar: PropTypes.string,
       name: PropTypes.string,
