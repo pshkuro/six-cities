@@ -67,7 +67,12 @@ it(`Render Main`, () => {
 
   const tree = renderer
   .create(
-      <Main {...props}/>
+      <Main {...props}/>,
+      {
+        createNodeMock: () => {
+          return document.createElement(`div`);
+        }
+      }
   )
   .toJSON();
 

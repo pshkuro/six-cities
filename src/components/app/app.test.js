@@ -64,7 +64,12 @@ const props = {
 it(`Render App`, () => {
   const tree = renderer
   .create(
-      <App {...props}/>
+      <App {...props}/>,
+      {
+        createNodeMock: () => {
+          return document.createElement(`div`);
+        }
+      }
   )
   .toJSON();
 
