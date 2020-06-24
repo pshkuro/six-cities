@@ -5,6 +5,9 @@ import {OfferInfo, ratingStars} from "../../constants/offer";
 
 export default function PlaceCard({offer, onAdvertCardTitleClick, onAdvertCardMouseOver}) {
   const {pictures, premium, cost, title, type, rating} = offer;
+
+  const handleOnAdvertCardTitle = () => onAdvertCardTitleClick(offer);
+
   return (
     <article className="cities__place-card place-card"
       onMouseOver={() => onAdvertCardMouseOver(offer)}>
@@ -39,7 +42,7 @@ export default function PlaceCard({offer, onAdvertCardTitleClick, onAdvertCardMo
         </div>
         <h2
           className="place-card__name"
-          onClick={() => onAdvertCardTitleClick(offer)}>
+          onClick={handleOnAdvertCardTitle}>
           <a href="#">{title}</a>
         </h2>
         <p className="place-card__type">{type}</p>
