@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import PlaceList from "../places-list/place-list.jsx";
+import Map from "../map/map.jsx";
 
 export default function Main({offers, onAdvertCardTitleClick}) {
   return (
@@ -73,7 +74,9 @@ export default function Main({offers, onAdvertCardTitleClick}) {
               onAdvertCardTitleClick={onAdvertCardTitleClick}/>}
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"></section>
+            {<Map
+              offers={offers}
+              city={[52.38333, 4.9]}/>}
           </div>
         </div>
       </div>
