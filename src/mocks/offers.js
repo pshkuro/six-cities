@@ -15,6 +15,17 @@ const OfferInfo = {
 
 };
 
+const generateReview = () => {
+  return {
+    avatar: getRandomArrayItem(OfferInfo.OWNER_PICTURE),
+    name: getRandomArrayItem(OfferInfo.OWNER_NAME),
+    stars: getRandomIntegerNumber(0, 5),
+    description: OfferInfo.DESCRIPTION,
+    date: new Date().toString(),
+    id: Math.random(),
+  };
+};
+
 const generateOffer = (index) => {
   return {
     pictures: shuffleArray([...OfferInfo.PICTURES]),
@@ -34,6 +45,7 @@ const generateOffer = (index) => {
       pro: Boolean(getRandomIntegerNumber(0, 2)),
     },
     id: Math.random(),
+    reviwes: generateReviews(),
   };
 };
 
@@ -41,6 +53,14 @@ const generateOffers = (count) => {
   return new Array(count)
   .fill(``)
   .map((item, index) => generateOffer(index));
+};
+
+const generateReviews = () => {
+  const count = getRandomIntegerNumber(1, 5);
+
+  return new Array(count)
+  .fill(``)
+  .map(() => generateReview());
 };
 
 export const offers = generateOffers(OFFERS_NUMBER);

@@ -71,6 +71,7 @@ PlaceCard.propTypes = {
       pro: PropTypes.bool,
     }).isRequired,
     id: PropTypes.number,
+    reviwes: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
   onAdvertCardTitleClick: PropTypes.func.isRequired,
   onAdvertCardMouseOver: PropTypes.func.isRequired,
