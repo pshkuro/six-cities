@@ -41,6 +41,7 @@ const props = {
         pro: ``,
       },
       id: ``,
+      reviwes: [{}, {}],
     },
   ],
   city: [52.38333, 4.9],

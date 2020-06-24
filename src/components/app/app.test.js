@@ -22,6 +22,7 @@ const props = {
         pro: true,
       },
       id: 8989,
+      reviwes: [{}, {}],
     }, {
       pictures: [`img/apartment-02.jpg`],
       premium: true,
@@ -40,6 +41,7 @@ const props = {
         pro: false,
       },
       id: 1212,
+      reviwes: [{}, {}],
     }, {
       pictures: [`img/apartment-01.jpg`],
       premium: true,
@@ -58,6 +60,7 @@ const props = {
         pro: false,
       },
       id: 1012,
+      reviwes: [{}, {}],
     }],
 };
 

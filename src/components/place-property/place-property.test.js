@@ -21,6 +21,7 @@ const props = {
       pro: false,
     },
     id: 909,
+    reviwes: [{id: 1}, {id: 5}],
   },
 };
 

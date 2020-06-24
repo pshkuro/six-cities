@@ -22,6 +22,7 @@ const props = {
         pro: false,
       },
       id: 11,
+      reviwes: [{}, {}],
     }, {
       pictures: [`img/apartment-04.jpg`],
       premium: true,
@@ -40,6 +41,7 @@ const props = {
         pro: true,
       },
       id: 67,
+      reviwes: [{}, {}],
     }, {
       pictures: [`img/apartment-05.jpg`],
       premium: false,
@@ -58,6 +60,7 @@ const props = {
         pro: false,
       },
       id: 607,
+      reviwes: [{}, {}],
     }],
 
   onAdvertCardTitleClick: jest.fn(),

@@ -21,6 +21,7 @@ const props = {
       pro: false,
     },
     id: 909,
+    reviwes: [{}, {}],
   },
   onAdvertCardTitleClick: jest.fn(),
   onAdvertCardMouseOver: jest.fn(),
