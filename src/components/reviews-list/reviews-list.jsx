@@ -3,13 +3,14 @@ import PropTypes from "prop-types";
 import ReviewItem from "../review-item/review-item.jsx";
 
 export default function ReviewsList({reviews}) {
-  return (
+  const sortedReviews = reviews.slice().sort((a, b) => new Date(b) - new Date(a));
 
+  return (
     <section className="property__reviews reviews">
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
       <ul className="reviews__list">
 
-        {reviews.map((review) => {
+        {sortedReviews.map((review) => {
           return <ReviewItem
             review={review}
             key={review.id}/>;
