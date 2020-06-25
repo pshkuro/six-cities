@@ -14,16 +14,16 @@ export default class PlaceList extends PureComponent {
   }
 
   render() {
-    const {offers, onAdvertCardTitleClick} = this.props;
-
+    const {offers, onAdvertCardTitleClick, classes} = this.props;
     return (
-      <div className="cities__places-list places__list tabs__content">
+      <div className={`${classes.cards}list places__list tabs__content`}>
         {offers.map((offer) => (
           <PlaceCard
             offer={offer}
-            onAdvertCardTitleClick={onAdvertCardTitleClick}
+            onAdvertCardTitleClick={onAdvertCardTitleClick && onAdvertCardTitleClick}
             onAdvertCardMouseOver={this._handleAdvertCardMouseOver}
-            key={offer.id}/>
+            key={offer.id}
+            classes={classes}/>
         ))}
       </div>
     );
@@ -36,6 +36,7 @@ export default class PlaceList extends PureComponent {
 
 PlaceList.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onAdvertCardTitleClick: PropTypes.func.isRequired,
+  onAdvertCardTitleClick: PropTypes.func,
+  classes: PropTypes.object.isRequired,
 };
 

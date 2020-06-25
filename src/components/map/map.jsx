@@ -56,8 +56,9 @@ export default class Map extends PureComponent {
   }
 
   render() {
+    const {classes} = this.props;
     return (
-      <section className="cities__map map" ref={this._mapRef}>
+      <section className={`${classes.map}__map map`} ref={this._mapRef}>
         <div id="map"></div>
       </section>
     );
@@ -67,6 +68,7 @@ export default class Map extends PureComponent {
 Map.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.object).isRequired,
   city: PropTypes.arrayOf(PropTypes.number).isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 

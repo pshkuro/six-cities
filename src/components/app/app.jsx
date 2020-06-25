@@ -27,7 +27,8 @@ export default class App extends PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/offer">
-            <PlaceProperty offer={offers[0]}/>
+            <PlaceProperty offer={offers[0]}
+              nearOffers={offers}/>
           </Route>
         </Switch>
       </BrowserRouter>
@@ -53,7 +54,8 @@ export default class App extends PureComponent {
         return (
           <PlaceScreen
             type={this.state.step}>
-            <PlaceProperty offer={this.state.activeOffer}/>
+            <PlaceProperty offer={this.state.activeOffer}
+              nearOffers={offers}/>
           </PlaceScreen>
         );
     }

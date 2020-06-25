@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import PlaceList from "../places-list/place-list.jsx";
 import Map from "../map/map.jsx";
+import {CardClasses} from "../../constants/page.js";
 
 export default function Main({offers, onAdvertCardTitleClick}) {
   return (
@@ -70,13 +71,15 @@ export default function Main({offers, onAdvertCardTitleClick}) {
                 </select> */}
             </form>
             {<PlaceList
+              classes= {CardClasses.MAIN}
               offers={offers}
               onAdvertCardTitleClick={onAdvertCardTitleClick}/>}
           </section>
           <div className="cities__right-section">
             {<Map
               offers={offers}
-              city={[52.38333, 4.9]}/>}
+              city={[52.38333, 4.9]}
+              classes={CardClasses.MAIN}/>}
           </div>
         </div>
       </div>
