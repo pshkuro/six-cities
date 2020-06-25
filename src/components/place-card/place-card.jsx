@@ -3,14 +3,16 @@ import PropTypes from "prop-types";
 import {OfferInfo, ratingStars} from "../../constants/offer";
 
 
-export default function PlaceCard({offer, onAdvertCardTitleClick, onAdvertCardMouseOver, classes}) {
+export default function PlaceCard({offer, onAdvertCardTitleClick, onAdvertCardMouseOver, onAdvertCardMouseOut, classes}) {
   const {pictures, premium, cost, title, type, rating} = offer;
 
   const handleOnAdvertCardTitle = () => onAdvertCardTitleClick(offer);
+  const handleOnAdvertCardMouse = () => onAdvertCardMouseOver(offer);
 
   return (
     <article className={`${classes.card}card place-card`}
-      onMouseOver={() => onAdvertCardMouseOver && onAdvertCardMouseOver(offer)}>
+      onMouseOver={onAdvertCardMouseOver && handleOnAdvertCardMouse}
+      onMouseOut={onAdvertCardMouseOut}>
       {premium ?
         <div className="place-card__mark">
           <span>Premium</span>
@@ -76,5 +78,6 @@ PlaceCard.propTypes = {
   classes: PropTypes.object.isRequired,
   onAdvertCardTitleClick: PropTypes.func,
   onAdvertCardMouseOver: PropTypes.func,
+  onAdvertCardMouseOut: PropTypes.func,
 };
 

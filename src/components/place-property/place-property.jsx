@@ -11,7 +11,14 @@ export default function PlaceProperty({offer, nearOffers}) {
   const {pictures, title, description, premium, type, rating, bedrooms, guests, cost, conveniences, owner, id, reviwes} = offer;
   const {avatar, name, pro} = owner;
   const isOwnerPro = pro ? `property__avatar-wrapper property__avatar-wrapper--pro` : ``;
-  const offers = nearOffers.slice(0, 3);
+  const pins = nearOffers.map((nearOffer) => ({
+    coordinates: nearOffer.coordinates,
+    isActive: false,
+  }));
+  const activePin = {
+    coordinates: offer.coordinates,
+    isActive: true,
+  };
 
 
   return (
@@ -109,7 +116,7 @@ export default function PlaceProperty({offer, nearOffers}) {
         </div>
 
         {<Map
-          offers={offers}
+          pins={pins.concat(activePin)}
           city={[52.38333, 4.9]}
           classes={CardClasses.PROPERTY}/>}
 
@@ -120,7 +127,7 @@ export default function PlaceProperty({offer, nearOffers}) {
 
 
           {<PlaceList
-            offers={offers}
+            offers={nearOffers}
             classes={CardClasses.PROPERTY}/>}
         </section>
       </div>

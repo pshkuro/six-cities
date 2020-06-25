@@ -19,7 +19,7 @@ export default class App extends PureComponent {
   }
 
   render() {
-    const {offers} = this.props;
+    const {offers, nearOffers} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -27,8 +27,8 @@ export default class App extends PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/offer">
-            <PlaceProperty offer={offers[0]}
-              nearOffers={offers}/>
+            <PlaceProperty offer={offers[3]}
+              nearOffers={nearOffers}/>
           </Route>
         </Switch>
       </BrowserRouter>
@@ -36,7 +36,7 @@ export default class App extends PureComponent {
   }
 
   _renderApp() {
-    const {offers} = this.props;
+    const {offers, nearOffers} = this.props;
 
 
     switch (this.state.step) {
@@ -55,7 +55,7 @@ export default class App extends PureComponent {
           <PlaceScreen
             type={this.state.step}>
             <PlaceProperty offer={this.state.activeOffer}
-              nearOffers={offers}/>
+              nearOffers={nearOffers}/>
           </PlaceScreen>
         );
     }
@@ -74,6 +74,7 @@ export default class App extends PureComponent {
 
 App.propTypes = {
   offers: PropTypes.array.isRequired,
+  nearOffers: PropTypes.array.isRequired,
 };
 
 
