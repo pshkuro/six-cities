@@ -63,6 +63,7 @@ const props = {
       reviwes: [{}, {}],
     }],
   onAdvertCardTitleClick: jest.fn(),
+
 };
 
 

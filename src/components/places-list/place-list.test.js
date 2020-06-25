@@ -63,7 +63,15 @@ const props = {
       reviwes: [{}, {}],
     }],
 
+  classes: {
+    card: `cities__place-`,
+    wrapper: `cities`,
+    cards: `cities__places-`,
+    map: `cities`,
+  },
   onAdvertCardTitleClick: jest.fn(),
+  onAdvertCardMouseOver: jest.fn(),
+  onAdvertCardMouseOut: jest.fn(),
 };
 
 it(`Render PlaceList`, () => {

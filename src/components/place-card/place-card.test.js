@@ -25,6 +25,13 @@ const props = {
   },
   onAdvertCardTitleClick: jest.fn(),
   onAdvertCardMouseOver: jest.fn(),
+  onAdvertCardMouseOut: jest.fn(),
+  classes: {
+    card: `cities__place-`,
+    wrapper: `cities`,
+    cards: `cities__places-`,
+    map: `cities`,
+  }
 };
 
 

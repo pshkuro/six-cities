@@ -26,16 +26,6 @@ export default class Map extends PureComponent {
     this._connectLayer();
     this._addPins();
 
-
-    // Render all offers from props
-    // offers.forEach((offer) => {
-    //   if (activeOffer && activeOffer.id === offer.id) {
-    //     leaflet.marker(offer.coordinates, {activeIcon}).addTo(map);
-    //   } else {
-    //     leaflet.marker(offer.coordinates, {icon}).addTo(map);
-    //   }
-    // });
-
   }
 
   _createMap() {

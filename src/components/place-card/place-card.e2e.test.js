@@ -25,6 +25,13 @@ const props = {
   },
   onAdvertCardTitleClick: jest.fn((x) => x),
   onAdvertCardMouseOver: jest.fn((x) => x),
+  onAdvertCardMouseOut: jest.fn(),
+  classes: {
+    card: `cities__place-`,
+    wrapper: `cities`,
+    cards: `cities__places-`,
+    map: `cities`,
+  }
 };
 
 it(`Hovering PlaceCard get to callback info about itself`, () => {

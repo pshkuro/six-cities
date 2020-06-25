@@ -11,8 +11,8 @@ export default function PlaceList({offers, onAdvertCardTitleClick, onAdvertCardM
         <PlaceCard
           offer={offer}
           onAdvertCardTitleClick={onAdvertCardTitleClick && onAdvertCardTitleClick}
-          onAdvertCardMouseOver={onAdvertCardMouseOver}
-          onAdvertCardMouseOut={onAdvertCardMouseOut}
+          onAdvertCardMouseOver={onAdvertCardMouseOver && onAdvertCardMouseOver}
+          onAdvertCardMouseOut={onAdvertCardMouseOut && onAdvertCardMouseOut}
           key={offer.id}
           classes={classes}/>
       ))}
