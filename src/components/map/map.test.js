@@ -11,7 +11,7 @@ const props = {
     coordinates: [1212, 454545],
     isActive: true
   }],
-  city: [52.38333, 4.9],
+  cityCoordinates: [52.38333, 4.9],
   classes: {
     card: `cities__place-`,
     wrapper: `cities`,

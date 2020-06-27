@@ -117,7 +117,7 @@ export default function PlaceProperty({offer, nearOffers}) {
 
         {<Map
           pins={pins.concat(activePin)}
-          city={[52.38333, 4.9]}
+          cityCoordinates={[52.38333, 4.9]}
           classes={CardClasses.PROPERTY}/>}
 
       </section>

@@ -100,7 +100,7 @@ export default class Main extends PureComponent {
             <div className="cities__right-section">
               {<Map
                 pins={pins}
-                city={[52.38333, 4.9]}
+                cityCoordinates={[52.38333, 4.9]}
                 classes={CardClasses.MAIN}/>}
             </div>
           </div>

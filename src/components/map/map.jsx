@@ -12,7 +12,7 @@ export default class Map extends PureComponent {
 
     this._map = null;
     this._pinIcon = this._getPinIcon();
-    this._activePinIcon = this._getActivePinIcon();
+    this._activePinIcon = this._getPinIcon(true);
     this._mapRef = createRef();
   }
 
@@ -28,8 +28,12 @@ export default class Map extends PureComponent {
 
   }
 
+  componentWillUnmount() {
+    this._mapRef.current.remove();
+  }
+
   _createMap() {
-    const {city} = this.props;
+    const {cityCoordinates: city} = this.props;
 
     return leaflet.map(this._mapRef.current, {
       center: city,
@@ -40,7 +44,7 @@ export default class Map extends PureComponent {
   }
 
   _setView() {
-    const {city} = this.props;
+    const {cityCoordinates: city} = this.props;
     this._map.setView(city, ZOOM);
   }
 
@@ -51,16 +55,9 @@ export default class Map extends PureComponent {
     .addTo(this._map);
   }
 
-  _getPinIcon() {
+  _getPinIcon(isActive = false) {
     return leaflet.icon({
-      iconUrl: `img/pin.svg`,
-      iconSize: [30, 30]
-    });
-  }
-
-  _getActivePinIcon() {
-    return leaflet.icon({
-      iconUrl: `img/pin-active.svg`,
+      iconUrl: isActive ? `img/pin-active.svg` : `img/pin.svg`,
       iconSize: [30, 30]
     });
   }
@@ -76,10 +73,6 @@ export default class Map extends PureComponent {
   }
 
 
-  componentWillUnmount() {
-    this._mapRef.current.remove();
-  }
-
   render() {
     const {classes} = this.props;
     return (
@@ -92,7 +85,7 @@ export default class Map extends PureComponent {
 
 Map.propTypes = {
   pins: PropTypes.arrayOf(PropTypes.object).isRequired,
-  city: PropTypes.arrayOf(PropTypes.number).isRequired,
+  cityCoordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
   classes: PropTypes.object.isRequired,
 };
 
