@@ -1,6 +1,8 @@
 import React from "react";
-import renderer from "react-test-renderer";
+import {mount} from "enzyme";
 import Main from "./main.jsx";
+import PlaceCard from "../place-card/place-card.jsx";
+import Map from "../map/map.jsx";
 
 const props = {
   offers: [
@@ -66,19 +68,38 @@ const props = {
 
 };
 
+it(`Hovering PlaceCard callback get the same active offer that go in map`, () => {
+  const main = mount(
+      <Main {...props}/>
+  );
 
-it(`Render Main`, () => {
+  const placeCard = main.find(PlaceCard).first();
+  const placeCardOffer = placeCard.props().offer;
 
-  const tree = renderer
-  .create(
-      <Main {...props}/>,
-      {
-        createNodeMock: () => {
-          return document.createElement(`div`);
-        }
-      }
-  )
-  .toJSON();
+  placeCard.simulate(`mouseover`, {preventDefault() {}});
 
-  expect(tree).toMatchSnapshot();
+  const activeOffer = main.state().activeOffer;
+
+  expect(activeOffer).toEqual(placeCardOffer);
+
+  const map = main.find(Map);
+  const mapActivePin = map.props().pins.find((pin) => pin.isActive);
+  const mapActivePinCoordinates = mapActivePin.coordinates;
+
+  expect(activeOffer.coordinates).toBe(mapActivePinCoordinates);
+});
+
+it(`Mouseout on PlaceCard put null active offer in state`, () => {
+  const main = mount(
+      <Main {...props}/>
+  );
+
+  const placeCard = main.find(PlaceCard).first();
+  placeCard.simulate(`mouseover`, {preventDefault() {}});
+  placeCard.simulate(`mouseout`, {preventDefault() {}});
+
+  const activeOffer = main.state().activeOffer;
+
+  expect(activeOffer).toBe(null);
+
 });

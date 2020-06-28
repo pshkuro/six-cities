@@ -1,6 +1,7 @@
 import React from "react";
-import renderer from "react-test-renderer";
+import {mount} from "enzyme";
 import PlaceProperty from "./place-property.jsx";
+import Map from "../map/map.jsx";
 
 const props = {
   offer: {
@@ -63,16 +64,25 @@ const props = {
   ]
 };
 
-it(`Render PlaceProperty`, () => {
-  const tree = renderer
-  .create(
+
+it(`Map render the same active pin that get to place property`, () => {
+  const placeProperty = mount(
       <PlaceProperty {...props} />,
       {
         createNodeMock: () => {
           return document.createElement(`div`);
         }
       }
-  )
-  .toJSON();
-  expect(tree).toMatchSnapshot();
+  );
+
+  const placePropertyActiveOffer = placeProperty.props().offer;
+  const placePropertyActiveOfferCoordinates = placePropertyActiveOffer.coordinates;
+
+  const map = placeProperty.find(Map);
+  const mapActivePin = map.props().pins.find((pin) => pin.isActive);
+  const mapActivePinCoordinates = mapActivePin.coordinates;
+
+  expect(placePropertyActiveOfferCoordinates).toBe(mapActivePinCoordinates);
 });
+
+

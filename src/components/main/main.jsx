@@ -1,33 +1,31 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import PlaceList from "../places-list/place-list.jsx";
+import Map from "../map/map.jsx";
+import {CardClasses} from "../../constants/page.js";
 
-export default function Main({offers, onAdvertCardTitleClick}) {
-  return (
-    <div className="page page--gray page--main">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <a className="header__logo-link header__logo-link--active">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </a>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+export default class Main extends PureComponent {
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      activeOffer: null,
+    };
+
+    this._handleAdvertCardMouseOver = this._handleAdvertCardMouseOver.bind(this);
+    this._handleAdvertCardMouseOut = this._handleAdvertCardMouseOut.bind(this);
+
+  }
+
+  render() {
+    const {offers, onAdvertCardTitleClick} = this.props;
+
+    const pins = offers.map((offer) => ({
+      coordinates: offer.coordinates,
+      isActive: offer === this.state.activeOffer,
+    }));
+
+    return (
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
@@ -93,17 +91,31 @@ export default function Main({offers, onAdvertCardTitleClick}) {
                 </select> */}
               </form>
               {<PlaceList
+                classes= {CardClasses.MAIN}
                 offers={offers}
-                onAdvertCardTitleClick={onAdvertCardTitleClick}/>}
+                onAdvertCardTitleClick={onAdvertCardTitleClick}
+                onAdvertCardMouseOver={this._handleAdvertCardMouseOver}
+                onAdvertCardMouseOut={this._handleAdvertCardMouseOut}/>}
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              {<Map
+                pins={pins}
+                cityCoordinates={[52.38333, 4.9]}
+                classes={CardClasses.MAIN}/>}
             </div>
           </div>
         </div>
       </main>
-    </div>
-  );
+    );
+  }
+
+  _handleAdvertCardMouseOver(card) {
+    this.setState({activeOffer: card});
+  }
+
+  _handleAdvertCardMouseOut() {
+    this.setState({activeOffer: null});
+  }
 }
 
 Main.propTypes = {

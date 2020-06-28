@@ -14,15 +14,24 @@ const props = {
     bedrooms: 2,
     guests: 10,
     conveniences: [`Beautiful`],
+    coordinates: [52.3909553943508, 4.85309666406198],
     owner: {
       avatar: `img/avatar-angelina.jpg`,
       name: `Clara`,
       pro: false,
     },
     id: 909,
+    reviwes: [{}, {}],
   },
   onAdvertCardTitleClick: jest.fn(),
   onAdvertCardMouseOver: jest.fn(),
+  onAdvertCardMouseOut: jest.fn(),
+  classes: {
+    card: `cities__place-`,
+    wrapper: `cities`,
+    cards: `cities__places-`,
+    map: `cities`,
+  }
 };
 
 

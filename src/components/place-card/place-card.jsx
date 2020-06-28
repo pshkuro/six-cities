@@ -3,17 +3,22 @@ import PropTypes from "prop-types";
 import {OfferInfo, ratingStars} from "../../constants/offer";
 
 
-export default function PlaceCard({offer, onAdvertCardTitleClick, onAdvertCardMouseOver}) {
+export default function PlaceCard({offer, onAdvertCardTitleClick, onAdvertCardMouseOver, onAdvertCardMouseOut, classes}) {
   const {pictures, premium, cost, title, type, rating} = offer;
+
+  const handleOnAdvertCardTitle = () => onAdvertCardTitleClick(offer);
+  const handleOnAdvertCardMouse = () => onAdvertCardMouseOver(offer);
+
   return (
-    <article className="cities__place-card place-card"
-      onMouseOver={() => onAdvertCardMouseOver(offer)}>
+    <article className={`${classes.card}card place-card`}
+      onMouseOver={onAdvertCardMouseOver && handleOnAdvertCardMouse}
+      onMouseOut={onAdvertCardMouseOut}>
       {premium ?
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
         : ``}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${classes.wrapper}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
           <img className="place-card__image" src={pictures[0]} width="260" height="200" alt="Place image" />
         </a>
@@ -39,7 +44,7 @@ export default function PlaceCard({offer, onAdvertCardTitleClick, onAdvertCardMo
         </div>
         <h2
           className="place-card__name"
-          onClick={() => onAdvertCardTitleClick(offer)}>
+          onClick={onAdvertCardTitleClick && handleOnAdvertCardTitle}>
           <a href="#">{title}</a>
         </h2>
         <p className="place-card__type">{type}</p>
@@ -61,14 +66,18 @@ PlaceCard.propTypes = {
     guests: PropTypes.number,
     cost: PropTypes.number,
     conveniences: PropTypes.arrayOf(PropTypes.string),
+    coordinates: PropTypes.arrayOf(PropTypes.number),
     owner: PropTypes.exact({
       avatar: PropTypes.string,
       name: PropTypes.string,
       pro: PropTypes.bool,
     }).isRequired,
     id: PropTypes.number,
+    reviwes: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
-  onAdvertCardTitleClick: PropTypes.func.isRequired,
-  onAdvertCardMouseOver: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+  onAdvertCardTitleClick: PropTypes.func,
+  onAdvertCardMouseOver: PropTypes.func,
+  onAdvertCardMouseOut: PropTypes.func,
 };
 
