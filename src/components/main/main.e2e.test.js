@@ -1,8 +1,10 @@
 import React from "react";
 import {mount} from "enzyme";
-import Main from "./main.jsx";
+import {Main} from "./main.jsx";
 import PlaceCard from "../place-card/place-card.jsx";
 import Map from "../map/map.jsx";
+import CitiesNoPlaces from "../cities-no-places/cities-no-places.jsx";
+import { offers } from "../../mocks/offers.js";
 
 const props = {
   offers: [
@@ -65,7 +67,6 @@ const props = {
       reviwes: [{}, {}],
     }],
   onAdvertCardTitleClick: jest.fn(),
-
 };
 
 it(`Hovering PlaceCard callback get the same active offer that go in map`, () => {
@@ -102,4 +103,14 @@ it(`Mouseout on PlaceCard put null active offer in state`, () => {
 
   expect(activeOffer).toBe(null);
 
+});
+
+it(`When no office show CitiesNoPlaces component`, () => {
+  const main = mount(
+      <Main/>
+  );
+  const offersPlacesContainer = main.find(`.cities__places-container`);
+
+  expect(main.find(CitiesNoPlaces)).toBeDefined();
+  expect(offersPlacesContainer).toBeUndefined();
 });

@@ -1,6 +1,5 @@
 import {getRandomArrayItem, getRandomIntegerNumber, getRandomCountRandomArrayItem, shuffleArray} from "../utils/common.js";
 
-const OFFERS_NUMBER = 4;
 const OfferInfo = {
   PICTURES: [`img/apartment-01.jpg`, `img/apartment-02.jpg`, `img/apartment-03.jpg`, `img/room.jpg`],
   TITLE: [`Beautiful & luxurious apartment at great location`, `Wood and stone place`, `Beautyful seaview`, `Fantastic house with swimming pull`],
@@ -9,7 +8,9 @@ const OfferInfo = {
     `An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`],
   CONVENIENCES: [`Wifi`, `Heating`, `Kitchen`, `Cable TV`, `Washing machine`, `Coffee machine`, `Dishwasher`, `Towels`, `Baby seat`, `Cabel TV`],
   COORDINATES: [[52.3909553943508, 4.85309666406198], [52.369553943508, 4.85309666406198],
-    [52.3909553943508, 4.929309666406198], [52.3809553943508, 4.939309666406198]],
+    [52.3909553943508, 4.929309666406198], [52.3809553943508, 4.939309666406198],
+    [52.3609553943508, 4.939309666406198], [52.3509553943508, 4.939309666406198],
+    [52.3609553943508, 4.929309666406198], [52.3509553943508, 4.919309666406198]],
   OWNER_NAME: [`Karl`, `Peter`, `Stas`, `Kolya`, `Andrew`, `Ann`, `Lia`],
   OWNER_PICTURE: [`img/avatar-angelina.jpg`, `img/avatar-max.jpg`],
 };
@@ -67,7 +68,8 @@ const generateOffers = (count) => {
 export const offers = CITIES.map((city) => {
   return ({
     city,
-    offers: generateOffers(OFFERS_NUMBER),
+    offers: generateOffers(getRandomIntegerNumber(1, 8)),
   });
 });
+
 

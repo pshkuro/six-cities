@@ -17,6 +17,7 @@ export default class Map extends PureComponent {
   }
 
   componentDidUpdate() {
+    this._cleanMap();
     this._addPins();
   }
 
@@ -69,6 +70,12 @@ export default class Map extends PureComponent {
       leaflet.marker(pin.coordinates, {
         icon: pin.isActive ? this._activePinIcon : this._pinIcon,
       }).addTo(this._map);
+    });
+  }
+
+  _cleanMap() {
+    this._map.eachLayer((layer) => {
+      layer.remove();
     });
   }
 
