@@ -12,8 +12,9 @@ const OfferInfo = {
     [52.3909553943508, 4.929309666406198], [52.3809553943508, 4.939309666406198]],
   OWNER_NAME: [`Karl`, `Peter`, `Stas`, `Kolya`, `Andrew`, `Ann`, `Lia`],
   OWNER_PICTURE: [`img/avatar-angelina.jpg`, `img/avatar-max.jpg`],
-
 };
+
+const CITIES = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
 
 const generateReview = () => {
   return {
@@ -49,12 +50,6 @@ const generateOffer = (index) => {
   };
 };
 
-const generateOffers = (count) => {
-  return new Array(count)
-  .fill(``)
-  .map((item, index) => generateOffer(index));
-};
-
 const generateReviews = () => {
   const count = getRandomIntegerNumber(1, 5);
 
@@ -63,6 +58,16 @@ const generateReviews = () => {
   .map(() => generateReview());
 };
 
-export const offers = generateOffers(OFFERS_NUMBER);
+const generateOffers = (count) => {
+  return new Array(count)
+  .fill(``)
+  .map((item, index) => generateOffer(index));
+};
 
+export const offers = CITIES.map((city) => {
+  return ({
+    city,
+    offers: generateOffers(OFFERS_NUMBER),
+  });
+});
 
