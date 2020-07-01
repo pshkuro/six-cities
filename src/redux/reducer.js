@@ -17,14 +17,14 @@ const ActionType = {
   CHANGE_PAGE_TYPE: `CHANGE_PAGE_TYPE`,
 };
 
-const initialState = Object.assign(
-    offers.find((offer) => offer.city === City.PARIS),
-    {
-      cities,
-      step: PageType.MAIN,
-      activeOffer: null,
-      nearOffers,
-    });
+const initialState = {
+  city: City.PARIS,
+  cities,
+  step: PageType.MAIN,
+  activeOffer: null,
+  nearOffers,
+  offers: offers.find((offer) => offer.city === City.PARIS),
+};
 
 const ActionCreator = {
   chooseCity: (activeCity) => {
@@ -33,7 +33,7 @@ const ActionCreator = {
         type: ActionType.CHOOSE_CITY,
         city: activeCity,
         get offers() {
-          return offers.find((offer) => offer.city === this.city).offers;
+          return offers.find((offer) => offer.city === this.city);
         }
       }
     );

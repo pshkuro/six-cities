@@ -40,7 +40,7 @@ it(`Hovering PlaceCard get to callback info about itself`, () => {
       <PlaceCard {...props}/>
   );
 
-  placeCard.simulate(`mouseover`);
+  placeCard.simulate(`mouseEnter`);
 
   expect(props.onAdvertCardMouseOver).toHaveBeenCalledTimes(1);
   expect(props.onAdvertCardMouseOver.mock.results[0].value).toMatchObject(props.offer);

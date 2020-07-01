@@ -11,8 +11,8 @@ export default function PlaceCard({offer, onAdvertCardTitleClick, onAdvertCardMo
 
   return (
     <article className={`${classes.card}card place-card`}
-      onMouseOver={onAdvertCardMouseOver && handleOnAdvertCardMouse}
-      onMouseOut={onAdvertCardMouseOut}>
+      onMouseEnter={onAdvertCardMouseOver && handleOnAdvertCardMouse}
+      onMouseLeave={onAdvertCardMouseOut}>
       {premium ?
         <div className="place-card__mark">
           <span>Premium</span>

@@ -18,7 +18,7 @@ class App extends PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/offer">
-            <PlaceProperty offer={offers[0]}
+            <PlaceProperty offer={offers.offers[0]}
               nearOffers={nearOffers}/>
           </Route>
         </Switch>
@@ -56,7 +56,7 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  offers: PropTypes.array.isRequired,
+  offers: PropTypes.object,
   nearOffers: PropTypes.array.isRequired,
   onAdvertCardTitleClick: PropTypes.func.isRequired,
   step: PropTypes.oneOf([PageType.MAIN, PageType.DETAILS]).isRequired,

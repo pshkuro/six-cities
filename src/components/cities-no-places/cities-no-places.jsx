@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
 
-function CitiesNoPlaces({city}) {
+export default function CitiesNoPlaces({city}) {
   return (
     <div className="cities__places-container cities__places-container--empty container">
       <section className="cities__no-places">
@@ -20,11 +19,4 @@ CitiesNoPlaces.propTypes = {
   city: PropTypes.string.isRequired,
 };
 
-
-const mapStateToProps = (state) => ({
-  city: state.city,
-});
-
-export default connect(mapStateToProps)(CitiesNoPlaces);
-export {CitiesNoPlaces};
 

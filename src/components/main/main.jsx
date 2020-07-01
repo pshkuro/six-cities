@@ -5,9 +5,9 @@ import CitiesList from "../cities-list/cities-list.jsx";
 import Map from "../map/map.jsx";
 import {CardClasses} from "../../constants/page.js";
 import CitiesNoPlaces from "../cities-no-places/cities-no-places.jsx";
-import {connect} from "react-redux";
 
-class Main extends PureComponent {
+
+export default class Main extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -21,9 +21,10 @@ class Main extends PureComponent {
   }
 
   render() {
-    const {offers, onAdvertCardTitleClick, city} = this.props;
+    const {offers, onAdvertCardTitleClick} = this.props;
+    const {offers: cityOffers, cityCoordinates, city} = offers;
 
-    const pins = offers ? offers.map((offer) => ({
+    const pins = cityOffers ? cityOffers.map((offer) => ({
       coordinates: offer.coordinates,
       isActive: offer === this.state.activeOffer,
     })) : null;
@@ -33,12 +34,12 @@ class Main extends PureComponent {
         <h1 className="visually-hidden">Cities</h1>
         {<CitiesList/>}
         <div className="cities">
-          {!offers && <CitiesNoPlaces/>}
-          {offers &&
+          {cityOffers.length === 0 && <CitiesNoPlaces city={city}/>}
+          {cityOffers.length !== 0 &&
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in {city}</b>
+              <b className="places__found">{cityOffers.length} places to stay in {city}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -62,7 +63,7 @@ class Main extends PureComponent {
               </form>
               {<PlaceList
                 classes= {CardClasses.MAIN}
-                offers={offers}
+                offers={cityOffers}
                 onAdvertCardTitleClick={onAdvertCardTitleClick}
                 onAdvertCardMouseOver={this._handleAdvertCardMouseOver}
                 onAdvertCardMouseOut={this._handleAdvertCardMouseOut}/>}
@@ -70,7 +71,7 @@ class Main extends PureComponent {
             <div className="cities__right-section">
               {<Map
                 pins={pins}
-                cityCoordinates={[52.38333, 4.9]}
+                cityCoordinates={cityCoordinates}
                 classes={CardClasses.MAIN}/>}
             </div>
           </div>}
@@ -89,15 +90,10 @@ class Main extends PureComponent {
 }
 
 Main.propTypes = {
-  offers: PropTypes.array,
+  offers: PropTypes.object,
   onAdvertCardTitleClick: PropTypes.func,
   city: PropTypes.string,
+  cityCoordinates: PropTypes.arrayOf(PropTypes.number),
 };
 
-const mapStateToProps = (state) => ({
-  city: state.city,
-});
-
-export default connect(mapStateToProps)(Main);
-export {Main};
 

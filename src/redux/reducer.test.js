@@ -11,6 +11,7 @@ const initialState = Object.assign(
       step: PageType.MAIN,
       activeOffer: null,
       nearOffers,
+      cityCoordinates: [48.8534100, 2.3488000],
     });
 
 
@@ -26,9 +27,11 @@ describe(`Reducer tests`, () => {
       type: ActionType.CHOOSE_CITY,
       city: `Brussels`,
       offers: offers.find((offer) => offer.city === `Brussels`).offers,
+      cityCoordinates: offers.find((offer) => offer.city === `Brussels`).cityCoordinates,
     })).toEqual(Object.assign(initialState, {
       city: `Brussels`,
       offers: offers.find((offer) => offer.city === `Brussels`).offers,
+      cityCoordinates: offers.find((offer) => offer.city === `Brussels`).cityCoordinates,
     }));
   });
 
@@ -91,6 +94,7 @@ describe(`Action creators work correctly`, () => {
       type: ActionType.CHOOSE_CITY,
       city: activeCity,
       offers: offers.find((offer) => offer.city === activeCity).offers,
+      cityCoordinates: offers.find((offer) => offer.city === activeCity).cityCoordinates,
     });
   });
 
