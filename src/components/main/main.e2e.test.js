@@ -10,19 +10,38 @@ import CitiesNoPlaces from "../cities-no-places/cities-no-places.jsx";
 const props = {
   offers: {
     city: `Paris`,
-    cityCoordinates: [48.8534100, 2.3488000],
+    cityCoordinates: [52.3909553943508, 4.85309666406198],
     offers: [
       {
         pictures: [`img/apartment-01.jpg`],
-        premium: true,
-        cost: 12,
+        title: `good rererer`,
         description: [`Wood and stone place`],
+        premium: false,
         type: `Apartment`,
-        rating: 2.4,
+        rating: 1.8,
+        bedrooms: 5,
+        guests: 1,
+        cost: 120,
+        conveniences: [`Cool vary cool place`],
+        coordinates: [52.3909553943508, 4.85309666406198],
+        owner: {
+          avatar: `img/avatar-angelina.jpg`,
+          name: `Lolo`,
+          pro: true,
+        },
+        id: 8989,
+        reviwes: [{id: 12}, {id: 11}],
+      }, {
+        pictures: [`img/apartment-02.jpg`],
+        premium: true,
+        cost: 400,
+        description: [`Wood and stone place`],
+        type: `Hotel`,
+        rating: 4,
         title: `Place cool`,
         bedrooms: 2,
         guests: 10,
-        conveniences: [`Beautiful`],
+        conveniences: [`Beautiful`, `Cize`, `Olo`],
         coordinates: [52.3909553943508, 4.85309666406198],
         owner: {
           avatar: `img/avatar-angelina.jpg`,
@@ -30,45 +49,26 @@ const props = {
           pro: false,
         },
         id: 1212,
-        reviwes: [{}, {}],
-      }, {
-        pictures: [`img/apartment-02.jpg`],
-        premium: false,
-        cost: 450,
-        description: [`Wood and stone place`],
-        type: `Hotel`,
-        rating: 5,
-        title: `Place cool`,
-        bedrooms: 1,
-        guests: 14,
-        conveniences: [`TV`, `Tolet`],
-        coordinates: [52.3909553943508, 4.85309666406198],
-        owner: {
-          avatar: `img/avatar-angelina.jpg`,
-          name: `Cenny`,
-          pro: true,
-        },
-        id: 67,
-        reviwes: [{}, {}],
+        reviwes: [{id: 2}, {id: 9}],
       }, {
         pictures: [`img/apartment-01.jpg`],
-        premium: false,
-        cost: 560,
+        premium: true,
+        cost: 5000,
         description: [`Good hotel`],
         type: `Apartment`,
-        rating: 1.8,
+        rating: 1,
         title: `Place cool`,
-        bedrooms: 12,
-        guests: 100,
-        conveniences: [`TV`, `Tolet`],
+        bedrooms: 1,
+        guests: 15,
+        conveniences: [`Beautiful`],
         coordinates: [52.3909553943508, 4.85309666406198],
         owner: {
           avatar: `img/avatar-angelina.jpg`,
           name: `Clara`,
           pro: false,
         },
-        id: 55,
-        reviwes: [{}, {}],
+        id: 1012,
+        reviwes: [{id: 90}, {id: 56}],
       }],
   },
   onAdvertCardTitleClick: jest.fn(),
@@ -76,73 +76,84 @@ const props = {
 
 const mockStore = configureStore([]);
 
-it(`Hovering PlaceCard callback get the same active offer that go in map`, () => {
-  const store = mockStore({
-    cities: [`Moscow`, `Colo`],
-    city: `Moscow`,
+
+describe(`Main tests`, () => {
+  it(`Hovering PlaceCard callback get the same active offer that go in map`, () => {
+    const store = mockStore({
+      cities: [`Moscow`, `Colo`],
+      city: `Moscow`,
+    });
+
+    const main = mount(
+        <Provider store={store}>
+          <Main {...props}/>
+        </Provider>
+    );
+
+    const placeCard = main.find(PlaceCard).first();
+    const placeCardOffer = placeCard.props().offer;
+
+    placeCard.simulate(`mouseEnter`, {preventDefault() {}});
+
+    const mainComponent = main.find(Main);
+    const activeOffer = mainComponent.state().activeOffer;
+
+    expect(activeOffer).toEqual(placeCardOffer);
+
+    const map = main.find(Map);
+    const mapActivePin = map.props().pins.find((pin) => pin.isActive);
+    const mapActivePinCoordinates = mapActivePin.coordinates;
+
+    expect(activeOffer.coordinates).toBe(mapActivePinCoordinates);
   });
 
-  const main = mount(
-      <Provider store={store}>
-        <Main {...props}/>
-      </Provider>
-  );
+  it(`Mouseout on PlaceCard put null active offer in state`, () => {
+    const store = mockStore({
+      cities: [`Moscow`, `Colo`],
+      city: `Moscow`,
+    });
 
-  const placeCard = main.find(PlaceCard).first();
-  const placeCardOffer = placeCard.props().offer;
+    const main = mount(
+        <Provider store = {store}>
+          <Main {...props}/>
+        </Provider>
+    );
 
-  placeCard.simulate(`mouseover`, {preventDefault() {}});
+    const placeCard = main.find(PlaceCard).first();
+    placeCard.simulate(`mouseEnter`, {preventDefault() {}});
+    placeCard.simulate(`mouseLeave`, {preventDefault() {}});
 
-  const mainComponent = main.find(Main);
-  const activeOffer = mainComponent.state().activeOffer;
+    const mainComponent = main.find(Main);
+    const activeOffer = mainComponent.state().activeOffer;
 
-  expect(activeOffer).toEqual(placeCardOffer);
+    expect(activeOffer).toBe(null);
 
-  const map = main.find(Map);
-  const mapActivePin = map.props().pins.find((pin) => pin.isActive);
-  const mapActivePinCoordinates = mapActivePin.coordinates;
-
-  expect(activeOffer.coordinates).toBe(mapActivePinCoordinates);
-});
-
-it(`Mouseout on PlaceCard put null active offer in state`, () => {
-  const store = mockStore({
-    cities: [`Moscow`, `Colo`],
-    city: `Moscow`,
   });
 
-  const main = mount(
-      <Provider store={store}>
-        <Main {...props}/>
-      </Provider>
-  );
+  // Когда будет приходить с сервера не забыть переписать компонент и тест, будет не пустой Offers,
+  // его вообще не будет
+  it(`When no office show CitiesNoPlaces component`, () => {
+    const store = mockStore({
+      cities: [`Moscow`, `Colo`],
+      city: `Moscow`,
+    });
 
-  const placeCard = main.find(PlaceCard).first();
-  placeCard.simulate(`mouseover`, {preventDefault() {}});
-  placeCard.simulate(`mouseout`, {preventDefault() {}});
+    const noOffers = {
+      city: `Paris`,
+      coordinates: [[52.3909553943508, 4.85309666406198]],
+      offers: [],
+    };
 
-  const mainComponent = main.find(Main);
-  const activeOffer = mainComponent.state().activeOffer;
+    const main = mount(
+        <Provider store = {store}>
+          <Main offers={noOffers}/>
+        </Provider>
+    );
 
-  expect(activeOffer).toBe(null);
+    const offersPlacesContainer = main.find(`.cities__places-container`);
 
-});
+    expect(main.contains(offersPlacesContainer)).toBe(false);
+    expect(main.contains(CitiesNoPlaces)).toBe(true);
 
-it(`When no office show CitiesNoPlaces component`, () => {
-  const store = mockStore({
-    cities: [`Moscow`, `Colo`],
-    city: `Moscow`,
   });
-
-  const main = mount(
-      <Provider store={store}>
-        <Main/>
-      </Provider>
-  );
-
-  const offersPlacesContainer = main.find(`.cities__places-container`);
-
-  expect(main.contains(offersPlacesContainer)).toBe(false);
-  expect(main.contains(<CitiesNoPlaces/>)).toBe(true);
-
 });

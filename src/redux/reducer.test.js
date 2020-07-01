@@ -4,15 +4,14 @@ import {offers} from "../mocks/offers.js";
 import {nearOffers} from "../mocks/near-offers.js";
 
 
-const initialState = Object.assign(
-    offers.find((offer) => offer.city === `Paris`),
-    {
-      cities: [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`],
-      step: PageType.MAIN,
-      activeOffer: null,
-      nearOffers,
-      cityCoordinates: [48.8534100, 2.3488000],
-    });
+const initialState = {
+  city: `Paris`,
+  cities: [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`],
+  step: PageType.MAIN,
+  activeOffer: null,
+  nearOffers,
+  offers: offers.find((offer) => offer.city === `Paris`),
+};
 
 
 describe(`Reducer tests`, () => {
@@ -26,12 +25,10 @@ describe(`Reducer tests`, () => {
     expect(reducer(initialState, {
       type: ActionType.CHOOSE_CITY,
       city: `Brussels`,
-      offers: offers.find((offer) => offer.city === `Brussels`).offers,
-      cityCoordinates: offers.find((offer) => offer.city === `Brussels`).cityCoordinates,
+      offers: offers.find((offer) => offer.city === `Brussels`),
     })).toEqual(Object.assign(initialState, {
       city: `Brussels`,
-      offers: offers.find((offer) => offer.city === `Brussels`).offers,
-      cityCoordinates: offers.find((offer) => offer.city === `Brussels`).cityCoordinates,
+      offers: offers.find((offer) => offer.city === `Brussels`),
     }));
   });
 
@@ -93,8 +90,7 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreator.chooseCity(activeCity)).toEqual({
       type: ActionType.CHOOSE_CITY,
       city: activeCity,
-      offers: offers.find((offer) => offer.city === activeCity).offers,
-      cityCoordinates: offers.find((offer) => offer.city === activeCity).cityCoordinates,
+      offers: offers.find((offer) => offer.city === activeCity),
     });
   });
 
