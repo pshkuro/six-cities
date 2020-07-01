@@ -1,4 +1,6 @@
 import {offers} from "../mocks/offers";
+import {PageType} from ".././constants/page.js";
+import {nearOffers} from "../mocks/near-offers.js";
 
 const City = {
   PARIS: `Paris`,
@@ -12,12 +14,16 @@ const City = {
 const cities = offers.map((offer) => offer.city);
 const ActionType = {
   CHOOSE_CITY: `CHOOSE_CITY`,
+  CHANGE_PAGE_TYPE: `CHANGE_PAGE_TYPE`,
 };
 
 const initialState = Object.assign(
     offers.find((offer) => offer.city === City.PARIS),
     {
       cities,
+      step: PageType.MAIN,
+      activeOffer: null,
+      nearOffers,
     });
 
 const ActionCreator = {
@@ -31,7 +37,18 @@ const ActionCreator = {
         }
       }
     );
+  },
+
+  changePageType: (offer) => {
+    return (
+      {
+        type: ActionType.CHANGE_PAGE_TYPE,
+        step: PageType.DETAILS,
+        activeOffer: offer,
+      }
+    );
   }
+
 };
 
 const reducer = (state = initialState, action) => {
@@ -41,6 +58,13 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         city,
         offers: filteredOffers,
+      });
+
+    case ActionType.CHANGE_PAGE_TYPE:
+      const {step, activeOffer} = action;
+      return Object.assign({}, state, {
+        step,
+        activeOffer,
       });
   }
 

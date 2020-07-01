@@ -90,8 +90,8 @@ class Main extends PureComponent {
 
 Main.propTypes = {
   offers: PropTypes.array,
-  onAdvertCardTitleClick: PropTypes.func.isRequired,
-  city: PropTypes.string.isRequired,
+  onAdvertCardTitleClick: PropTypes.func,
+  city: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({

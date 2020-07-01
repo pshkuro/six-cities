@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CotiesList render 1`] = `
+exports[`CitiesList render 1`] = `
 <div
   className="tabs"
 >

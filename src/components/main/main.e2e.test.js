@@ -2,9 +2,10 @@ import React from "react";
 import {mount} from "enzyme";
 import {Main} from "./main.jsx";
 import PlaceCard from "../place-card/place-card.jsx";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 import Map from "../map/map.jsx";
 import CitiesNoPlaces from "../cities-no-places/cities-no-places.jsx";
-import { offers } from "../../mocks/offers.js";
 
 const props = {
   offers: [
@@ -69,9 +70,18 @@ const props = {
   onAdvertCardTitleClick: jest.fn(),
 };
 
+const mockStore = configureStore([]);
+
 it(`Hovering PlaceCard callback get the same active offer that go in map`, () => {
+  const store = mockStore({
+    cities: [`Moscow`, `Colo`],
+    city: `Moscow`,
+  });
+
   const main = mount(
-      <Main {...props}/>
+      <Provider store={store}>
+        <Main {...props}/>
+      </Provider>
   );
 
   const placeCard = main.find(PlaceCard).first();
@@ -79,7 +89,8 @@ it(`Hovering PlaceCard callback get the same active offer that go in map`, () =>
 
   placeCard.simulate(`mouseover`, {preventDefault() {}});
 
-  const activeOffer = main.state().activeOffer;
+  const mainComponent = main.find(Main);
+  const activeOffer = mainComponent.state().activeOffer;
 
   expect(activeOffer).toEqual(placeCardOffer);
 
@@ -91,26 +102,43 @@ it(`Hovering PlaceCard callback get the same active offer that go in map`, () =>
 });
 
 it(`Mouseout on PlaceCard put null active offer in state`, () => {
+  const store = mockStore({
+    cities: [`Moscow`, `Colo`],
+    city: `Moscow`,
+  });
+
   const main = mount(
-      <Main {...props}/>
+      <Provider store={store}>
+        <Main {...props}/>
+      </Provider>
   );
 
   const placeCard = main.find(PlaceCard).first();
   placeCard.simulate(`mouseover`, {preventDefault() {}});
   placeCard.simulate(`mouseout`, {preventDefault() {}});
 
-  const activeOffer = main.state().activeOffer;
+  const mainComponent = main.find(Main);
+  const activeOffer = mainComponent.state().activeOffer;
 
   expect(activeOffer).toBe(null);
 
 });
 
 it(`When no office show CitiesNoPlaces component`, () => {
+  const store = mockStore({
+    cities: [`Moscow`, `Colo`],
+    city: `Moscow`,
+  });
+
   const main = mount(
-      <Main/>
+      <Provider store={store}>
+        <Main/>
+      </Provider>
   );
+
   const offersPlacesContainer = main.find(`.cities__places-container`);
 
-  expect(main.find(CitiesNoPlaces)).toBeDefined();
-  expect(offersPlacesContainer).toBeUndefined();
+  expect(main.contains(offersPlacesContainer)).toBe(false);
+  expect(main.contains(<CitiesNoPlaces/>)).toBe(true);
+
 });

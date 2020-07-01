@@ -1,5 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 import {App} from "./app.jsx";
 
 const props = {
@@ -99,13 +101,25 @@ const props = {
         pro: true,
       },
       id: 12},
-  ]
+  ],
+  onAdvertCardTitleClick: jest.fn(),
+  step: `main`,
+  activeOffer: null,
 };
 
+const mockStore = configureStore([]);
+
 it(`Render App`, () => {
+  const store = mockStore({
+    cities: [`Moscow`, `Colo`],
+    city: `Moscow`,
+  });
+
   const tree = renderer
   .create(
-      <App {...props}/>,
+      <Provider store={store}>
+        <App {...props}/>
+      </Provider>,
       {
         createNodeMock: () => {
           return document.createElement(`div`);

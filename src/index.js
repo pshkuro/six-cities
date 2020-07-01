@@ -3,7 +3,7 @@ import ReactDom from "react-dom";
 import {createStore} from "redux";
 import {Provider} from "react-redux";
 import App from "./components/app/app.jsx";
-import {nearOffers} from "./mocks/near-offers.js";
+
 import {reducer} from "./redux/reducer.js";
 
 const store = createStore(reducer,
@@ -11,8 +11,7 @@ const store = createStore(reducer,
 
 ReactDom.render(
     <Provider store={store}>
-      <App
-        nearOffers={nearOffers}/>
+      <App/>
     </Provider>,
     document.querySelector(`#root`)
 );
