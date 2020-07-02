@@ -116,7 +116,8 @@ const generateOffers = (count, city) => {
 
 export const offers = CITIES.map((city) => {
   return (Object.assign(city, {
-    offers: generateOffers(getRandomIntegerNumber(0, 8), city.city),
+    offers: generateOffers(getRandomIntegerNumber(1, 8), city.city),
   }));
 });
+
 

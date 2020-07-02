@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {SortingType} from "../../constants/page.js";
 
 
 const options = [
@@ -30,17 +31,20 @@ export default class PlacesSorting extends PureComponent {
     super(props);
     this.state = {
       isActive: false,
-      activeSortingListItem: options[0],
     };
+
   }
 
+
   render() {
-    const {onSortingListItemClick} = this.props;
+    const {onSortingListItemClick, activeSortingType} = this.props;
+    const activeSortingListItem = options.find((option) => option.value === activeSortingType);
+
     const sortingListOpenedClass = `places__options--opened`;
     const isPlaceSortingActive = this.state.isActive && sortingListOpenedClass;
 
     const activeSortingListItemClass = `places__option--active`;
-
+    const isSortingListItemActive = (option) => option === activeSortingListItem && activeSortingListItemClass;
 
     return (
       <form className="places__sorting" action="#" method="get">
@@ -49,7 +53,7 @@ export default class PlacesSorting extends PureComponent {
           className="places__sorting-type"
           onClick={() => this._changeSortingState()}
           tabIndex="0">
-          {this.state.activeSortingListItem.label}
+          {activeSortingListItem.label}
           <svg className="places__sorting-arrow" width="7" height="4">
             <use xlinkHref="#icon-arrow-select"></use>
           </svg>
@@ -59,9 +63,8 @@ export default class PlacesSorting extends PureComponent {
             return (<li
               onClick={() => {
                 onSortingListItemClick(option.value);
-                this.setState({activeSortingListItem: option});
               }}
-              className={`places__option`}
+              className={`places__option ${isSortingListItemActive(option)}`}
               key={option.value}
               tabIndex="0"
             >{option.label}</li>);
@@ -91,6 +94,7 @@ export default class PlacesSorting extends PureComponent {
 
 PlacesSorting.propTypes = {
   onSortingListItemClick: PropTypes.func.isRequired,
+  activeSortingType: PropTypes.oneOf([SortingType.DEFAULT, SortingType.TOP_RATED, SortingType.TO_HIGHT, SortingType.TO_LAW]),
 };
 
 

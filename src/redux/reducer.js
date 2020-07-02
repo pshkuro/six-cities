@@ -2,6 +2,7 @@ import {offers} from "../mocks/offers";
 import {PageType} from ".././constants/page.js";
 import {nearOffers} from "../mocks/near-offers.js";
 
+
 const City = {
   PARIS: `Paris`,
   COLOGNE: `Cologne`,
@@ -47,7 +48,7 @@ const ActionCreator = {
         activeOffer: offer,
       }
     );
-  }
+  },
 
 };
 
