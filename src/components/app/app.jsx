@@ -9,8 +9,17 @@ import PlaceProperty from "../place-property/place-property.jsx";
 import {PageType} from "../../constants/page.js";
 
 class App extends PureComponent {
+  componentDidMount() {
+    const {getOffers} = this.props;
+    getOffers();
+  }
+
   render() {
     const {offers, nearOffers} = this.props;
+    if (offers === null) {
+      return null;
+    }
+
     return (
       <BrowserRouter>
         <Switch>
@@ -18,8 +27,8 @@ class App extends PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/offer">
-            <PlaceProperty offer={offers.offers[0]}
-              nearOffers={nearOffers}/>
+            {offers && offers.offers[0] && <PlaceProperty offer={offers.offers[0]}
+              nearOffers={nearOffers}/>}
           </Route>
         </Switch>
       </BrowserRouter>
@@ -29,6 +38,9 @@ class App extends PureComponent {
   _renderApp() {
     const {offers, nearOffers, onAdvertCardTitleClick, step, activeOffer} = this.props;
 
+    if (offers === null) {
+      return null;
+    }
 
     switch (step) {
       case PageType.MAIN:
@@ -49,9 +61,10 @@ class App extends PureComponent {
               nearOffers={nearOffers}/>
           </PlaceScreen>
         );
+
+      default: return null;
     }
 
-    return null;
   }
 }
 
@@ -61,6 +74,7 @@ App.propTypes = {
   onAdvertCardTitleClick: PropTypes.func.isRequired,
   step: PropTypes.oneOf([PageType.MAIN, PageType.DETAILS]).isRequired,
   activeOffer: PropTypes.object,
+  getOffers: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -71,6 +85,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  getOffers() {
+    dispatch(ActionCreator.getOffers());
+  },
+
   onAdvertCardTitleClick(offer) {
     dispatch(ActionCreator.changePageType(offer));
   },

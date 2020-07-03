@@ -111,6 +111,7 @@ const props = {
   activeOffer: null,
   step: `main`,
   onAdvertCardTitleClick: jest.fn(),
+  getOffers: jest.fn(),
 };
 
 const mockStore = configureStore([]);

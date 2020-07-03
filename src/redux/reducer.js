@@ -13,6 +13,7 @@ const City = {
 
 const cities = offers.map((offer) => offer.city);
 const ActionType = {
+  GET_OFFERS: `GET_OFFERS`,
   CHOOSE_CITY: `CHOOSE_CITY`,
   CHANGE_PAGE_TYPE: `CHANGE_PAGE_TYPE`,
 };
@@ -23,10 +24,17 @@ const initialState = {
   step: PageType.MAIN,
   activeOffer: null,
   nearOffers,
-  offers: offers.find((offer) => offer.city === City.PARIS),
+  offers: null,
 };
 
 const ActionCreator = {
+  getOffers: () => {
+    return ({
+      type: ActionType.GET_OFFERS,
+      availableOffers: offers.find((offer) => offer.city === City.PARIS),
+    });
+  },
+
   chooseCity: (activeCity) => {
     return (
       {
@@ -47,7 +55,7 @@ const ActionCreator = {
         activeOffer: offer,
       }
     );
-  }
+  },
 
 };
 
@@ -65,6 +73,12 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         step,
         activeOffer,
+      });
+
+    case ActionType.GET_OFFERS:
+      const {availableOffers} = action;
+      return Object.assign({}, state, {
+        offers: availableOffers,
       });
   }
 

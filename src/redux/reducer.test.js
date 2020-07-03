@@ -10,7 +10,7 @@ const initialState = {
   step: PageType.MAIN,
   activeOffer: null,
   nearOffers,
-  offers: offers.find((offer) => offer.city === `Paris`),
+  offers: null,
 };
 
 
@@ -18,6 +18,15 @@ describe(`Reducer tests`, () => {
 
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(reducer(undefined, {})).toEqual(initialState);
+  });
+
+  it(`The reducer get offers when page mount`, () => {
+    expect(reducer(initialState, {
+      type: ActionType.GET_OFFERS,
+      availableOffers: offers.find((offer) => offer.city === `Paris`),
+    })).toEqual(Object.assign(initialState, {
+      offers: offers.find((offer) => offer.city === `Paris`),
+    }));
   });
 
 
@@ -94,7 +103,7 @@ describe(`Action creators work correctly`, () => {
     });
   });
 
-  it(`Action creators of change page typre returns correct action`, () => {
+  it(`Action creators of change page type returns correct action`, () => {
     const activeOffer = {
       pictures: [`img/apartment-05.jpg`],
       premium: true,
@@ -121,6 +130,13 @@ describe(`Action creators work correctly`, () => {
       type: ActionType.CHANGE_PAGE_TYPE,
       step: PageType.DETAILS,
       activeOffer,
+    });
+  });
+
+  it(`Action creators of get offers returns correct action`, () => {
+    expect(ActionCreator.getOffers()).toEqual({
+      type: ActionType.GET_OFFERS,
+      availableOffers: offers.find((offer) => offer.city === `Paris`),
     });
   });
 });
