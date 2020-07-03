@@ -18,10 +18,10 @@ const SortingType = {
 function getSortedOffers(sortingType, offers) {
   switch (sortingType) {
     case SortingType.TO_HIGHT:
-      return offers.slice().sort((a, b) => b.cost - a.cost);
+      return offers.slice().sort((a, b) => a.cost - b.cost);
 
     case SortingType.TO_LAW:
-      return offers.slice().sort((a, b) => a.cost - b.cost);
+      return offers.slice().sort((a, b) => b.cost - a.cost);
 
     case SortingType.TOP_RATED:
       return offers.slice().sort((a, b) => b.rating - a.rating);

@@ -1,7 +1,6 @@
 import {mount} from "enzyme";
 import React from "react";
 import {App} from "../app/app.jsx";
-// import {default as ConnectedApp} from "../app/app.jsx";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import PlaceProperty from "../place-property/place-property.jsx";

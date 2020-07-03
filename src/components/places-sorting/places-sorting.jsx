@@ -49,16 +49,17 @@ export default class PlacesSorting extends PureComponent {
 
     const activeSortingListItemClass = `places__option--active`;
     const isSortingListItemActive = (option) => option === activeSortingListItem && activeSortingListItemClass;
-
+    const handlePlaceSortingTitleClick = (evt) => {
+      evt.nativeEvent.stopImmediatePropagation();
+      this._changeSortingState();
+    };
+    const handlePlaceSortingListItemClick = (option) => onSortingListItemClick(option.value);
     return (
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>
         <span
           className="places__sorting-type"
-          onClick={(evt) => {
-            evt.nativeEvent.stopImmediatePropagation();
-            this._changeSortingState();
-          }}
+          onClick={(evt) => handlePlaceSortingTitleClick(evt)}
           tabIndex="0">
           {activeSortingListItem.label}
           <svg className="places__sorting-arrow" width="7" height="4">
@@ -69,9 +70,7 @@ export default class PlacesSorting extends PureComponent {
           {options.map((option) => {
             return (
               <li
-                onClick={() => {
-                  onSortingListItemClick(option.value);
-                }}
+                onClick={() => handlePlaceSortingListItemClick(option)}
                 className={`places__option ${isSortingListItemActive(option)}`}
                 key={option.value}
                 tabIndex="0"
