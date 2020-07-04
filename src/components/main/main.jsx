@@ -1,8 +1,11 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import PlaceList from "../places-list/place-list.jsx";
+import CitiesList from "../cities-list/cities-list.jsx";
 import Map from "../map/map.jsx";
 import {CardClasses} from "../../constants/page.js";
+import CitiesNoPlaces from "../cities-no-places/cities-no-places.jsx";
+
 
 export default class Main extends PureComponent {
   constructor(props) {
@@ -19,56 +22,26 @@ export default class Main extends PureComponent {
 
   render() {
     const {offers, onAdvertCardTitleClick} = this.props;
+    const {offers: cityOffers, cityCoordinates, city} = offers;
 
-    const pins = offers.map((offer) => ({
+    const pins = cityOffers.length !== 0 ? cityOffers.map((offer) => ({
       coordinates: offer.coordinates,
       isActive: offer === this.state.activeOffer,
-    }));
+    })) : null;
+
+    const noPlacesMainClass = cityOffers.length === 0 ? `page__main--index-empty` : null;
 
     return (
-      <main className="page__main page__main--index">
+      <main className={`page__main page__main--index ${noPlacesMainClass}`}>
         <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
-          </section>
-        </div>
+        {<CitiesList/>}
         <div className="cities">
+          {cityOffers.length === 0 && <CitiesNoPlaces city={city}/>}
+          {cityOffers.length !== 0 &&
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+              <b className="places__found">{cityOffers.length} places to stay in {city}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -92,7 +65,7 @@ export default class Main extends PureComponent {
               </form>
               {<PlaceList
                 classes= {CardClasses.MAIN}
-                offers={offers}
+                offers={cityOffers}
                 onAdvertCardTitleClick={onAdvertCardTitleClick}
                 onAdvertCardMouseOver={this._handleAdvertCardMouseOver}
                 onAdvertCardMouseOut={this._handleAdvertCardMouseOut}/>}
@@ -100,10 +73,10 @@ export default class Main extends PureComponent {
             <div className="cities__right-section">
               {<Map
                 pins={pins}
-                cityCoordinates={[52.38333, 4.9]}
+                cityCoordinates={cityCoordinates}
                 classes={CardClasses.MAIN}/>}
             </div>
-          </div>
+          </div>}
         </div>
       </main>
     );
@@ -119,7 +92,10 @@ export default class Main extends PureComponent {
 }
 
 Main.propTypes = {
-  offers: PropTypes.array.isRequired,
-  onAdvertCardTitleClick: PropTypes.func.isRequired,
+  offers: PropTypes.object,
+  onAdvertCardTitleClick: PropTypes.func,
+  city: PropTypes.string,
+  cityCoordinates: PropTypes.arrayOf(PropTypes.number),
 };
+
 

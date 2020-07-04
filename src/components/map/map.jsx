@@ -14,10 +14,19 @@ export default class Map extends PureComponent {
     this._pinIcon = this._getPinIcon();
     this._activePinIcon = this._getPinIcon(true);
     this._mapRef = createRef();
+    this._pins = leaflet.layerGroup();
   }
 
-  componentDidUpdate() {
-    this._addPins();
+  componentDidUpdate(prevProps) {
+    if (this.props.cityCoordinates !== prevProps.cityCoordinates) {
+      this._cleanMap();
+      this._setView();
+      this._connectLayer();
+      this._addPins();
+    } else if (this.props.pins !== prevProps.pins) {
+      this._cleanPins();
+      this._addPins();
+    }
   }
 
   componentDidMount() {
@@ -64,11 +73,24 @@ export default class Map extends PureComponent {
 
   _addPins() {
     const {pins} = this.props;
+    this._pins.addTo(this._map);
 
     pins.forEach((pin) => {
       leaflet.marker(pin.coordinates, {
         icon: pin.isActive ? this._activePinIcon : this._pinIcon,
-      }).addTo(this._map);
+      }).addTo(this._pins);
+    });
+
+  }
+
+  _cleanPins() {
+    this._pins.clearLayers();
+  }
+
+  _cleanMap() {
+    this._cleanPins();
+    this._map.eachLayer((layer) => {
+      layer.remove();
     });
   }
 

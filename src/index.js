@@ -1,13 +1,18 @@
-import App from "./components/app/app.jsx";
-import {offers} from "./mocks/offers.js";
-import {nearOffers} from "./mocks/near-offers.js";
 import React from "react";
 import ReactDom from "react-dom";
+import {createStore} from "redux";
+import {Provider} from "react-redux";
+import App from "./components/app/app.jsx";
 
+import {reducer} from "./redux/reducer.js";
+
+const store = createStore(reducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f);
 
 ReactDom.render(
-    <App offers={offers}
-      nearOffers={nearOffers}/>,
+    <Provider store={store}>
+      <App/>
+    </Provider>,
     document.querySelector(`#root`)
 );
 
