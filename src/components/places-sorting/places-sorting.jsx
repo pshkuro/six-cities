@@ -32,13 +32,18 @@ export default class PlacesSorting extends PureComponent {
     this.state = {
       isActive: false,
     };
+
+    this._handleClosePlaceSorting = this._handleClosePlaceSorting.bind(this);
   }
 
   componentDidMount() {
-    document.addEventListener(`click`, () => {
-      this._closePlaceSorting();
-    });
+    document.addEventListener(`click`, this._handleClosePlaceSorting);
   }
+
+  componentWillUnmount() {
+    document.removeEventListener(`click`, this._handleClosePlaceSorting);
+  }
+
 
   render() {
     const {onSortingListItemClick, activeSortingType} = this.props;
@@ -87,7 +92,7 @@ export default class PlacesSorting extends PureComponent {
     }));
   }
 
-  _closePlaceSorting() {
+  _handleClosePlaceSorting() {
     this.setState({isActive: false});
   }
 }
