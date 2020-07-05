@@ -1,4 +1,5 @@
-import {reducer, ActionCreator, ActionType} from "./reducer.js";
+import {reducer} from "./reducer.js";
+import {ActionCreator, ActionType} from "./actions/actions.js";
 import {PageType} from "../constants/page";
 import {offers} from "../mocks/offers.js";
 import {nearOffers} from "../mocks/near-offers.js";
@@ -8,7 +9,7 @@ const initialState = {
   city: `Paris`,
   cities: [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`],
   step: PageType.MAIN,
-  activeOffer: null,
+  propertyOffer: null,
   nearOffers,
   offers: null,
 };
@@ -45,7 +46,7 @@ describe(`Reducer tests`, () => {
     expect(reducer(initialState, {
       type: ActionType.CHANGE_PAGE_TYPE,
       step: PageType.DETAILS,
-      activeOffer: {
+      propertyOffer: {
         pictures: [`img/apartment-05.jpg`],
         premium: true,
         cost: 11,
@@ -68,7 +69,7 @@ describe(`Reducer tests`, () => {
       },
     })).toEqual(Object.assign(initialState, {
       step: PageType.DETAILS,
-      activeOffer: {
+      propertyOffer: {
         pictures: [`img/apartment-05.jpg`],
         premium: true,
         cost: 11,
@@ -104,7 +105,7 @@ describe(`Action creators work correctly`, () => {
   });
 
   it(`Action creators of change page type returns correct action`, () => {
-    const activeOffer = {
+    const propertyOffer = {
       pictures: [`img/apartment-05.jpg`],
       premium: true,
       cost: 11,
@@ -126,10 +127,10 @@ describe(`Action creators work correctly`, () => {
 
     };
 
-    expect(ActionCreator.changePageType(activeOffer)).toEqual({
+    expect(ActionCreator.changePageType(propertyOffer)).toEqual({
       type: ActionType.CHANGE_PAGE_TYPE,
       step: PageType.DETAILS,
-      activeOffer,
+      propertyOffer,
     });
   });
 

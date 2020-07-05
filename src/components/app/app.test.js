@@ -109,6 +109,7 @@ const props = {
   onAdvertCardTitleClick: jest.fn(),
   step: `main`,
   activeOffer: null,
+  propertyOffer: null,
   getOffers: jest.fn(),
 };
 

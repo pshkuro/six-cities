@@ -69,6 +69,7 @@ const props = {
       }],
   },
   onAdvertCardTitleClick: jest.fn(),
+  activeOffer: null,
 };
 
 const mockStore = configureStore([]);

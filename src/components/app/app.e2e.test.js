@@ -109,6 +109,7 @@ const props = {
       id: 12},
   ],
   activeOffer: null,
+  propertyOffer: null,
   step: `main`,
   onAdvertCardTitleClick: jest.fn(),
   getOffers: jest.fn(),
@@ -166,7 +167,7 @@ describe(`App render right page depending on type`, () => {
           <App
             {...props}
             step = {`details`}
-            activeOffer = {activeOffer}
+            propertyOffer = {activeOffer}
           />
         </Provider>
     );

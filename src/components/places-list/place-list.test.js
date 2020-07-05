@@ -70,8 +70,6 @@ const props = {
     map: `cities`,
   },
   onAdvertCardTitleClick: jest.fn(),
-  onAdvertCardMouseOver: jest.fn(),
-  onAdvertCardMouseOut: jest.fn(),
 };
 
 it(`Render PlaceList`, () => {

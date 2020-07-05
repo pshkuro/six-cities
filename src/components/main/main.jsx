@@ -18,12 +18,9 @@ export default class Main extends PureComponent {
     super(props);
 
     this.state = {
-      activeOffer: null,
       sortingType: SortingType.DEFAULT,
     };
 
-    this._handleAdvertCardMouseOver = this._handleAdvertCardMouseOver.bind(this);
-    this._handleAdvertCardMouseOut = this._handleAdvertCardMouseOut.bind(this);
     this._handleSortingListItemClick = this._handleSortingListItemClick.bind(this);
 
   }
@@ -35,12 +32,12 @@ export default class Main extends PureComponent {
   }
 
   render() {
-    const {offers, onAdvertCardTitleClick} = this.props;
+    const {offers, onAdvertCardTitleClick, activeOffer} = this.props;
     const {offers: cityOffers, cityCoordinates, city} = offers;
 
     const pins = cityOffers.length !== 0 ? cityOffers.map((offer) => ({
       coordinates: offer.coordinates,
-      isActive: offer === this.state.activeOffer,
+      isActive: offer === activeOffer,
     })) : null;
 
     const sortedOffers = this._getSortedOffers(this.state.sortingType, cityOffers);
@@ -65,8 +62,6 @@ export default class Main extends PureComponent {
                 classes= {CardClasses.MAIN}
                 offers={sortedOffers}
                 onAdvertCardTitleClick={onAdvertCardTitleClick}
-                onAdvertCardMouseOver={this._handleAdvertCardMouseOver}
-                onAdvertCardMouseOut={this._handleAdvertCardMouseOut}
               />}
             </section>
             <div className="cities__right-section">
@@ -81,13 +76,6 @@ export default class Main extends PureComponent {
     );
   }
 
-  _handleAdvertCardMouseOver(card) {
-    this.setState({activeOffer: card});
-  }
-
-  _handleAdvertCardMouseOut() {
-    this.setState({activeOffer: null});
-  }
 
   _handleSortingListItemClick(sortingType) {
     this.setState({sortingType});
@@ -115,6 +103,7 @@ Main.propTypes = {
   onAdvertCardTitleClick: PropTypes.func,
   city: PropTypes.string,
   cityCoordinates: PropTypes.arrayOf(PropTypes.number),
+  activeOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(null)]),
 };
 
 
