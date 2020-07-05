@@ -34,14 +34,8 @@ export default class PlacesSorting extends PureComponent {
     };
 
     this._handleClosePlaceSorting = this._handleClosePlaceSorting.bind(this);
-  }
-
-  componentDidMount() {
-    document.addEventListener(`click`, this._handleClosePlaceSorting);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener(`click`, this._handleClosePlaceSorting);
+    this._changeSortingState = this._changeSortingState.bind(this);
+    this._handlePlaceSortingTitleClick = this._handlePlaceSortingTitleClick.bind(this);
   }
 
 
@@ -54,17 +48,13 @@ export default class PlacesSorting extends PureComponent {
 
     const activeSortingListItemClass = `places__option--active`;
     const isSortingListItemActive = (option) => option === activeSortingListItem && activeSortingListItemClass;
-    const handlePlaceSortingTitleClick = (evt) => {
-      evt.nativeEvent.stopImmediatePropagation();
-      this._changeSortingState();
-    };
-    const handlePlaceSortingListItemClick = (option) => onSortingListItemClick(option.value);
+
     return (
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>
         <span
           className="places__sorting-type"
-          onClick={(evt) => handlePlaceSortingTitleClick(evt)}
+          onClick={this._handlePlaceSortingTitleClick}
           tabIndex="0">
           {activeSortingListItem.label}
           <svg className="places__sorting-arrow" width="7" height="4">
@@ -73,9 +63,18 @@ export default class PlacesSorting extends PureComponent {
         </span>
         <ul className={`places__options places__options--custom ${isPlaceSortingActive}`}>
           {options.map((option) => {
+            const handlePlaceSortingListItemClick = () => {
+              return ((activeOption) => {
+                onSortingListItemClick(activeOption.value);
+                if (this.state.isActive) {
+                  this._handleClosePlaceSorting();
+                }
+              })(option);
+            };
+
             return (
               <li
-                onClick={() => handlePlaceSortingListItemClick(option)}
+                onClick={handlePlaceSortingListItemClick}
                 className={`places__option ${isSortingListItemActive(option)}`}
                 key={option.value}
                 tabIndex="0"
@@ -95,7 +94,13 @@ export default class PlacesSorting extends PureComponent {
   _handleClosePlaceSorting() {
     this.setState({isActive: false});
   }
+
+  _handlePlaceSortingTitleClick(evt) {
+    evt.nativeEvent.stopImmediatePropagation();
+    this._changeSortingState();
+  }
 }
+
 
 PlacesSorting.propTypes = {
   onSortingListItemClick: PropTypes.func.isRequired,
