@@ -7,6 +7,11 @@ import {CardClasses} from "../../constants/page.js";
 import CitiesNoPlaces from "../cities-no-places/cities-no-places.jsx";
 import PlacesSorting from "../places-sorting/places-sorting.jsx";
 import {SortingType} from "../../constants/page.js";
+import withToggle from "../../hocs/with-toggle/with-toggle.js";
+// import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
+
+// const PlaceListWrapped = withActiveItem(PlaceList);
+const PlacesSortingWrapped = withToggle(PlacesSorting);
 
 export default class Main extends PureComponent {
   constructor(props) {
@@ -53,7 +58,7 @@ export default class Main extends PureComponent {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{cityOffers.length} places to stay in {city}</b>
-              {<PlacesSorting
+              {<PlacesSortingWrapped
                 activeSortingType={this.state.sortingType}
                 onSortingListItemClick={this._handleSortingListItemClick}/>}
               {<PlaceList
@@ -61,7 +66,8 @@ export default class Main extends PureComponent {
                 offers={sortedOffers}
                 onAdvertCardTitleClick={onAdvertCardTitleClick}
                 onAdvertCardMouseOver={this._handleAdvertCardMouseOver}
-                onAdvertCardMouseOut={this._handleAdvertCardMouseOut}/>}
+                onAdvertCardMouseOut={this._handleAdvertCardMouseOut}
+              />}
             </section>
             <div className="cities__right-section">
               {<Map
