@@ -8,9 +8,7 @@ import CitiesNoPlaces from "../cities-no-places/cities-no-places.jsx";
 import PlacesSorting from "../places-sorting/places-sorting.jsx";
 import {SortingType} from "../../constants/page.js";
 import withToggle from "../../hocs/with-toggle/with-toggle.js";
-// import withActiveItem from "../../hocs/with-active-item/with-active-item.js";
 
-// const PlaceListWrapped = withActiveItem(PlaceList);
 const PlacesSortingWrapped = withToggle(PlacesSorting);
 
 export default class Main extends PureComponent {

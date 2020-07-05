@@ -1,10 +1,8 @@
 import React, {cloneElement} from "react";
 import {mount} from "enzyme";
 import Main from "./main.jsx";
-import PlaceCard from "../place-card/place-card.jsx";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import Map from "../map/map.jsx";
 import CitiesNoPlaces from "../cities-no-places/cities-no-places.jsx";
 import PlaceList from "../places-list/place-list.jsx";
 
@@ -103,58 +101,6 @@ const mockStore = configureStore([]);
 
 
 describe(`Main tests`, () => {
-  it(`Hovering PlaceCard callback get the same active offer that go in map`, () => {
-    const store = mockStore({
-      cities: [`Moscow`, `Colo`],
-      city: `Moscow`,
-    });
-
-    const main = mount(
-        <Provider store={store}>
-          <Main {...props}/>
-        </Provider>
-    );
-
-    const placeCard = main.find(PlaceCard).first();
-    const placeCardOffer = placeCard.props().offer;
-
-    placeCard.simulate(`mouseEnter`, {preventDefault() {}});
-
-    const mainComponent = main.find(Main);
-    const activeOffer = mainComponent.state().activeOffer;
-
-    expect(activeOffer).toEqual(placeCardOffer);
-
-    const map = main.find(Map);
-    const mapActivePin = map.props().pins.find((pin) => pin.isActive);
-    const mapActivePinCoordinates = mapActivePin.coordinates;
-
-    expect(activeOffer.coordinates).toBe(mapActivePinCoordinates);
-  });
-
-  it(`Mouseout on PlaceCard put null active offer in state`, () => {
-    const store = mockStore({
-      cities: [`Moscow`, `Colo`],
-      city: `Moscow`,
-    });
-
-    const main = mount(
-        <Provider store = {store}>
-          <Main {...props}/>
-        </Provider>
-    );
-
-    const placeCard = main.find(PlaceCard).first();
-    placeCard.simulate(`mouseEnter`, {preventDefault() {}});
-    placeCard.simulate(`mouseLeave`, {preventDefault() {}});
-
-    const mainComponent = main.find(Main);
-    const activeOffer = mainComponent.state().activeOffer;
-
-    expect(activeOffer).toBe(null);
-
-  });
-
   // Когда будет приходить с сервера не забыть переписать компонент и тест, будет не пустой Offers,
   // его вообще не будет
   it(`When no office show CitiesNoPlaces component`, () => {
@@ -195,11 +141,7 @@ describe(`Main tests`, () => {
     );
 
     const placesSortingTitle = main.find(`.places__sorting-type`);
-    placesSortingTitle.simulate(`click`, {
-      nativeEvent: {
-        stopImmediatePropagation() {}
-      }
-    });
+    placesSortingTitle.simulate(`click`);
     const placesSortingListItem = main.find(`.places__option`).last();
     placesSortingListItem.simulate(`click`);
 
@@ -232,11 +174,7 @@ describe(`Main tests`, () => {
 
     const mainComponent = main.find(Main);
     const placesSortingTitle = mainComponent.find(`.places__sorting-type`);
-    placesSortingTitle.simulate(`click`, {
-      nativeEvent: {
-        stopImmediatePropagation() {}
-      }
-    });
+    placesSortingTitle.simulate(`click`);
     const placesSortingListItem = mainComponent.find(`.places__option`).last();
     placesSortingListItem.simulate(`click`);
 

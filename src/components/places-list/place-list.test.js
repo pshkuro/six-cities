@@ -1,5 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 import PlaceList from "./place-list.jsx";
 
 const props = {
@@ -72,12 +74,19 @@ const props = {
   onAdvertCardTitleClick: jest.fn(),
 };
 
-it(`Render PlaceList`, () => {
+const mockStore = configureStore([]);
 
+it(`Render PlaceList`, () => {
+  const store = mockStore({
+    onAdvertCardMouseOver: jest.fn(),
+    onAdvertCardMouseOut: jest.fn(),
+  });
 
   const tree = renderer
     .create(
-        <PlaceList {...props}/>
+        <Provider store={store}>
+          <PlaceList {...props}/>
+        </Provider>
     )
     .toJSON();
 

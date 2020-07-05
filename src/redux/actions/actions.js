@@ -61,7 +61,7 @@ const ActionCreator = {
   makeOfferInactive: () => {
     return (
       {
-        type: ActionType.MAKE_OFFER_ACTIVE,
+        type: ActionType.MAKE_OFFER_INACTIVE,
         activeOffer: null,
       }
     );

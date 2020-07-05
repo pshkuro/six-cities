@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import PlaceCard from "./place-card.jsx";
+import {PlaceCard} from "./place-card.jsx";
 
 const props = {
   offer: {
@@ -24,8 +24,6 @@ const props = {
     reviwes: [{}, {}],
   },
   onAdvertCardTitleClick: jest.fn(),
-  onAdvertCardMouseOver: jest.fn(),
-  onAdvertCardMouseOut: jest.fn(),
   classes: {
     card: `cities__place-`,
     wrapper: `cities`,
@@ -35,7 +33,7 @@ const props = {
 };
 
 
-it(`Render PlaceList`, () => {
+it(`Render PlaceCard`, () => {
   const tree = renderer
       .create(
           <PlaceCard {...props}/>

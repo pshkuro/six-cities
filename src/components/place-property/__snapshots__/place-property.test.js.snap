@@ -491,6 +491,8 @@ exports[`Render PlaceProperty 1`] = `
       >
         <article
           className="near-places__card place-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           
           <div
@@ -587,6 +589,8 @@ exports[`Render PlaceProperty 1`] = `
         </article>
         <article
           className="near-places__card place-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           
           <div
