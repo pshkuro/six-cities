@@ -46,7 +46,12 @@ describe(`PlaceSorting tests`, () => {
       }
     });
 
-    document.body.click();
+    const placeSortingListItem = placeSorting.find(`.places__option`).last();
+    placeSortingListItem.simulate(`click`, {
+      nativeEvent: {
+        stopImmediatePropagation() {}
+      }
+    });
 
     expect(placeSorting.state().isActive).toBe(false);
   });
