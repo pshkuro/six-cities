@@ -101,7 +101,6 @@ export default class PlacesSorting extends PureComponent {
   }
 }
 
-
 PlacesSorting.propTypes = {
   onSortingListItemClick: PropTypes.func.isRequired,
   activeSortingType: PropTypes.oneOf(
