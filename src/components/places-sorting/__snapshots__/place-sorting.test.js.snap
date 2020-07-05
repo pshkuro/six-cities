@@ -13,7 +13,7 @@ exports[`Render PlaceSorting 1`] = `
   </span>
   <span
     className="places__sorting-type"
-    onClick={[Function]}
+    onClick={[MockFunction]}
     tabIndex="0"
   >
     Top rated first
@@ -28,7 +28,7 @@ exports[`Render PlaceSorting 1`] = `
     </svg>
   </span>
   <ul
-    className="places__options places__options--custom false"
+    className="places__options places__options--custom places__options--opened"
   >
     <li
       className="places__option false"

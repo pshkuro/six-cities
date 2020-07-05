@@ -5,6 +5,8 @@ import PlacesSorting from "./places-sorting.jsx";
 const props = {
   onSortingListItemClick: jest.fn(),
   activeSortingType: `top-rated`,
+  handleChangeToggleClick: jest.fn(),
+  activeClass: `places__options--opened`,
 };
 
 it(`Render PlaceSorting`, () => {

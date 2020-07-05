@@ -4,8 +4,10 @@ import PlacesSorting from "./places-sorting.jsx";
 
 
 const props = {
-  onSortingListItemClick: jest.fn(),
+  onSortingListItemClick: jest.fn((x) => x),
   activeSortingType: `top-rated`,
+  handleChangeToggleClick: jest.fn(),
+  activeClass: `places__options--opened`,
 };
 
 
@@ -16,43 +18,33 @@ describe(`PlaceSorting tests`, () => {
         <PlacesSorting {...props}/>
     );
 
-    const placeSortingTitle = placeSorting.find(`.places__sorting-type`);
-    placeSortingTitle.simulate(`click`, {
-      nativeEvent: {
-        stopImmediatePropagation() {}
-      }
-    });
+    const placeSortingTitle = placeSorting.find(`.places__option`).last();
+    placeSortingTitle.simulate(`click`);
 
-    expect(placeSorting.state().isActive).toBe(true);
-
-    placeSortingTitle.simulate(`click`, {
-      nativeEvent: {
-        stopImmediatePropagation() {}
-      }
-    });
-
-    expect(placeSorting.state().isActive).toBe(false);
+    expect(props.handleChangeToggleClick).toHaveBeenCalledTimes(1);
   });
 
-  it(`Click on document shoul close places sorting`, () => {
+  it(`Click on document should close places sorting`, () => {
     const placeSorting = shallow(
         <PlacesSorting {...props}/>
     );
 
-    const placeSortingTitle = placeSorting.find(`.places__sorting-type`);
-    placeSortingTitle.simulate(`click`, {
-      nativeEvent: {
-        stopImmediatePropagation() {}
-      }
-    });
+    const placeSortingListItem = placeSorting.find(`.places__option`).last();
+    placeSortingListItem.simulate(`click`);
+
+    expect(props.handleChangeToggleClick).toHaveBeenCalled();
+
+  });
+
+  it(`Click on list item should to callback with list value`, () => {
+    const placeSorting = shallow(
+        <PlacesSorting {...props}/>
+    );
 
     const placeSortingListItem = placeSorting.find(`.places__option`).last();
-    placeSortingListItem.simulate(`click`, {
-      nativeEvent: {
-        stopImmediatePropagation() {}
-      }
-    });
+    placeSortingListItem.simulate(`click`);
 
-    expect(placeSorting.state().isActive).toBe(false);
+    expect(props.onSortingListItemClick.mock.calls[0][0]).toBe(`top-rated`);
+
   });
 });

@@ -95,7 +95,7 @@ exports[`Render Main 1`] = `
             </svg>
           </span>
           <ul
-            className="places__options places__options--custom false"
+            className="places__options places__options--custom "
           >
             <li
               className="places__option places__option--active"
