@@ -64,6 +64,7 @@ export default function PlacesSorting(props) {
               onClick={handlePlaceSortingListItemClick}
               className={`places__option ${isSortingListItemActive(option)}`}
               key={option.value}
+              value={option.value}
               tabIndex="0"
             >{option.label}</li>);
         })}

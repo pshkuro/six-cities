@@ -1,5 +1,5 @@
 import React from "react";
-import renderer from "react-test-renderer";
+import {mount} from "enzyme";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import CitiesPlaces from "./cities-places.jsx";
@@ -28,30 +28,32 @@ const props = {
       id: 8989,
       reviwes: [{id: 12}, {id: 11}],
     }],
-  activeSortingType: `top-rated`,
+  activeSortingType: `popular`,
   onSortingListItemClick: jest.fn((x) => x),
 };
 
 const mockStore = configureStore([]);
 
-describe(`CitiesPlaces render tests`, () => {
+describe(`CitiesPlaces tests`, () => {
 
-  it(`CitiesPlaces render`, () => {
+  it(``, () => {
     const store = mockStore({
       onAdvertCardMouseOver: jest.fn(),
       onAdvertCardMouseOut: jest.fn(),
     });
 
-    const tree = renderer
-      .create(
-          <Provider store={store}>
-            <CitiesPlaces {...props}/>
-          </Provider>
-      )
-      .toJSON();
+    const citiesPlaces = mount(
+        <Provider store={store}>
+          <CitiesPlaces {...props}/>
+        </Provider>
+    );
 
-    expect(tree).toMatchSnapshot();
+    const citiesPlacesSortingListItem = citiesPlaces.find(`.places__option`).last();
+    const listItemValue = citiesPlacesSortingListItem.props().value;
+    citiesPlacesSortingListItem.simulate(`click`);
+    expect(props.onSortingListItemClick).toHaveBeenCalledTimes(1);
+    expect(props.onSortingListItemClick.mock.calls[0][0]).toBe(listItemValue);
+
   });
 });
-
 
