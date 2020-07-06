@@ -17,3 +17,10 @@ export const CardClasses = {
     map: `property`
   }
 };
+
+export const SortingType = {
+  DEFAULT: `popular`,
+  TO_HIGHT: `to-high`,
+  TO_LAW: `to-low`,
+  TOP_RATED: `top-rated`,
+};

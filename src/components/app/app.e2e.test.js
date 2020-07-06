@@ -173,5 +173,24 @@ describe(`App render right page depending on type`, () => {
 
     expect(appComponent.contains(PlaceProperty)).toBe(true);
   });
+
+  it(`Should dispatch at advertCardTitle click`, () => {
+    const store = mockStore({
+      cities: [`Moscow`, `Colo`],
+      city: `Moscow`,
+    });
+
+    const appComponent = mount(
+        <Provider store={store}>
+          <App {...props} />
+        </Provider>
+    );
+
+    const advertCardTitle = appComponent.find(`.place-card__name`).first();
+    advertCardTitle.simulate(`click`);
+
+
+    expect(props.onAdvertCardTitleClick).toHaveBeenCalledTimes(1);
+  });
 });
 

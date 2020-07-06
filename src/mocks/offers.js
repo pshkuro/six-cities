@@ -120,3 +120,4 @@ export const offers = CITIES.map((city) => {
   }));
 });
 
+
