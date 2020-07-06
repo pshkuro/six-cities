@@ -30,3 +30,12 @@ export const shuffleArray = (array) => {
   return array;
 };
 
+export function convertDateToMonthDayFormat(date) {
+  const formatter = new Intl.DateTimeFormat(`en-US`, {
+    month: `long`,
+    day: `numeric`
+  });
+
+  return formatter.format(date);
+}
+

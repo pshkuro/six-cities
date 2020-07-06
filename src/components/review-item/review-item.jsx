@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {ratingStars} from "../../constants/offer";
+import {convertDateToMonthDayFormat} from "../../utils/common.js";
 
 export default function ReviewItem({review}) {
   const {avatar, name, stars, description, date} = review;
-
+  const reviewDate = convertDateToMonthDayFormat(new Date(date));
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -25,7 +26,7 @@ export default function ReviewItem({review}) {
         <p className="reviews__text">
           {description}
         </p>
-        <time className="reviews__time" dateTime="">{date}</time>
+        <time className="reviews__time" dateTime="">{reviewDate}</time>
       </div>
     </li>
   );
