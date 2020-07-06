@@ -30,7 +30,8 @@ export default function Main({offers, activeOffer, onAdvertCardTitleClick}) {
           <div className="cities__places-container container">
             <CitiesPlacesWrapped
               offers={cityOffers}
-              onAdvertCardTitleClick={onAdvertCardTitleClick}/>
+              onAdvertCardTitleClick={onAdvertCardTitleClick}
+              city={city}/>
 
             <div className="cities__right-section">
               {<Map
