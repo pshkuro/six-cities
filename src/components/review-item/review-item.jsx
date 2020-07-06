@@ -6,6 +6,7 @@ import {convertDateToMonthDayFormat} from "../../utils/common.js";
 export default function ReviewItem({review}) {
   const {avatar, name, stars, description, date} = review;
   const reviewDate = convertDateToMonthDayFormat(new Date(date));
+
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
