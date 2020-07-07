@@ -76,7 +76,7 @@ App.propTypes = {
 const mapStateToProps = (state) => ({
   offers: state.DATA.offers,
   propertyOffer: state.PAGE.propertyOffer,
-  nearOffers: state.PAGE.nearOffers,
+  nearOffers: state.DATA.nearOffers,
   step: state.PAGE.step,
   activeOffer: state.PAGE.activeOffer,
 });

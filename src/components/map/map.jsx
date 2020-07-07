@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import leaflet from "leaflet";
 import {createRef} from "react";
 
-const ZOOM = 12;
-
 
 export default class Map extends PureComponent {
   constructor(props) {
@@ -18,7 +16,7 @@ export default class Map extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.cityCoordinates !== prevProps.cityCoordinates) {
+    if (this.props.cityCoordinates.coordinates !== prevProps.cityCoordinates.coordinates) {
       this._cleanMap();
       this._setView();
       this._connectLayer();
@@ -43,10 +41,11 @@ export default class Map extends PureComponent {
 
   _createMap() {
     const {cityCoordinates: city} = this.props;
+    const {coordinates, zoom} = city;
 
     return leaflet.map(this._mapRef.current, {
-      center: city,
-      zoom: ZOOM,
+      center: coordinates,
+      zoom,
       zoomControl: false,
       marker: true
     });
@@ -54,7 +53,8 @@ export default class Map extends PureComponent {
 
   _setView() {
     const {cityCoordinates: city} = this.props;
-    this._map.setView(city, ZOOM);
+    const {coordinates, zoom} = city;
+    this._map.setView(coordinates, zoom);
   }
 
   _connectLayer() {

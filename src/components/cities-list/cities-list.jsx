@@ -2,8 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../redux/actions/actions.js";
+import {City} from "../../constants/page.js";
 
-function CitiesList({cities, city: activeCity, onChooseCityClick}) {
+const cities = Object.values(City);
+
+function CitiesList({city: activeCity, onChooseCityClick}) {
   return (
     <div className="tabs">
       <section className="locations container">
