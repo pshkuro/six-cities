@@ -38,7 +38,7 @@ export default class Map extends PureComponent {
   }
 
   componentWillUnmount() {
-    this._mapRef.current.remove();
+    this._mapRef.current = null;
   }
 
   _createMap() {
