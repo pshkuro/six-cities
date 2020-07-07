@@ -1,3 +1,19 @@
+export const SortingType = {
+  DEFAULT: `popular`,
+  TO_HIGHT: `to-high`,
+  TO_LAW: `to-low`,
+  TOP_RATED: `top-rated`,
+};
+
+export const City = {
+  PARIS: `Paris`,
+  COLOGNE: `Cologne`,
+  BRUSSELS: `Brussels`,
+  AMSTERDAM: `Amsterdam`,
+  HAMBURG: `Hamburg`,
+  DUSSELDORF: `Dusseldorf`,
+};
+
 export const PageType = {
   MAIN: `main`,
   DETAILS: `details`,
@@ -18,18 +34,3 @@ export const CardClasses = {
   }
 };
 
-export const SortingType = {
-  DEFAULT: `popular`,
-  TO_HIGHT: `to-high`,
-  TO_LAW: `to-low`,
-  TOP_RATED: `top-rated`,
-};
-
-export const City = {
-  PARIS: `Paris`,
-  COLOGNE: `Cologne`,
-  BRUSSELS: `Brussels`,
-  AMSTERDAM: `Amsterdam`,
-  HAMBURG: `Hamburg`,
-  DUSSELDORF: `Dusseldorf`,
-};
