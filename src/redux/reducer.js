@@ -1,6 +1,7 @@
 import {offers} from "../mocks/offers";
-import {PageType} from ".././constants/page.js";
+import {PageType} from "../constants/page.js";
 import {nearOffers} from "../mocks/near-offers.js";
+import {ActionType} from "./actions/actions.js";
 
 
 const City = {
@@ -13,52 +14,17 @@ const City = {
 };
 
 const cities = offers.map((offer) => offer.city);
-const ActionType = {
-  GET_OFFERS: `GET_OFFERS`,
-  CHOOSE_CITY: `CHOOSE_CITY`,
-  CHANGE_PAGE_TYPE: `CHANGE_PAGE_TYPE`,
-};
 
 const initialState = {
   city: City.PARIS,
   cities,
   step: PageType.MAIN,
-  activeOffer: null,
+  propertyOffer: null,
   nearOffers,
   offers: null,
+  activeOffer: null,
 };
 
-const ActionCreator = {
-  getOffers: () => {
-    return ({
-      type: ActionType.GET_OFFERS,
-      availableOffers: offers.find((offer) => offer.city === City.PARIS),
-    });
-  },
-
-  chooseCity: (activeCity) => {
-    return (
-      {
-        type: ActionType.CHOOSE_CITY,
-        city: activeCity,
-        get offers() {
-          return offers.find((offer) => offer.city === this.city);
-        }
-      }
-    );
-  },
-
-  changePageType: (offer) => {
-    return (
-      {
-        type: ActionType.CHANGE_PAGE_TYPE,
-        step: PageType.DETAILS,
-        activeOffer: offer,
-      }
-    );
-  },
-
-};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -70,10 +36,10 @@ const reducer = (state = initialState, action) => {
       });
 
     case ActionType.CHANGE_PAGE_TYPE:
-      const {step, activeOffer} = action;
+      const {step, propertyOffer} = action;
       return Object.assign({}, state, {
         step,
-        activeOffer,
+        propertyOffer,
       });
 
     case ActionType.GET_OFFERS:
@@ -81,9 +47,21 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         offers: availableOffers,
       });
+
+    case ActionType.MAKE_OFFER_ACTIVE:
+      const {activeOffer} = action;
+      return Object.assign({}, state, {
+        activeOffer,
+      });
+
+    case ActionType.MAKE_OFFER_INACTIVE:
+      const {activeOffer: inactiveOffer} = action;
+      return Object.assign({}, state, {
+        activeOffer: inactiveOffer,
+      });
   }
 
   return state;
 };
 
-export {ActionCreator, ActionType, reducer};
+export {reducer};

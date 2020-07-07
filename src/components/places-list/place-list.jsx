@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import PlaceCard from "../place-card/place-card.jsx";
 
 
-export default function PlaceList({offers, onAdvertCardTitleClick, onAdvertCardMouseOver, onAdvertCardMouseOut, classes}) {
+export default function PlaceList({offers, onAdvertCardTitleClick, classes}) {
 
   return (
     <div className={`${classes.cards}list places__list tabs__content`}>
@@ -11,8 +11,6 @@ export default function PlaceList({offers, onAdvertCardTitleClick, onAdvertCardM
         <PlaceCard
           offer={offer}
           onAdvertCardTitleClick={onAdvertCardTitleClick && onAdvertCardTitleClick}
-          onAdvertCardMouseOver={onAdvertCardMouseOver && onAdvertCardMouseOver}
-          onAdvertCardMouseOut={onAdvertCardMouseOut && onAdvertCardMouseOut}
           key={offer.id}
           classes={classes}/>
       ))}
@@ -25,8 +23,6 @@ export default function PlaceList({offers, onAdvertCardTitleClick, onAdvertCardM
 PlaceList.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.object).isRequired,
   onAdvertCardTitleClick: PropTypes.func,
-  onAdvertCardMouseOver: PropTypes.func,
-  onAdvertCardMouseOut: PropTypes.func,
   classes: PropTypes.object.isRequired,
 };
 

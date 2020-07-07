@@ -1,5 +1,7 @@
 import React from "react";
 import {mount} from "enzyme";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 import PlaceProperty from "./place-property.jsx";
 import Map from "../map/map.jsx";
 
@@ -64,10 +66,19 @@ const props = {
   ]
 };
 
+const mockStore = configureStore([]);
+
 
 it(`Map render the same active pin that get to place property`, () => {
+  const store = mockStore({
+    onAdvertCardMouseOver: jest.fn(),
+    onAdvertCardMouseOut: jest.fn(),
+  });
+
   const placeProperty = mount(
-      <PlaceProperty {...props} />,
+      <Provider store={store}>
+        <PlaceProperty {...props} />
+      </Provider>,
       {
         createNodeMock: () => {
           return document.createElement(`div`);
@@ -75,7 +86,8 @@ it(`Map render the same active pin that get to place property`, () => {
       }
   );
 
-  const placePropertyActiveOffer = placeProperty.props().offer;
+  const placePropertyComponent = placeProperty.find(PlaceProperty);
+  const placePropertyActiveOffer = placePropertyComponent.props().offer;
   const placePropertyActiveOfferCoordinates = placePropertyActiveOffer.coordinates;
 
   const map = placeProperty.find(Map);

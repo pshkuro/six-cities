@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../redux/actions/actions.js";
 import {OfferInfo, ratingStars} from "../../constants/offer";
 
 
-export default function PlaceCard({offer, onAdvertCardTitleClick, onAdvertCardMouseOver, onAdvertCardMouseOut, classes}) {
+export function PlaceCard({offer, onAdvertCardTitleClick, classes, onAdvertCardMouseOver, onAdvertCardMouseOut}) {
   const {pictures, premium, cost, title, type, rating} = offer;
 
   const handleOnAdvertCardTitle = () => onAdvertCardTitleClick(offer);
@@ -80,4 +82,16 @@ PlaceCard.propTypes = {
   onAdvertCardMouseOver: PropTypes.func,
   onAdvertCardMouseOut: PropTypes.func,
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  onAdvertCardMouseOver(offer) {
+    dispatch(ActionCreator.makeOfferCardActive(offer));
+  },
+
+  onAdvertCardMouseOut() {
+    dispatch(ActionCreator.makeOfferInactive());
+  },
+});
+
+export default connect(null, mapDispatchToProps)(PlaceCard);
 

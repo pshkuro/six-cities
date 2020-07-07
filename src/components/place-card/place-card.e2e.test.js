@@ -1,6 +1,6 @@
 import React from "react";
-import {shallow} from "enzyme";
-import PlaceCard from "./place-card.jsx";
+import {mount} from "enzyme";
+import {PlaceCard} from "./place-card.jsx";
 
 const props = {
   offer: {
@@ -34,29 +34,33 @@ const props = {
   }
 };
 
-it(`Hovering PlaceCard get to callback info about itself`, () => {
 
-  const placeCard = shallow(
-      <PlaceCard {...props}/>
-  );
+describe(`PlaceCard tests`, () => {
+  it(`Hovering PlaceCard get to callback info about itself`, () => {
+    const placeCard = mount(
+        <PlaceCard {...props}/>
+    );
 
-  placeCard.simulate(`mouseEnter`);
+    placeCard.simulate(`mouseEnter`);
 
-  expect(props.onAdvertCardMouseOver).toHaveBeenCalledTimes(1);
-  expect(props.onAdvertCardMouseOver.mock.results[0].value).toMatchObject(props.offer);
-});
+    expect(props.onAdvertCardMouseOver).toHaveBeenCalledTimes(1);
+    expect(props.onAdvertCardMouseOver.mock.results[0].value).toMatchObject(props.offer);
+  });
 
 
-it(`PlaceCard title should be clicked and get to callback info about itself`, () => {
+  it(`PlaceCard title should be clicked and get to callback info about itself`, () => {
 
-  const placeCard = shallow(
-      <PlaceCard {...props}/>
-  );
+    const placeCard = mount(
+        <PlaceCard {...props}/>
+    );
 
-  const advertCardTitle = placeCard.find(`.place-card__name`);
-  advertCardTitle.simulate(`click`);
+    const advertCardTitle = placeCard.find(`.place-card__name`);
+    advertCardTitle.simulate(`click`, {
+      preventDefault: () => {}
+    });
 
-  expect(props.onAdvertCardTitleClick).toHaveBeenCalledTimes(1);
-  expect(props.onAdvertCardTitleClick.mock.results[0].value).toMatchObject(props.offer);
+    expect(props.onAdvertCardTitleClick).toHaveBeenCalledTimes(1);
+    expect(props.onAdvertCardTitleClick.mock.results[0].value).toMatchObject(props.offer);
 
+  });
 });

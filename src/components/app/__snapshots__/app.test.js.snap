@@ -154,12 +154,13 @@ exports[`Render App 1`] = `
               </svg>
             </span>
             <ul
-              className="places__options places__options--custom false"
+              className="places__options places__options--custom "
             >
               <li
                 className="places__option places__option--active"
                 onClick={[Function]}
                 tabIndex="0"
+                value="popular"
               >
                 Popular
               </li>
@@ -167,6 +168,7 @@ exports[`Render App 1`] = `
                 className="places__option false"
                 onClick={[Function]}
                 tabIndex="0"
+                value="to-high"
               >
                 Price: low to high
               </li>
@@ -174,6 +176,7 @@ exports[`Render App 1`] = `
                 className="places__option false"
                 onClick={[Function]}
                 tabIndex="0"
+                value="to-low"
               >
                 Price: high to low
               </li>
@@ -181,6 +184,7 @@ exports[`Render App 1`] = `
                 className="places__option false"
                 onClick={[Function]}
                 tabIndex="0"
+                value="top-rated"
               >
                 Top rated first
               </li>

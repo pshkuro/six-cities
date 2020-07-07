@@ -2,7 +2,7 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../redux/reducer.js";
+import {ActionCreator} from "../../redux/actions/actions.js";
 import Main from "../main/main.jsx";
 import PlaceScreen from "../place-screen/place-screen.jsx";
 import PlaceProperty from "../place-property/place-property.jsx";
@@ -36,7 +36,7 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {offers, nearOffers, onAdvertCardTitleClick, step, activeOffer} = this.props;
+    const {offers, nearOffers, onAdvertCardTitleClick, step, propertyOffer, activeOffer} = this.props;
 
     if (offers === null) {
       return null;
@@ -49,7 +49,8 @@ class App extends PureComponent {
             type={step}
             color="gray">
             <Main offers={offers}
-              onAdvertCardTitleClick={onAdvertCardTitleClick}/>
+              onAdvertCardTitleClick={onAdvertCardTitleClick}
+              activeOffer={activeOffer}/>
           </PlaceScreen>
         );
 
@@ -57,7 +58,7 @@ class App extends PureComponent {
         return (
           <PlaceScreen
             type={step}>
-            <PlaceProperty offer={activeOffer}
+            <PlaceProperty offer={propertyOffer}
               nearOffers={nearOffers}/>
           </PlaceScreen>
         );
@@ -73,15 +74,17 @@ App.propTypes = {
   nearOffers: PropTypes.array.isRequired,
   onAdvertCardTitleClick: PropTypes.func.isRequired,
   step: PropTypes.oneOf([PageType.MAIN, PageType.DETAILS]).isRequired,
-  activeOffer: PropTypes.object,
+  propertyOffer: PropTypes.object,
   getOffers: PropTypes.func.isRequired,
+  activeOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(null)]),
 };
 
 const mapStateToProps = (state) => ({
   offers: state.offers,
-  activeOffer: state.activeOffer,
+  propertyOffer: state.propertyOffer,
   nearOffers: state.nearOffers,
   step: state.step,
+  activeOffer: state.activeOffer,
 });
 
 const mapDispatchToProps = (dispatch) => ({

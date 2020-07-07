@@ -1,5 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 import PlaceProperty from "./place-property.jsx";
 
 const props = {
@@ -63,10 +65,19 @@ const props = {
   ]
 };
 
+const mockStore = configureStore([]);
+
 it(`Render PlaceProperty`, () => {
+  const store = mockStore({
+    onAdvertCardMouseOver: jest.fn(),
+    onAdvertCardMouseOut: jest.fn(),
+  });
+
   const tree = renderer
   .create(
-      <PlaceProperty {...props} />,
+      <Provider store={store}>
+        <PlaceProperty {...props} />
+      </Provider>,
       {
         createNodeMock: () => {
           return document.createElement(`div`);

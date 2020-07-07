@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../redux/reducer.js";
+import {ActionCreator} from "../../redux/actions/actions.js";
 
 function CitiesList({cities, city: activeCity, onChooseCityClick}) {
   return (
