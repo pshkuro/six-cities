@@ -24,3 +24,12 @@ export const SortingType = {
   TO_LAW: `to-low`,
   TOP_RATED: `top-rated`,
 };
+
+export const City = {
+  PARIS: `Paris`,
+  COLOGNE: `Cologne`,
+  BRUSSELS: `Brussels`,
+  AMSTERDAM: `Amsterdam`,
+  HAMBURG: `Hamburg`,
+  DUSSELDORF: `Dusseldorf`,
+};
