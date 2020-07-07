@@ -17,7 +17,7 @@ const initialState = {
 };
 
 
-const reducer = (state = initialState, action) => {
+export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHOOSE_CITY:
       const {city, offers: filteredOffers} = action;
@@ -55,4 +55,3 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {reducer};
