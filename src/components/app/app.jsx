@@ -9,11 +9,6 @@ import PlaceProperty from "../place-property/place-property.jsx";
 import {PageType} from "../../constants/page.js";
 
 class App extends PureComponent {
-  componentDidMount() {
-    const {getOffers} = this.props;
-    getOffers();
-  }
-
   render() {
     const {offers, nearOffers} = this.props;
     if (offers === null) {
@@ -75,23 +70,18 @@ App.propTypes = {
   onAdvertCardTitleClick: PropTypes.func.isRequired,
   step: PropTypes.oneOf([PageType.MAIN, PageType.DETAILS]).isRequired,
   propertyOffer: PropTypes.object,
-  getOffers: PropTypes.func.isRequired,
   activeOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(null)]),
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
-  propertyOffer: state.propertyOffer,
-  nearOffers: state.nearOffers,
-  step: state.step,
-  activeOffer: state.activeOffer,
+  offers: state.DATA.offers,
+  propertyOffer: state.PAGE.propertyOffer,
+  nearOffers: state.PAGE.nearOffers,
+  step: state.PAGE.step,
+  activeOffer: state.PAGE.activeOffer,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getOffers() {
-    dispatch(ActionCreator.getOffers());
-  },
-
   onAdvertCardTitleClick(offer) {
     dispatch(ActionCreator.changePageType(offer));
   },
