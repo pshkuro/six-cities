@@ -27,7 +27,7 @@ class App extends PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/offer">
-            {offers && offers.offers[0] && <PlaceProperty offer={offers.offers[0]}
+            {offers.offers && offers.offers[0] && <PlaceProperty offer={offers.offers[0]}
               nearOffers={nearOffers}/>}
           </Route>
         </Switch>

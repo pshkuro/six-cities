@@ -10,6 +10,7 @@ const ActionType = {
   MAKE_OFFER_INACTIVE: `MAKE_CARD_INACTIVE`,
 };
 
+
 const ActionCreator = {
   getOffers: () => {
     return ({

@@ -13,20 +13,21 @@ const CitiesPlacesWrapped = withSorting(CitiesPlaces);
 export default function Main({offers, activeOffer, onAdvertCardTitleClick}) {
   const {offers: cityOffers, cityCoordinates, city} = offers;
 
-  const pins = cityOffers.length !== 0 ? cityOffers.map((offer) => ({
+  const isOffersEmpty = !cityOffers || (cityOffers && cityOffers.length === 0);
+  const pins = !isOffersEmpty ? cityOffers.map((offer) => ({
     coordinates: offer.coordinates,
     isActive: offer === activeOffer,
   })) : null;
 
-  const noPlacesMainClass = cityOffers.length === 0 ? `page__main--index-empty` : null;
+  const noPlacesMainClass = isOffersEmpty ? `page__main--index-empty` : null;
 
   return (
     <main className={`page__main page__main--index ${noPlacesMainClass}`}>
       <h1 className="visually-hidden">Cities</h1>
       {<CitiesList/>}
       <div className="cities">
-        {cityOffers.length === 0 && <CitiesNoPlaces city={city}/>}
-        {cityOffers.length !== 0 &&
+        {isOffersEmpty && <CitiesNoPlaces city={city}/>}
+        {!isOffersEmpty &&
           <div className="cities__places-container container">
             <CitiesPlacesWrapped
               offers={cityOffers}
