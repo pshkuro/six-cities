@@ -1,5 +1,5 @@
 import {City} from "../../constants/page.js";
-import {parse} from "../../api/parser.js"
+import {parse} from "../../api/parser.js";
 import {nearOffers} from "../../mocks/near-offers.js";
 
 
@@ -40,7 +40,7 @@ const Operation = {
         return offers;
       }, new Map()))
       .then((data) => {
-        return Array.from(data.values()).map(offer => ({ ...offer, offers: offer.offers.map(parse) }))
+        return Array.from(data.values()).map((offer) => (Object.assign(offer, {offers: offer.offers.map(parse)})));
       })
       .then((data) => {
         dispatch(ActionCreator.getOffers(data));

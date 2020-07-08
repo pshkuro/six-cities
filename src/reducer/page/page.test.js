@@ -1,17 +1,11 @@
-import {reducer} from "./reducer.js";
-import {ActionCreator, ActionType} from "./actions/actions.js";
+import {reducer, ActionType, ActionCreator} from "./page.js";
 import {PageType} from "../constants/page";
-import {offers} from "../mocks/offers.js";
-import {nearOffers} from "../mocks/near-offers.js";
 
 
 const initialState = {
   city: `Paris`,
-  cities: [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`],
   step: PageType.MAIN,
   propertyOffer: null,
-  nearOffers,
-  offers: null,
   activeOffer: null,
 };
 

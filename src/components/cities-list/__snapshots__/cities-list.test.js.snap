@@ -28,11 +28,24 @@ exports[`CitiesList render 1`] = `
         onClick={[Function]}
       >
         <a
-          className="locations__item-link tabs__item  tabs__item--active"
+          className="locations__item-link tabs__item  "
           href="#"
         >
           <span>
-            Moscow
+            Cologne
+          </span>
+        </a>
+      </li>
+      <li
+        className="locations__item"
+        onClick={[Function]}
+      >
+        <a
+          className="locations__item-link tabs__item  "
+          href="#"
+        >
+          <span>
+            Brussels
           </span>
         </a>
       </li>
@@ -58,7 +71,20 @@ exports[`CitiesList render 1`] = `
           href="#"
         >
           <span>
-            Honkong
+            Hamburg
+          </span>
+        </a>
+      </li>
+      <li
+        className="locations__item"
+        onClick={[Function]}
+      >
+        <a
+          className="locations__item-link tabs__item  "
+          href="#"
+        >
+          <span>
+            Dusseldorf
           </span>
         </a>
       </li>

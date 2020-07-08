@@ -3,7 +3,6 @@ import renderer from "react-test-renderer";
 import {CitiesList} from "./cities-list.jsx";
 
 const props = {
-  cities: [`Paris`, `Moscow`, `Amsterdam`, `Honkong`],
   city: `Moscow`,
   onChooseCityClick: jest.fn(),
 };

@@ -8,7 +8,7 @@ import {Provider} from "react-redux";
 import {createAPI} from "./api/api.js";
 import App from "./components/app/app.jsx";
 import {Operation as DataOperation} from "./reducer/data/data.js";
-import {Operation as UserOperation, ActionCreator, AuthorizationStatus} from "./reducer/user/user.js";
+import {ActionCreator, AuthorizationStatus} from "./reducer/user/user.js";
 import reducer from "./reducer/reducer.js";
 
 const onUnauthorized = () => {
