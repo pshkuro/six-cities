@@ -1,14 +1,6 @@
 export const parse = (data) => {
   const {
     bedrooms,
-    city: {
-      location: {
-        latitude,
-        longitude,
-        zoom,
-      },
-      name,
-    },
     description,
     goods,
     host: {
@@ -24,7 +16,6 @@ export const parse = (data) => {
     location: {
       latitude: offerLatitude,
       longitude: offerLongitude,
-      zoom: offerZoom,
     },
     max_adults: maxAdults,
     preview_image: previewImage,
@@ -39,7 +30,6 @@ export const parse = (data) => {
     bedrooms,
     conveniences: goods,
     coordinates: [offerLatitude, offerLongitude],
-    zoom: offerZoom,
     cost: price,
     description: [description],
     guests: maxAdults,

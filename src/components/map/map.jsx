@@ -107,7 +107,10 @@ export default class Map extends PureComponent {
 
 Map.propTypes = {
   pins: PropTypes.arrayOf(PropTypes.object).isRequired,
-  cityCoordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
+  cityCoordinates: PropTypes.exact({
+    coordinates: PropTypes.arrayOf(PropTypes.number),
+    zoom: PropTypes.number,
+  }).isRequired,
   classes: PropTypes.object.isRequired,
 };
 

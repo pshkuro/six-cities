@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {OfferInfo, ratingStars} from "../../constants/offer";
+import {ratingStars} from "../../constants/offer";
 import ReviewsList from "../reviews-list/reviews-list.jsx";
 import PlaceList from "../places-list/place-list.jsx";
 import Map from "../map/map.jsx";
@@ -117,7 +117,10 @@ export default function PlaceProperty({offer, nearOffers}) {
 
         {<Map
           pins={pins.concat(activePin)}
-          cityCoordinates={[52.38333, 4.9]}
+          cityCoordinates={{
+            coordinates: [48.85661, 2.351499],
+            zoom: 13,
+          }}
           classes={CardClasses.PROPERTY}/>}
 
       </section>
@@ -138,10 +141,12 @@ export default function PlaceProperty({offer, nearOffers}) {
 PlaceProperty.propTypes = {
   offer: PropTypes.exact({
     pictures: PropTypes.arrayOf(PropTypes.string),
+    previewImage: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.arrayOf(PropTypes.string),
     premium: PropTypes.bool,
-    type: PropTypes.oneOf(OfferInfo.TYPE),
+    favourite: PropTypes.bool,
+    type: PropTypes.string,
     rating: PropTypes.number,
     bedrooms: PropTypes.number,
     guests: PropTypes.number,
@@ -152,9 +157,9 @@ PlaceProperty.propTypes = {
       avatar: PropTypes.string,
       name: PropTypes.string,
       pro: PropTypes.bool,
+      id: PropTypes.number,
     }).isRequired,
     id: PropTypes.number,
-    reviwes: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
   nearOffers: PropTypes.arrayOf(PropTypes.object.isRequired),
 };

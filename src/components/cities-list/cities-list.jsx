@@ -34,14 +34,12 @@ function CitiesList({city: activeCity, onChooseCityClick}) {
 }
 
 CitiesList.propTypes = {
-  cities: PropTypes.arrayOf(PropTypes.string).isRequired,
   city: PropTypes.string.isRequired,
   onChooseCityClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  cities: state.cities,
-  city: state.city,
+  city: state.PAGE.city,
 });
 
 const mapDispatchToProps = (dispatch) => ({

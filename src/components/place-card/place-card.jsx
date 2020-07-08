@@ -2,11 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../redux/actions/actions.js";
-import {OfferInfo, ratingStars} from "../../constants/offer";
+import {ratingStars} from "../../constants/offer";
 
 
 export function PlaceCard({offer, onAdvertCardTitleClick, classes, onAdvertCardMouseOver, onAdvertCardMouseOut}) {
-  const {pictures, premium, cost, title, type, rating} = offer;
+  const {previewImage, premium, favourite, cost, title, type, rating} = offer;
 
   const handleOnAdvertCardTitle = () => onAdvertCardTitleClick(offer);
   const handleOnAdvertCardMouse = () => onAdvertCardMouseOver(offer);
@@ -22,7 +22,7 @@ export function PlaceCard({offer, onAdvertCardTitleClick, classes, onAdvertCardM
         : ``}
       <div className={`${classes.wrapper}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
-          <img className="place-card__image" src={pictures[0]} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </a>
       </div>
       <div className="place-card__info">
@@ -31,7 +31,9 @@ export function PlaceCard({offer, onAdvertCardTitleClick, classes, onAdvertCardM
             <b className="place-card__price-value">&euro;{cost}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button
+            className={`place-card__bookmark-button button ${favourite && `place-card__bookmark-button--active`}`}
+            type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -59,10 +61,12 @@ export function PlaceCard({offer, onAdvertCardTitleClick, classes, onAdvertCardM
 PlaceCard.propTypes = {
   offer: PropTypes.exact({
     pictures: PropTypes.arrayOf(PropTypes.string),
+    previewImage: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.arrayOf(PropTypes.string),
     premium: PropTypes.bool,
-    type: PropTypes.oneOf(OfferInfo.TYPE),
+    favourite: PropTypes.bool,
+    type: PropTypes.string,
     rating: PropTypes.number,
     bedrooms: PropTypes.number,
     guests: PropTypes.number,
@@ -73,9 +77,9 @@ PlaceCard.propTypes = {
       avatar: PropTypes.string,
       name: PropTypes.string,
       pro: PropTypes.bool,
+      id: PropTypes.number,
     }).isRequired,
     id: PropTypes.number,
-    reviwes: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
   classes: PropTypes.object.isRequired,
   onAdvertCardTitleClick: PropTypes.func,

@@ -1,9 +1,7 @@
 import {City} from "../../constants/page.js";
 import {parse} from "../../api/parser.js"
 import {nearOffers} from "../../mocks/near-offers.js";
-// import {offers} from "../../mocks/offers";
 
-// const cities = offers.map((offer) => offer.city);
 
 const ActionType = {
   GET_OFFERS: `GET_OFFERS`,
@@ -11,7 +9,7 @@ const ActionType = {
 
 const initialState = {
   offers: null,
-  nearOffers: null,
+  nearOffers,
 };
 
 const ActionCreator = {
@@ -33,8 +31,8 @@ const Operation = {
           offers.set(offer.city.name, {
             city: offer.city.name,
             cityCoordinates: {
-              coordinates: [offer.location.latitude, offer.location.longitude],
-              zoom: offer.location.zoom,
+              coordinates: [offer.city.location.latitude, offer.city.location.longitude],
+              zoom: offer.city.location.zoom,
             },
             offers: [offer]
           });
