@@ -1,17 +1,8 @@
 import {offers} from "../mocks/offers";
-import {PageType} from "../constants/page.js";
+import {PageType, City} from "../constants/page.js";
 import {nearOffers} from "../mocks/near-offers.js";
 import {ActionType} from "./actions/actions.js";
 
-
-const City = {
-  PARIS: `Paris`,
-  COLOGNE: `Cologne`,
-  BRUSSELS: `Brussels`,
-  AMSTERDAM: `Amsterdam`,
-  HAMBURG: `Hamburg`,
-  DUSSELDORF: `Dusseldorf`,
-};
 
 const cities = offers.map((offer) => offer.city);
 

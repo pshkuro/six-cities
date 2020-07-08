@@ -117,6 +117,10 @@ const props = {
 
 const mockStore = configureStore([]);
 
+window.Intl.DateTimeFormat = class {
+  format() {}
+};
+
 describe(`App render right page depending on type`, () => {
 
   it(`App render main page when page type - main`, () => {

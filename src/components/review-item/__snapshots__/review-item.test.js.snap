@@ -56,7 +56,7 @@ exports[`ReviewItem render 1`] = `
       className="reviews__time"
       dateTime=""
     >
-      12 April
+      April 12
     </time>
   </div>
 </li>

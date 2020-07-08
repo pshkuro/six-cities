@@ -1,15 +1,6 @@
 import {offers} from "../../mocks/offers.js";
-import {PageType} from "../../constants/page.js";
+import {PageType, City} from "../../constants/page.js";
 
-
-const City = {
-  PARIS: `Paris`,
-  COLOGNE: `Cologne`,
-  BRUSSELS: `Brussels`,
-  AMSTERDAM: `Amsterdam`,
-  HAMBURG: `Hamburg`,
-  DUSSELDORF: `Dusseldorf`,
-};
 
 const ActionType = {
   GET_OFFERS: `GET_OFFERS`,
@@ -18,6 +9,7 @@ const ActionType = {
   MAKE_OFFER_ACTIVE: `MAKE_OFFER_ACTIVE`,
   MAKE_OFFER_INACTIVE: `MAKE_CARD_INACTIVE`,
 };
+
 
 const ActionCreator = {
   getOffers: () => {

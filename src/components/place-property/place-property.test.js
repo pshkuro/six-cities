@@ -65,6 +65,10 @@ const props = {
   ]
 };
 
+window.Intl.DateTimeFormat = class {
+  format() {}
+};
+
 const mockStore = configureStore([]);
 
 it(`Render PlaceProperty`, () => {
@@ -72,6 +76,7 @@ it(`Render PlaceProperty`, () => {
     onAdvertCardMouseOver: jest.fn(),
     onAdvertCardMouseOut: jest.fn(),
   });
+
 
   const tree = renderer
   .create(

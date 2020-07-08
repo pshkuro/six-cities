@@ -68,6 +68,9 @@ const props = {
 
 const mockStore = configureStore([]);
 
+window.Intl.DateTimeFormat = class {
+  format() {}
+};
 
 it(`Map render the same active pin that get to place property`, () => {
   const store = mockStore({
