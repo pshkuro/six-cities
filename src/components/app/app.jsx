@@ -7,6 +7,8 @@ import Main from "../main/main.jsx";
 import PlaceScreen from "../place-screen/place-screen.jsx";
 import PlaceProperty from "../place-property/place-property.jsx";
 import {PageType} from "../../constants/page.js";
+import {getCityOffers, getNearOffers} from "../../reducer/data/selectors.js";
+import {getPropertyOffer, getPageStep, getActiveOffer} from "../../reducer/page/selectors.js";
 
 class App extends PureComponent {
   render() {
@@ -74,11 +76,11 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.DATA.offers,
-  propertyOffer: state.PAGE.propertyOffer,
-  nearOffers: state.DATA.nearOffers,
-  step: state.PAGE.step,
-  activeOffer: state.PAGE.activeOffer,
+  offers: getCityOffers(state),
+  propertyOffer: getPropertyOffer(state),
+  nearOffers: getNearOffers(state),
+  step: getPageStep(state),
+  activeOffer: getActiveOffer(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

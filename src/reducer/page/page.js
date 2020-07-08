@@ -1,4 +1,3 @@
-import {offers} from "../../mocks/offers";
 import {City, PageType} from "../../constants/page.js";
 
 
@@ -10,6 +9,7 @@ const initialState = {
 };
 
 const ActionType = {
+  GET_OFFERS: `GET_OFFERS`,
   CHOOSE_CITY: `CHOOSE_CITY`,
   CHANGE_PAGE_TYPE: `CHANGE_PAGE_TYPE`,
   MAKE_OFFER_ACTIVE: `MAKE_OFFER_ACTIVE`,
@@ -22,9 +22,6 @@ const ActionCreator = {
       {
         type: ActionType.CHOOSE_CITY,
         city: activeCity,
-        get offers() {
-          return offers.find((offer) => offer.city === this.city);
-        }
       }
     );
   },
@@ -58,6 +55,7 @@ const ActionCreator = {
   },
 
 };
+
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

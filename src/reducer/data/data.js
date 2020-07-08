@@ -1,4 +1,3 @@
-import {City} from "../../constants/page.js";
 import {parse} from "../../api/parser.js";
 import {nearOffers} from "../../mocks/near-offers.js";
 
@@ -16,7 +15,7 @@ const ActionCreator = {
   getOffers: (offers) => {
     return ({
       type: ActionType.GET_OFFERS,
-      availableOffers: offers.find((offer) => offer.city === City.PARIS),
+      availableOffers: offers,
     });
   }
 };

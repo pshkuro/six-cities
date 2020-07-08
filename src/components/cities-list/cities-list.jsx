@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../redux/actions/actions.js";
 import {City} from "../../constants/page.js";
+import {getActiveCity} from "../../reducer/page/selectors.js";
 
 const cities = Object.values(City);
 
@@ -39,7 +40,7 @@ CitiesList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  city: state.PAGE.city,
+  city: getActiveCity(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
