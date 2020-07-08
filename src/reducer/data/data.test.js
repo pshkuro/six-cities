@@ -2,6 +2,7 @@ import MockAdapter from "axios-mock-adapter";
 import {createAPI} from "../../api/api.js";
 import {reducer, ActionType, ActionCreator, Operation} from "./data.js";
 import {nearOffers} from "../../mocks/near-offers";
+import {mockOffers, cityOffers} from "./data-mock.js";
 
 const offers = [
   {
@@ -154,36 +155,38 @@ const offers = [
 const initialState = {
   offers: null,
   nearOffers,
+  cities: null,
 };
 
 const api = createAPI(() => {});
 
-describe(`Actions to get data work correctly`, () => {
+describe(`Data Reducer Actions to get data work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(reducer(undefined, {})).toEqual({
       offers: null,
       nearOffers,
+      cities: null,
     });
   });
 
   it(`The reducer get offers when page mount`, () => {
     expect(reducer(initialState, {
       type: ActionType.GET_OFFERS,
-      availableOffers: offers.find((offer) => offer.city === `Paris`),
+      availableOffers: offers,
     })).toEqual(Object.assign(initialState, {
-      offers: offers.find((offer) => offer.city === `Paris`),
+      offers,
     }));
   });
 
   it(`Action creators of get offers returns correct action`, () => {
     expect(ActionCreator.getOffers(offers)).toEqual({
       type: ActionType.GET_OFFERS,
-      availableOffers: offers.find((offer) => offer.city === `Paris`),
+      availableOffers: offers,
     });
   });
 });
 
-describe(`Data operation work correctly`, () => {
+describe(`Data Reducer operation work correctly`, () => {
   it(`Should make a correct API call to /questions`, function () {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
@@ -191,14 +194,14 @@ describe(`Data operation work correctly`, () => {
 
     apiMock
       .onGet(`/hotels`)
-      .reply(200, [{fake: true}]);
+      .reply(200, mockOffers, {});
 
     return offersLoader(dispatch, () => {}, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.GET_OFFERS,
-          availableOffers: [{fake: true}],
+          availableOffers: cityOffers,
         });
       });
   });

@@ -1,5 +1,6 @@
 import {parse} from "../../api/parser.js";
 import {nearOffers} from "../../mocks/near-offers.js";
+import ErrorComponent from "../../components/error/error.jsx";
 
 
 const ActionType = {
@@ -8,6 +9,7 @@ const ActionType = {
 
 const initialState = {
   offers: null,
+  cities: null,
   nearOffers,
 };
 
@@ -19,6 +21,7 @@ const ActionCreator = {
     });
   }
 };
+
 
 const Operation = {
   getOffers: () => (dispatch, getState, api) => {
@@ -43,6 +46,9 @@ const Operation = {
       })
       .then((data) => {
         dispatch(ActionCreator.getOffers(data));
+      })
+      .catch(() => {
+        throw ErrorComponent;
       });
   },
 };

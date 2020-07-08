@@ -1,5 +1,5 @@
 import {reducer, ActionType, ActionCreator} from "./page.js";
-import {PageType} from "../constants/page";
+import {PageType} from "../../constants/page.js";
 
 
 const initialState = {
@@ -10,16 +10,14 @@ const initialState = {
 };
 
 
-describe(`Reducer tests`, () => {
+describe(`Page Reducer tests`, () => {
 
   it(`The reducer change city to new one`, () => {
     expect(reducer(initialState, {
       type: ActionType.CHOOSE_CITY,
       city: `Brussels`,
-      offers: offers.find((offer) => offer.city === `Brussels`),
     })).toEqual(Object.assign(initialState, {
       city: `Brussels`,
-      offers: offers.find((offer) => offer.city === `Brussels`),
     }));
   });
 
@@ -137,7 +135,6 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreator.chooseCity(activeCity)).toEqual({
       type: ActionType.CHOOSE_CITY,
       city: activeCity,
-      offers: offers.find((offer) => offer.city === activeCity),
     });
   });
 

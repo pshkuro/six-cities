@@ -5,6 +5,7 @@ import {CitiesList} from "./cities-list.jsx";
 const props = {
   city: `Moscow`,
   onChooseCityClick: jest.fn(),
+  cities: [`Paris`, `Moscow`],
 };
 
 it(`CitiesList render`, () => {

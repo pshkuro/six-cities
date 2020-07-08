@@ -12,11 +12,18 @@ const getActiveCity = (state) => {
 export const getCityOffers = createSelector(
     getOffers,
     getActiveCity,
-    (resultOne, resultTwo) => {
-      return resultOne ? resultOne.find((offer) => offer.city === resultTwo) : null;
+    (offers, city) => {
+      return offers ? offers.find((offer) => offer.city === city) : null;
     }
 );
 
 export const getNearOffers = (state) => {
   return state[NameSpace.DATA].nearOffers;
 };
+
+export const getCities = createSelector(
+    getOffers,
+    (offers) => {
+      return offers.map((offer) => offer.city);
+    }
+);

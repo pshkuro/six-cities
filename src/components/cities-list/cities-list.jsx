@@ -2,12 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../redux/actions/actions.js";
-import {City} from "../../constants/page.js";
 import {getActiveCity} from "../../reducer/page/selectors.js";
+import {getCities} from "../../reducer/data/selectors.js";
 
-const cities = Object.values(City);
 
-function CitiesList({city: activeCity, onChooseCityClick}) {
+function CitiesList({city: activeCity, onChooseCityClick, cities}) {
   return (
     <div className="tabs">
       <section className="locations container">
@@ -37,10 +36,12 @@ function CitiesList({city: activeCity, onChooseCityClick}) {
 CitiesList.propTypes = {
   city: PropTypes.string.isRequired,
   onChooseCityClick: PropTypes.func.isRequired,
+  cities: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: getActiveCity(state),
+  cities: getCities(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
