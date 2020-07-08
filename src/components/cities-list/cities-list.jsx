@@ -1,17 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../redux/actions/actions.js";
+import {ActionCreator} from "../../reducer/page/page.js";
 import {getActiveCity} from "../../reducer/page/selectors.js";
 import {getCities} from "../../reducer/data/selectors.js";
 
 
-function CitiesList({city: activeCity, onChooseCityClick, cities}) {
+function CitiesList({city: activeCity, onChooseCityClick, cities, setDefaultCity}) {
   return (
     <div className="tabs">
       <section className="locations container">
         <ul className="locations__list tabs__list">
-
+          {activeCity === null && setDefaultCity(cities[0])}
           {cities.map((city) => {
             const onClick = () => onChooseCityClick(city);
             return (
@@ -34,8 +34,9 @@ function CitiesList({city: activeCity, onChooseCityClick, cities}) {
 }
 
 CitiesList.propTypes = {
-  city: PropTypes.string.isRequired,
+  city: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(null)]),
   onChooseCityClick: PropTypes.func.isRequired,
+  setDefaultCity: PropTypes.func,
   cities: PropTypes.array.isRequired,
 };
 
@@ -48,6 +49,10 @@ const mapDispatchToProps = (dispatch) => ({
   onChooseCityClick(city) {
     dispatch(ActionCreator.chooseCity(city));
   },
+
+  setDefaultCity(city) {
+    dispatch(ActionCreator.chooseCity(city));
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CitiesList);

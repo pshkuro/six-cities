@@ -70,7 +70,7 @@ const props = {
         pro: true,
         id: 12,
       },
-      id: 8989,
+      id: 80989,
     }],
   activeSortingType: `popular`,
   onSortingListItemClick: jest.fn((x) => x),

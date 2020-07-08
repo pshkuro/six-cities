@@ -18,3 +18,4 @@ export const getActiveCity = (state) => {
   return state[NAME_SPACE].city;
 };
 
+

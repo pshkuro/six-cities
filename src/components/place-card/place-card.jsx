@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../redux/actions/actions.js";
+import {ActionCreator} from "../../reducer/page/page.js";
 import {ratingStars} from "../../constants/offer";
 
 

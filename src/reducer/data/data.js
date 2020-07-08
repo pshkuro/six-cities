@@ -1,15 +1,16 @@
 import {parse} from "../../api/parser.js";
 import {nearOffers} from "../../mocks/near-offers.js";
-import ErrorComponent from "../../components/error/error.jsx";
 
 
 const ActionType = {
   GET_OFFERS: `GET_OFFERS`,
+  LOAD_ERROR: `LOAD_ERROR`,
 };
 
 const initialState = {
   offers: null,
   cities: null,
+  error: false,
   nearOffers,
 };
 
@@ -18,6 +19,13 @@ const ActionCreator = {
     return ({
       type: ActionType.GET_OFFERS,
       availableOffers: offers,
+    });
+  },
+
+  offersLoadError: () => {
+    return ({
+      type: ActionType.LOAD_ERROR,
+      error: true,
     });
   }
 };
@@ -48,7 +56,7 @@ const Operation = {
         dispatch(ActionCreator.getOffers(data));
       })
       .catch(() => {
-        throw ErrorComponent;
+        dispatch(ActionCreator.offersLoadError());
       });
   },
 };
@@ -59,6 +67,12 @@ const reducer = (state = initialState, action) => {
       const {availableOffers} = action;
       return Object.assign({}, state, {
         offers: availableOffers,
+      });
+
+    case ActionType.LOAD_ERROR:
+      const {error} = action;
+      return Object.assign({}, state, {
+        error,
       });
   }
 

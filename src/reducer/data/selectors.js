@@ -13,7 +13,17 @@ export const getCityOffers = createSelector(
     getOffers,
     getActiveCity,
     (offers, city) => {
-      return offers ? offers.find((offer) => offer.city === city) : null;
+      let cityOffers;
+      if (offers) {
+        if (city) {
+          cityOffers = offers.find((offer) => offer.city === city);
+        } else {
+          cityOffers = offers.find((offer) => offer.city === offers[0].city);
+        }
+      } else {
+        cityOffers = null;
+      }
+      return cityOffers;
     }
 );
 
@@ -27,3 +37,7 @@ export const getCities = createSelector(
       return offers.map((offer) => offer.city);
     }
 );
+
+export const getError = (state) => {
+  return state[NameSpace.DATA].error;
+};

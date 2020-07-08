@@ -65,7 +65,8 @@ const props = {
         pro: true,
       },
       id: 12},
-  ]
+  ],
+  reviews: [],
 };
 
 window.Intl.DateTimeFormat = class {

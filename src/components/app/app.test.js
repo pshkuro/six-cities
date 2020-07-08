@@ -32,7 +32,7 @@ const props = {
           pro: true,
           id: 12,
         },
-        id: 8989,
+        id: 89089,
       }, {
         previewImage: `img/apartment-01.jpg`,
         pictures: [`img/apartment-01.jpg`],
@@ -122,6 +122,7 @@ const props = {
   activeOffer: null,
   propertyOffer: null,
   getOffers: jest.fn(),
+  error: false,
 };
 
 const mockOffers = {

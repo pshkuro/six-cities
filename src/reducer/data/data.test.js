@@ -156,6 +156,7 @@ const initialState = {
   offers: null,
   nearOffers,
   cities: null,
+  error: false,
 };
 
 const api = createAPI(() => {});
@@ -166,6 +167,7 @@ describe(`Data Reducer Actions to get data work correctly`, () => {
       offers: null,
       nearOffers,
       cities: null,
+      error: false,
     });
   });
 
@@ -182,6 +184,13 @@ describe(`Data Reducer Actions to get data work correctly`, () => {
     expect(ActionCreator.getOffers(offers)).toEqual({
       type: ActionType.GET_OFFERS,
       availableOffers: offers,
+    });
+  });
+
+  it(`Action creators of error returns correct action`, () => {
+    expect(ActionCreator.offersLoadError()).toEqual({
+      type: ActionType.LOAD_ERROR,
+      error: true,
     });
   });
 });

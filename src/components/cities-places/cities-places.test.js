@@ -28,7 +28,7 @@ const props = {
         pro: true,
         id: 12,
       },
-      id: 8989,
+      id: 80989,
     }, {
       previewImage: `img/apartment-01.jpg`,
       pictures: [`img/apartment-01.jpg`],

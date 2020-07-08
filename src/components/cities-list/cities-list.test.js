@@ -6,6 +6,7 @@ const props = {
   city: `Moscow`,
   onChooseCityClick: jest.fn(),
   cities: [`Paris`, `Moscow`],
+  setDefaultCity: jest.fn(),
 };
 
 it(`CitiesList render`, () => {

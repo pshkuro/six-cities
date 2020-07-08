@@ -34,7 +34,7 @@ const props = {
           pro: true,
           id: 12,
         },
-        id: 8989,
+        id: 89089,
       }, {
         previewImage: `img/apartment-01.jpg`,
         pictures: [`img/apartment-01.jpg`],
@@ -124,6 +124,7 @@ const props = {
   step: `main`,
   onAdvertCardTitleClick: jest.fn(),
   getOffers: jest.fn(),
+  error: false,
 };
 
 const mockOffers = {
@@ -155,7 +156,7 @@ const mockOffers = {
             pro: true,
             id: 12,
           },
-          id: 8989,
+          id: 89089,
         }, {
           previewImage: `img/apartment-01.jpg`,
           pictures: [`img/apartment-01.jpg`],
@@ -326,8 +327,6 @@ describe(`App render right page depending on type`, () => {
         pro: false,
       },
       id: 909,
-      reviwes: [{id: 1}, {id: 5}],
-
     };
 
     const appComponent = mount(

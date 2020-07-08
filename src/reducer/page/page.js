@@ -1,8 +1,6 @@
-import {City, PageType} from "../../constants/page.js";
-
-
+import {PageType} from "../../constants/page.js";
 const initialState = {
-  city: City.PARIS,
+  city: null,
   step: PageType.MAIN,
   propertyOffer: null,
   activeOffer: null,

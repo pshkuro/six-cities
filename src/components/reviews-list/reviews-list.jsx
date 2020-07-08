@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import ReviewItem from "../review-item/review-item.jsx";
 
-export default function ReviewsList({reviews}) {
+export default function ReviewsList({reviews = []}) {
   const sortedReviews = reviews && reviews.slice().sort((a, b) => new Date(b) - new Date(a));
   const reviewsNumber = !reviews || (reviews && reviews.length === 0) ? 0 : reviews.length;
 
