@@ -30,25 +30,29 @@ const ActionCreator = {
   }
 };
 
+const parseHotels = (hotels) => {
+  return hotels.reduce((offers, offer) => {
+    if (offers.has(offer.city.name)) {
+      offers.get(offer.city.name).offers.push(offer);
+    } else {
+      offers.set(offer.city.name, {
+        city: offer.city.name,
+        cityCoordinates: {
+          coordinates: [offer.city.location.latitude, offer.city.location.longitude],
+          zoom: offer.city.location.zoom,
+        },
+        offers: [offer]
+      });
+    }
+    return offers;
+  }, new Map());
+};
+
 
 const Operation = {
   getOffers: () => (dispatch, getState, api) => {
     return api.get(`/hotels`)
-      .then((response) => response.data.reduce((offers, offer) => {
-        if (offers.has(offer.city.name)) {
-          offers.get(offer.city.name).offers.push(offer);
-        } else {
-          offers.set(offer.city.name, {
-            city: offer.city.name,
-            cityCoordinates: {
-              coordinates: [offer.city.location.latitude, offer.city.location.longitude],
-              zoom: offer.city.location.zoom,
-            },
-            offers: [offer]
-          });
-        }
-        return offers;
-      }, new Map()))
+      .then((response) => parseHotels(response.data))
       .then((data) => {
         return Array.from(data.values()).map((offer) => (Object.assign(offer, {offers: offer.offers.map(parse)})));
       })
@@ -60,6 +64,7 @@ const Operation = {
       });
   },
 };
+
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
