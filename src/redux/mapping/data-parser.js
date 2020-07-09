@@ -1,4 +1,4 @@
-export const parse = (data) => {
+export const parseData = (data) => {
   const {
     bedrooms,
     description,

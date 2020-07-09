@@ -2,17 +2,14 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/page/page.js";
+import {ActionCreator} from "../../redux/page/page.js";
 import Main from "../main/main.jsx";
 import PlaceScreen from "../place-screen/place-screen.jsx";
 import PlaceProperty from "../place-property/place-property.jsx";
 import ErrorComponent from "../error/error.jsx";
 import {PageType} from "../../constants/page.js";
-import {getCityOffers, getNearOffers, getError} from "../../reducer/data/selectors.js";
-import {getPropertyOffer, getPageStep, getActiveOffer} from "../../reducer/page/selectors.js";
-import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
-import {Operation as DataOperation} from "../../reducer/user/user.js";
-import SignIn from "../sign-in/sign-in.jsx";
+import {getCityOffers, getNearOffers, getError} from "../../redux/offersData/selectors.js";
+import {getPropertyOffer, getPageStep, getActiveOffer} from "../../redux/page/selectors.js";
 
 class App extends PureComponent {
   render() {
@@ -40,15 +37,7 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {
-      offers,
-      nearOffers,
-      onAdvertCardTitleClick,
-      step, propertyOffer,
-      activeOffer,
-      authorizationStatus,
-      login
-    } = this.props;
+    const {offers, nearOffers, onAdvertCardTitleClick, step, propertyOffer, activeOffer} = this.props;
 
     if (offers === null) {
       return null;
@@ -59,7 +48,6 @@ class App extends PureComponent {
         return (
           <PlaceScreen
             type={step}
-            authorizationStatus={authorizationStatus}
             color="gray">
             <Main offers={offers}
               onAdvertCardTitleClick={onAdvertCardTitleClick}
@@ -70,23 +58,11 @@ class App extends PureComponent {
       case PageType.DETAILS:
         return (
           <PlaceScreen
-            type={step}
-            authorizationStatus={authorizationStatus}>
+            type={step}>
             <PlaceProperty offer={propertyOffer}
               nearOffers={nearOffers}/>
           </PlaceScreen>
         );
-
-      case PageType.SIGN_IN:
-        return (
-          <PlaceScreen
-            type="login"
-            authorizationStatus={authorizationStatus}
-            color="gray">
-            <SignIn/>
-          </PlaceScreen>
-        );
-
 
       default: return null;
     }
@@ -98,12 +74,10 @@ App.propTypes = {
   offers: PropTypes.object,
   nearOffers: PropTypes.array.isRequired,
   onAdvertCardTitleClick: PropTypes.func.isRequired,
-  login: PropTypes.func.isRequired,
-  step: PropTypes.oneOf([PageType.MAIN, PageType.DETAILS, PageType.SIGN_IN]).isRequired,
+  step: PropTypes.oneOf([PageType.MAIN, PageType.DETAILS]).isRequired,
   propertyOffer: PropTypes.object,
   activeOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(null)]),
   error: PropTypes.bool.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -113,17 +87,12 @@ const mapStateToProps = (state) => ({
   step: getPageStep(state),
   activeOffer: getActiveOffer(state),
   error: getError(state),
-  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onAdvertCardTitleClick(step, offer) {
-    dispatch(ActionCreator.changePageType(step, offer));
+  onAdvertCardTitleClick(offer) {
+    dispatch(ActionCreator.changePageType(offer));
   },
-
-  login(authData) {
-    dispatch(DataOperation.login(authData));
-  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
