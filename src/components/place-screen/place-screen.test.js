@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import PlaceScreen from "./place-screen.jsx";
+import {PlaceScreen} from "./place-screen.jsx";
 import {PageType} from "../../constants/page.js";
 
 const props = [
@@ -9,11 +9,15 @@ const props = [
     color: `gray`,
     type: PageType.MAIN,
     authorizationStatus: `NO_AUTH`,
+    onPageHeaderSignInClick: jest.fn(),
+    onHeaderLogoClick: jest.fn(),
   },
   {
     children: <div className="children-component" />,
     type: PageType.DETAILS,
     authorizationStatus: `NO_AUTH`,
+    onPageHeaderSignInClick: jest.fn(),
+    onHeaderLogoClick: jest.fn(),
   },
 ];
 

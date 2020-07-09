@@ -1,22 +1,33 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer/page/page.js";
 import {PageType} from "../../constants/page.js";
 
-export default function PlaceScreen({children, color, type, authorizationStatus}) {
+export function PlaceScreen({children, color, type, authorizationStatus, onPageHeaderSignInClick, onHeaderLogoClick}) {
+  const handleHeaderLogoClick = () => onHeaderLogoClick(PageType.MAIN);
   const isAuthorized = authorizationStatus === `NO_AUTH` ?
-    <span className="header__login">Sign in</span>
+    <span
+      className="header__login"
+      onClick={() => onPageHeaderSignInClick(PageType.SIGN_IN)}>
+    Sign in
+    </span>
     : <span className="header__user-name user__name">Oliver.conner@gmail.com</span>;
+
   return (
     <div className={`page
-      ${color ? `page--${color}` : ``}
+      ${color && `page--${color}`}
       ${type && `page--${type}`}
     `}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
+              <a className="header__logo-link" href="#">
+                <img
+                  className="header__logo"
+                  onClick={handleHeaderLogoClick}
+                  src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
               </a>
             </div>
             <nav className="header__nav">
@@ -44,8 +55,22 @@ PlaceScreen.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]).isRequired,
-  type: PropTypes.oneOf([PageType.MAIN, PageType.DETAILS]).isRequired,
+  type: PropTypes.string.isRequired,
   color: PropTypes.string,
   authorizationStatus: PropTypes.string.isRequired,
+  onPageHeaderSignInClick: PropTypes.func.isRequired,
+  onHeaderLogoClick: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  onPageHeaderSignInClick(step) {
+    dispatch(ActionCreator.changePageType(step));
+  },
+
+  onHeaderLogoClick(step) {
+    dispatch(ActionCreator.changePageType(step));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(PlaceScreen);
 

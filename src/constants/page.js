@@ -17,6 +17,7 @@ export const City = {
 export const PageType = {
   MAIN: `main`,
   DETAILS: `details`,
+  SIGN_IN: `sign-in`,
 };
 
 export const CardClasses = {

@@ -12,6 +12,7 @@ import {getCityOffers, getNearOffers, getError} from "../../reducer/data/selecto
 import {getPropertyOffer, getPageStep, getActiveOffer} from "../../reducer/page/selectors.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import {Operation as DataOperation} from "../../reducer/user/user.js";
+import SignIn from "../sign-in/sign-in.jsx";
 
 class App extends PureComponent {
   render() {
@@ -76,6 +77,17 @@ class App extends PureComponent {
           </PlaceScreen>
         );
 
+      case PageType.SIGN_IN:
+        return (
+          <PlaceScreen
+            type="login"
+            authorizationStatus={authorizationStatus}
+            color="gray">
+            <SignIn/>
+          </PlaceScreen>
+        );
+
+
       default: return null;
     }
 
@@ -87,7 +99,7 @@ App.propTypes = {
   nearOffers: PropTypes.array.isRequired,
   onAdvertCardTitleClick: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
-  step: PropTypes.oneOf([PageType.MAIN, PageType.DETAILS]).isRequired,
+  step: PropTypes.oneOf([PageType.MAIN, PageType.DETAILS, PageType.SIGN_IN]).isRequired,
   propertyOffer: PropTypes.object,
   activeOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(null)]),
   error: PropTypes.bool.isRequired,
@@ -105,8 +117,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onAdvertCardTitleClick(offer) {
-    dispatch(ActionCreator.changePageType(offer));
+  onAdvertCardTitleClick(step, offer) {
+    dispatch(ActionCreator.changePageType(step, offer));
   },
 
   login(authData) {
