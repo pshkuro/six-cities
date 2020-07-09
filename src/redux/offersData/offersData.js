@@ -1,5 +1,6 @@
-import {parse} from "../../api/parser.js";
+import {parseData} from "../mapping/data-parser.js";
 import {nearOffers} from "../../mocks/near-offers.js";
+import {getHotels} from "../../api/clients.js";
 
 
 const ActionType = {
@@ -51,10 +52,10 @@ const parseHotels = (hotels) => {
 
 const Operation = {
   getOffers: () => (dispatch, getState, api) => {
-    return api.get(`/hotels`)
+    return getHotels(api)
       .then((response) => parseHotels(response.data))
       .then((data) => {
-        return Array.from(data.values()).map((offer) => (Object.assign(offer, {offers: offer.offers.map(parse)})));
+        return Array.from(data.values()).map((offer) => (Object.assign(offer, {offers: offer.offers.map(parseData)})));
       })
       .then((data) => {
         dispatch(ActionCreator.getOffers(data));

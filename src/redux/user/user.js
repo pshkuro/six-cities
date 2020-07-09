@@ -1,3 +1,5 @@
+import {getAuthorizationStatus} from "../../api/clients.js";
+
 const AuthorizationStatus = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`,
@@ -33,7 +35,7 @@ const reducer = (state = initialState, action) => {
 
 const Operation = {
   checkAuth: () => (dispatch, getState, api) => {
-    return api.get(`/login`)
+    return getAuthorizationStatus(api)
       .then(() => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
       })

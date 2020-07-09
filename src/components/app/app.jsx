@@ -2,14 +2,14 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/page/page.js";
+import {ActionCreator} from "../../redux/page/page.js";
 import Main from "../main/main.jsx";
 import PlaceScreen from "../place-screen/place-screen.jsx";
 import PlaceProperty from "../place-property/place-property.jsx";
 import ErrorComponent from "../error/error.jsx";
 import {PageType} from "../../constants/page.js";
-import {getCityOffers, getNearOffers, getError} from "../../reducer/data/selectors.js";
-import {getPropertyOffer, getPageStep, getActiveOffer} from "../../reducer/page/selectors.js";
+import {getCityOffers, getNearOffers, getError} from "../../redux/offersData/selectors.js";
+import {getPropertyOffer, getPageStep, getActiveOffer} from "../../redux/page/selectors.js";
 
 class App extends PureComponent {
   render() {
