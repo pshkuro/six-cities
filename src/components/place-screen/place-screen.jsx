@@ -2,7 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import {PageType} from "../../constants/page.js";
 
-export default function PlaceScreen({children, color, type}) {
+export default function PlaceScreen({children, color, type, authorizationStatus}) {
+  const isAuthorized = authorizationStatus === `NO_AUTH` ?
+    <span className="header__login">Sign in</span>
+    : <span className="header__user-name user__name">Oliver.conner@gmail.com</span>;
   return (
     <div className={`page
       ${color ? `page--${color}` : ``}
@@ -22,7 +25,7 @@ export default function PlaceScreen({children, color, type}) {
                   <a className="header__nav-link header__nav-link--profile" href="#">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    {isAuthorized}
                   </a>
                 </li>
               </ul>
@@ -43,5 +46,6 @@ PlaceScreen.propTypes = {
   ]).isRequired,
   type: PropTypes.oneOf([PageType.MAIN, PageType.DETAILS]).isRequired,
   color: PropTypes.string,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 

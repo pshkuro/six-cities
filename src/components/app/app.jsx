@@ -10,6 +10,8 @@ import ErrorComponent from "../error/error.jsx";
 import {PageType} from "../../constants/page.js";
 import {getCityOffers, getNearOffers, getError} from "../../reducer/data/selectors.js";
 import {getPropertyOffer, getPageStep, getActiveOffer} from "../../reducer/page/selectors.js";
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import {Operation as DataOperation} from "../../reducer/user/user.js";
 
 class App extends PureComponent {
   render() {
@@ -37,7 +39,15 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {offers, nearOffers, onAdvertCardTitleClick, step, propertyOffer, activeOffer} = this.props;
+    const {
+      offers,
+      nearOffers,
+      onAdvertCardTitleClick,
+      step, propertyOffer,
+      activeOffer,
+      authorizationStatus,
+      login
+    } = this.props;
 
     if (offers === null) {
       return null;
@@ -48,6 +58,7 @@ class App extends PureComponent {
         return (
           <PlaceScreen
             type={step}
+            authorizationStatus={authorizationStatus}
             color="gray">
             <Main offers={offers}
               onAdvertCardTitleClick={onAdvertCardTitleClick}
@@ -58,7 +69,8 @@ class App extends PureComponent {
       case PageType.DETAILS:
         return (
           <PlaceScreen
-            type={step}>
+            type={step}
+            authorizationStatus={authorizationStatus}>
             <PlaceProperty offer={propertyOffer}
               nearOffers={nearOffers}/>
           </PlaceScreen>
@@ -74,10 +86,12 @@ App.propTypes = {
   offers: PropTypes.object,
   nearOffers: PropTypes.array.isRequired,
   onAdvertCardTitleClick: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
   step: PropTypes.oneOf([PageType.MAIN, PageType.DETAILS]).isRequired,
   propertyOffer: PropTypes.object,
   activeOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(null)]),
   error: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -87,12 +101,17 @@ const mapStateToProps = (state) => ({
   step: getPageStep(state),
   activeOffer: getActiveOffer(state),
   error: getError(state),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onAdvertCardTitleClick(offer) {
     dispatch(ActionCreator.changePageType(offer));
   },
+
+  login(authData) {
+    dispatch(DataOperation.login(authData));
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
