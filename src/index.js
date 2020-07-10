@@ -7,7 +7,7 @@ import thunk from "redux-thunk";
 import {Provider} from "react-redux";
 import {createAPI} from "./api/api.js";
 import App from "./components/app/app.jsx";
-import {Operation as DataOperation} from "./redux/offersData/offersData.js";
+import {Operation as DataOperation} from "./redux/offers-data/offers-data.js";
 import {ActionCreator, AuthorizationStatus} from "./redux/user/user.js";
 import reducer from "./redux/reducers.js";
 

@@ -8,7 +8,7 @@ import PlaceScreen from "../place-screen/place-screen.jsx";
 import PlaceProperty from "../place-property/place-property.jsx";
 import ErrorComponent from "../error/error.jsx";
 import {PageType} from "../../constants/page.js";
-import {getCityOffers, getNearOffers, getError} from "../../redux/offersData/selectors.js";
+import {getCityOffers, getNearOffers, getError} from "../../redux/offers-data/selectors.js";
 import {getPropertyOffer, getPageStep, getActiveOffer} from "../../redux/page/selectors.js";
 
 class App extends PureComponent {
