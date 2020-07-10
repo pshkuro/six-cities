@@ -1,5 +1,5 @@
 const NameSpace = {
-  DATA: `DATA`,
+  OFFERS_DATA: `OFFERS_DATA`,
   PAGE: `PAGE`,
   USER: `USER`,
 };

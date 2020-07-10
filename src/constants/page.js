@@ -1,3 +1,8 @@
+export const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};
+
 export const SortingType = {
   DEFAULT: `popular`,
   TO_HIGHT: `to-high`,

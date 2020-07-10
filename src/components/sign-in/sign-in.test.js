@@ -3,7 +3,7 @@ import renderer from "react-test-renderer";
 import {SignIn} from "./sign-in.jsx";
 
 const props = {
-  onSubmit: jest.fn(),
+  onSignInFormSubmit: jest.fn(),
   onLocationSignInPageClick: jest.fn(),
 };
 

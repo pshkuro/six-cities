@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../redux/page/page.js";
 import {getProfile} from "../../redux/user/selectors.js";
-import {PageType} from "../../constants/page.js";
+import {PageType, AuthorizationStatus} from "../../constants/page.js";
 
 export function PlaceScreen({children, color, type, authorizationStatus, onPageHeaderSignInClick, onHeaderLogoClick, profile}) {
   const handleHeaderLogoClick = () => onHeaderLogoClick(PageType.MAIN);
   const handlePageHeaderSignInClick = () => onPageHeaderSignInClick(PageType.SIGN_IN);
-  const isAuthorized = authorizationStatus === `NO_AUTH` ?
+  const isAuthorized = authorizationStatus === AuthorizationStatus.NO_AUTH ?
     <span
       className="header__login"
       onClick={handlePageHeaderSignInClick}>

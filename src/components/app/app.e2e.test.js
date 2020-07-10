@@ -125,6 +125,8 @@ const props = {
   onAdvertCardTitleClick: jest.fn(),
   getOffers: jest.fn(),
   error: false,
+  login: jest.fn(),
+  authorizationStatus: `AUTH`,
 };
 
 const mockOffers = {
@@ -289,7 +291,10 @@ describe(`App render right page depending on type`, () => {
       PAGE: {
         city: `Moscow`,
       },
-      DATA: mockOffers,
+      OFFERS_DATA: mockOffers,
+      USER: {
+        profile: {},
+      }
     });
 
     const appComponent = mount(
@@ -306,7 +311,10 @@ describe(`App render right page depending on type`, () => {
       PAGE: {
         city: `Moscow`,
       },
-      DATA: mockOffers,
+      OFFERS_DATA: mockOffers,
+      USER: {
+        profile: {},
+      }
     });
 
     const activeOffer = {
@@ -347,7 +355,10 @@ describe(`App render right page depending on type`, () => {
       PAGE: {
         city: `Moscow`,
       },
-      DATA: mockOffers,
+      OFFERS_DATA: mockOffers,
+      USER: {
+        profile: {},
+      }
     });
 
     const appComponent = mount(

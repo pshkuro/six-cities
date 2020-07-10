@@ -123,6 +123,8 @@ const props = {
   propertyOffer: null,
   getOffers: jest.fn(),
   error: false,
+  login: jest.fn(),
+  authorizationStatus: `AUTH`
 };
 
 const mockOffers = {
@@ -281,7 +283,10 @@ it(`Render App`, () => {
     PAGE: {
       city: `Moscow`,
     },
-    DATA: mockOffers,
+    OFFERS_DATA: mockOffers,
+    USER: {
+      profile: {},
+    }
   });
 
   const tree = renderer

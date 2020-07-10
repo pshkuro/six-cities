@@ -1,9 +1,5 @@
 import {getAuthorizationStatus, postUserAuthorizationInfo} from "../../api/clients.js";
-
-const AuthorizationStatus = {
-  AUTH: `AUTH`,
-  NO_AUTH: `NO_AUTH`,
-};
+import {AuthorizationStatus} from "../../constants/page.js";
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
@@ -50,8 +46,9 @@ const reducer = (state = initialState, action) => {
 const Operation = {
   checkAuth: () => (dispatch, getState, api) => {
     return getAuthorizationStatus(api)
-      .then(() => {
+      .then((response) => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(ActionCreator.getProfile(response.data));
       })
       .catch((err) => {
         throw err;

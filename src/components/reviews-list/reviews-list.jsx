@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ReviewItem from "../review-item/review-item.jsx";
+import {AuthorizationStatus} from "../../constants/page.js";
 
 export default function ReviewsList({reviews = [], authorizationStatus}) {
   const sortedReviews = reviews && reviews.slice().sort((a, b) => new Date(b) - new Date(a));
@@ -17,7 +18,7 @@ export default function ReviewsList({reviews = [], authorizationStatus}) {
         })}
 
       </ul>
-      {authorizationStatus === `AUTH` &&
+      {authorizationStatus === AuthorizationStatus.AUTH &&
         <form className="reviews__form form" action="#" method="post">
           <label className="reviews__label form__label" htmlFor="review">Your review</label>
           <div className="reviews__rating-form form__rating">

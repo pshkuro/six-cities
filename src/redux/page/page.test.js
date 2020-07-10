@@ -160,10 +160,11 @@ describe(`Action creators work correctly`, () => {
       reviwes: [{id: 1}, {id: 5}],
 
     };
+    const step = PageType.DETAILS;
 
-    expect(ActionCreator.changePageType(propertyOffer)).toEqual({
+    expect(ActionCreator.changePageType(step, propertyOffer)).toEqual({
       type: ActionType.CHANGE_PAGE_TYPE,
-      step: PageType.DETAILS,
+      step,
       propertyOffer,
     });
   });

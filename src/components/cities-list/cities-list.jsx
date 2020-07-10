@@ -3,15 +3,10 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../redux/page/page.js";
 import {getActiveCity} from "../../redux/page/selectors.js";
-import {getCities} from "../../redux/offersData/selectors.js";
+import {getCities} from "../../redux/offers-data/selectors.js";
 
 
 class CitiesList extends PureComponent {
-  constructor(props) {
-    super(props);
-
-  }
-
   componentDidMount() {
     const {city: activeCity, cities, setDefaultCity} = this.props;
     return activeCity === null && setDefaultCity(cities[0]);

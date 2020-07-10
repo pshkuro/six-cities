@@ -1,6 +1,6 @@
 import MockAdapter from "axios-mock-adapter";
 import {createAPI} from "../../api/api.js";
-import {reducer, ActionType, ActionCreator, Operation} from "./offersData.js";
+import {reducer, ActionType, ActionCreator, Operation} from "./offers-data.js";
 import {nearOffers} from "../../mocks/near-offers";
 
 const cityOffers = [
@@ -342,7 +342,7 @@ describe(`Data Reducer Actions to get data work correctly`, () => {
 });
 
 describe(`Data Reducer operation work correctly`, () => {
-  it(`Should make a correct API call to /questions`, function () {
+  it(`Should make a correct API call to /hotels`, function () {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const offersLoader = Operation.getOffers();

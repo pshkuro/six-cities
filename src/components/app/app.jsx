@@ -9,7 +9,7 @@ import PlaceProperty from "../place-property/place-property.jsx";
 import ErrorComponent from "../error/error.jsx";
 import SignIn from "../sign-in/sign-in.jsx";
 import {PageType} from "../../constants/page.js";
-import {getCityOffers, getNearOffers, getError} from "../../redux/offersData/selectors.js";
+import {getCityOffers, getNearOffers, getError} from "../../redux/offers-data/selectors.js";
 import {getPropertyOffer, getPageStep, getActiveOffer} from "../../redux/page/selectors.js";
 import {getAuthorizationStatus} from "../../redux/user/selectors.js";
 import {Operation as DataOperation} from "../../redux/user/user.js";
