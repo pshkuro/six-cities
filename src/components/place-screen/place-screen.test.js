@@ -11,6 +11,9 @@ const props = [
     authorizationStatus: `NO_AUTH`,
     onPageHeaderSignInClick: jest.fn(),
     onHeaderLogoClick: jest.fn(),
+    profile: {
+      email: `pipa`,
+    }
   },
   {
     children: <div className="children-component" />,
@@ -18,6 +21,9 @@ const props = [
     authorizationStatus: `NO_AUTH`,
     onPageHeaderSignInClick: jest.fn(),
     onHeaderLogoClick: jest.fn(),
+    profile: {
+      email: `pipa`,
+    }
   },
 ];
 

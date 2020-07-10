@@ -1,18 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/page/page.js";
+import {ActionCreator} from "../../redux/page/page.js";
+import {getProfile} from "../../redux/user/selectors.js";
 import {PageType} from "../../constants/page.js";
 
-export function PlaceScreen({children, color, type, authorizationStatus, onPageHeaderSignInClick, onHeaderLogoClick}) {
+export function PlaceScreen({children, color, type, authorizationStatus, onPageHeaderSignInClick, onHeaderLogoClick, profile}) {
   const handleHeaderLogoClick = () => onHeaderLogoClick(PageType.MAIN);
+  const handlePageHeaderSignInClick = () => onPageHeaderSignInClick(PageType.SIGN_IN);
   const isAuthorized = authorizationStatus === `NO_AUTH` ?
     <span
       className="header__login"
-      onClick={() => onPageHeaderSignInClick(PageType.SIGN_IN)}>
+      onClick={handlePageHeaderSignInClick}>
     Sign in
     </span>
-    : <span className="header__user-name user__name">Oliver.conner@gmail.com</span>;
+    : <span className="header__user-name user__name">{profile && profile.email}</span>;
 
   return (
     <div className={`page
@@ -60,7 +62,12 @@ PlaceScreen.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   onPageHeaderSignInClick: PropTypes.func.isRequired,
   onHeaderLogoClick: PropTypes.func.isRequired,
+  profile: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(null)]),
 };
+
+const mapStateToProps = (state) => ({
+  profile: getProfile(state),
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onPageHeaderSignInClick(step) {
@@ -72,5 +79,5 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(null, mapDispatchToProps)(PlaceScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(PlaceScreen);
 

@@ -21,6 +21,7 @@ const props = {
       id: 14,
     }
   ],
+  authorizationStatus: `AUTH`,
 };
 
 it(`ReviewsList Render`, () => {
