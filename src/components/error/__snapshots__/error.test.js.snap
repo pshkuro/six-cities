@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReviewItem render 1`] = `
+<div
+  className="main"
+>
+  <img
+    src="https://i1.wp.com/neosmart.net/wiki/wp-content/uploads/sites/5/2015/07/0x00000109.jpg?ssl=1"
+    style={
+      Object {
+        "height": "100vh",
+        "objectFit": "cover",
+        "width": "100vw",
+      }
+    }
+  />
+</div>
+`;

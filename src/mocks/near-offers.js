@@ -17,6 +17,7 @@ const OfferInfo = {
 
 const generateNearOffer = (index) => {
   return {
+    previewImage: getRandomArrayItem(OfferInfo.PICTURES),
     pictures: shuffleArray([...OfferInfo.PICTURES]),
     title: getRandomArrayItem(OfferInfo.TITLE),
     description: OfferInfo.DESCRIPTION,

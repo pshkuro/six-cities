@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {OfferInfo, ratingStars} from "../../constants/offer";
+import {ratingStars} from "../../constants/offer";
 import ReviewsList from "../reviews-list/reviews-list.jsx";
 import PlaceList from "../places-list/place-list.jsx";
 import Map from "../map/map.jsx";
 import {CardClasses} from "../../constants/page.js";
 
 
-export default function PlaceProperty({offer, nearOffers}) {
-  const {pictures, title, description, premium, type, rating, bedrooms, guests, cost, conveniences, owner, id, reviwes} = offer;
+export default function PlaceProperty({offer, nearOffers, reviews}) {
+  const {pictures, title, description, premium, type, rating, bedrooms, guests, cost, conveniences, owner, id} = offer;
   const {avatar, name, pro} = owner;
   const isOwnerPro = pro ? `property__avatar-wrapper property__avatar-wrapper--pro` : ``;
   const pins = nearOffers.map((nearOffer) => ({
@@ -110,14 +110,17 @@ export default function PlaceProperty({offer, nearOffers}) {
               </div>
             </div>
 
-            {<ReviewsList reviews={reviwes}/>}
+            {<ReviewsList reviews={reviews}/>}
 
           </div>
         </div>
 
         {<Map
           pins={pins.concat(activePin)}
-          cityCoordinates={[52.38333, 4.9]}
+          cityCoordinates={{
+            coordinates: [48.85661, 2.351499],
+            zoom: 13,
+          }}
           classes={CardClasses.PROPERTY}/>}
 
       </section>
@@ -138,10 +141,12 @@ export default function PlaceProperty({offer, nearOffers}) {
 PlaceProperty.propTypes = {
   offer: PropTypes.exact({
     pictures: PropTypes.arrayOf(PropTypes.string),
+    previewImage: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.arrayOf(PropTypes.string),
     premium: PropTypes.bool,
-    type: PropTypes.oneOf(OfferInfo.TYPE),
+    favourite: PropTypes.bool,
+    type: PropTypes.string,
     rating: PropTypes.number,
     bedrooms: PropTypes.number,
     guests: PropTypes.number,
@@ -152,10 +157,12 @@ PlaceProperty.propTypes = {
       avatar: PropTypes.string,
       name: PropTypes.string,
       pro: PropTypes.bool,
+      id: PropTypes.number,
     }).isRequired,
     id: PropTypes.number,
-    reviwes: PropTypes.arrayOf(PropTypes.object),
+    reviews: PropTypes.array,
   }).isRequired,
   nearOffers: PropTypes.arrayOf(PropTypes.object.isRequired),
+  reviews: PropTypes.array,
 };
 

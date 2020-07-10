@@ -2,20 +2,21 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../redux/actions/actions.js";
+import {ActionCreator} from "../../redux/page/page.js";
 import Main from "../main/main.jsx";
 import PlaceScreen from "../place-screen/place-screen.jsx";
 import PlaceProperty from "../place-property/place-property.jsx";
+import ErrorComponent from "../error/error.jsx";
 import {PageType} from "../../constants/page.js";
+import {getCityOffers, getNearOffers, getError} from "../../redux/offers-data/selectors.js";
+import {getPropertyOffer, getPageStep, getActiveOffer} from "../../redux/page/selectors.js";
 
 class App extends PureComponent {
-  componentDidMount() {
-    const {getOffers} = this.props;
-    getOffers();
-  }
-
   render() {
-    const {offers, nearOffers} = this.props;
+    const {offers, nearOffers, error} = this.props;
+    if (error) {
+      return <ErrorComponent />;
+    }
     if (offers === null) {
       return null;
     }
@@ -75,23 +76,20 @@ App.propTypes = {
   onAdvertCardTitleClick: PropTypes.func.isRequired,
   step: PropTypes.oneOf([PageType.MAIN, PageType.DETAILS]).isRequired,
   propertyOffer: PropTypes.object,
-  getOffers: PropTypes.func.isRequired,
   activeOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(null)]),
+  error: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
-  propertyOffer: state.propertyOffer,
-  nearOffers: state.nearOffers,
-  step: state.step,
-  activeOffer: state.activeOffer,
+  offers: getCityOffers(state),
+  propertyOffer: getPropertyOffer(state),
+  nearOffers: getNearOffers(state),
+  step: getPageStep(state),
+  activeOffer: getActiveOffer(state),
+  error: getError(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getOffers() {
-    dispatch(ActionCreator.getOffers());
-  },
-
   onAdvertCardTitleClick(offer) {
     dispatch(ActionCreator.changePageType(offer));
   },

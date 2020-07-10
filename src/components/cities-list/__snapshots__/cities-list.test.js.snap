@@ -36,32 +36,6 @@ exports[`CitiesList render 1`] = `
           </span>
         </a>
       </li>
-      <li
-        className="locations__item"
-        onClick={[Function]}
-      >
-        <a
-          className="locations__item-link tabs__item  "
-          href="#"
-        >
-          <span>
-            Amsterdam
-          </span>
-        </a>
-      </li>
-      <li
-        className="locations__item"
-        onClick={[Function]}
-      >
-        <a
-          className="locations__item-link tabs__item  "
-          href="#"
-        >
-          <span>
-            Honkong
-          </span>
-        </a>
-      </li>
     </ul>
   </section>
 </div>

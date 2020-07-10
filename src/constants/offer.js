@@ -1,5 +1,5 @@
 export const OfferInfo = {
-  TYPE: [`Apartment`, `Room`, `House`, `Hotel`],
+  TYPE: [`apartment`, `room`, `house`, `hotel`],
 };
 
 export const ratingStars = {

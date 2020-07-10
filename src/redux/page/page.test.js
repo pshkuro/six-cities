@@ -1,45 +1,23 @@
-import {reducer} from "./reducer.js";
-import {ActionCreator, ActionType} from "./actions/actions.js";
-import {PageType} from "../constants/page";
-import {offers} from "../mocks/offers.js";
-import {nearOffers} from "../mocks/near-offers.js";
+import {reducer, ActionType, ActionCreator} from "./page.js";
+import {PageType} from "../../constants/page.js";
 
 
 const initialState = {
   city: `Paris`,
-  cities: [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`],
   step: PageType.MAIN,
   propertyOffer: null,
-  nearOffers,
-  offers: null,
   activeOffer: null,
 };
 
 
-describe(`Reducer tests`, () => {
-
-  it(`Reducer without additional parameters should return initial state`, () => {
-    expect(reducer(undefined, {})).toEqual(initialState);
-  });
-
-  it(`The reducer get offers when page mount`, () => {
-    expect(reducer(initialState, {
-      type: ActionType.GET_OFFERS,
-      availableOffers: offers.find((offer) => offer.city === `Paris`),
-    })).toEqual(Object.assign(initialState, {
-      offers: offers.find((offer) => offer.city === `Paris`),
-    }));
-  });
-
+describe(`Page Reducer tests`, () => {
 
   it(`The reducer change city to new one`, () => {
     expect(reducer(initialState, {
       type: ActionType.CHOOSE_CITY,
       city: `Brussels`,
-      offers: offers.find((offer) => offer.city === `Brussels`),
     })).toEqual(Object.assign(initialState, {
       city: `Brussels`,
-      offers: offers.find((offer) => offer.city === `Brussels`),
     }));
   });
 
@@ -157,7 +135,6 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreator.chooseCity(activeCity)).toEqual({
       type: ActionType.CHOOSE_CITY,
       city: activeCity,
-      offers: offers.find((offer) => offer.city === activeCity),
     });
   });
 
@@ -188,13 +165,6 @@ describe(`Action creators work correctly`, () => {
       type: ActionType.CHANGE_PAGE_TYPE,
       step: PageType.DETAILS,
       propertyOffer,
-    });
-  });
-
-  it(`Action creators of get offers returns correct action`, () => {
-    expect(ActionCreator.getOffers()).toEqual({
-      type: ActionType.GET_OFFERS,
-      availableOffers: offers.find((offer) => offer.city === `Paris`),
     });
   });
 
@@ -233,4 +203,3 @@ describe(`Action creators work correctly`, () => {
     });
   });
 });
-

@@ -3,9 +3,10 @@ import {shallow} from "enzyme";
 import {CitiesList} from "./cities-list.jsx";
 
 const props = {
-  cities: [`Paris`, `Moscow`, `Amsterdam`, `Honkong`],
   city: `Moscow`,
   onChooseCityClick: jest.fn(),
+  cities: [`Paris`, `Moscow`],
+  setDefaultCity: jest.fn(),
 };
 
 it(`CitiesList city click get right city name`, () => {
@@ -17,5 +18,5 @@ it(`CitiesList city click get right city name`, () => {
   city.simulate(`click`);
 
   expect(props.onChooseCityClick).toHaveBeenCalledTimes(1);
-  expect(props.onChooseCityClick.mock.calls[0][0]).toEqual(props.cities[0]);
+  expect(props.onChooseCityClick.mock.calls[0][0]).toEqual(`Paris`);
 });

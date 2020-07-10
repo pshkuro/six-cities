@@ -4,13 +4,7 @@ exports[`Render PlaceCard 1`] = `
 <article
   className="cities__place-card place-card"
 >
-  <div
-    className="place-card__mark"
-  >
-    <span>
-      Premium
-    </span>
-  </div>
+  
   <div
     className="cities__image-wrapper place-card__image-wrapper"
   >
@@ -21,7 +15,7 @@ exports[`Render PlaceCard 1`] = `
         alt="Place image"
         className="place-card__image"
         height="200"
-        src="img/apartment-05.jpg"
+        src="img/apartment-01.jpg"
         width="260"
       />
     </a>
@@ -39,7 +33,7 @@ exports[`Render PlaceCard 1`] = `
           className="place-card__price-value"
         >
           €
-          10
+          120
         </b>
         <span
           className="place-card__price-text"
@@ -48,7 +42,7 @@ exports[`Render PlaceCard 1`] = `
         </span>
       </div>
       <button
-        className="place-card__bookmark-button button"
+        className="place-card__bookmark-button button place-card__bookmark-button--active"
         type="button"
       >
         <svg
@@ -76,7 +70,7 @@ exports[`Render PlaceCard 1`] = `
         <span
           style={
             Object {
-              "width": "100%",
+              "width": "40%",
             }
           }
         />
@@ -94,7 +88,7 @@ exports[`Render PlaceCard 1`] = `
       <a
         href="#"
       >
-        Place cool
+        good rererer
       </a>
     </h2>
     <p

@@ -9,13 +9,18 @@ import Main from "../main/main.jsx";
 const props = {
   offers: {
     city: `Paris`,
-    cityCoordinates: [52.3909553943508, 4.85309666406198],
+    cityCoordinates: {
+      coordinates: [52.3909553943508, 4.85309666406198],
+      zoom: 12,
+    },
     offers: [
       {
+        previewImage: `img/apartment-01.jpg`,
         pictures: [`img/apartment-01.jpg`],
         title: `good rererer`,
         description: [`Wood and stone place`],
         premium: false,
+        favourite: true,
         type: `Apartment`,
         rating: 1.8,
         bedrooms: 5,
@@ -27,51 +32,56 @@ const props = {
           avatar: `img/avatar-angelina.jpg`,
           name: `Lolo`,
           pro: true,
+          id: 12,
+        },
+        id: 89089,
+      }, {
+        previewImage: `img/apartment-01.jpg`,
+        pictures: [`img/apartment-01.jpg`],
+        title: `good rererer`,
+        description: [`Wood and stone place`],
+        premium: false,
+        favourite: true,
+        type: `Apartment`,
+        rating: 6,
+        bedrooms: 1,
+        guests: 1,
+        cost: 12000,
+        conveniences: [`Cool vary cool place`],
+        coordinates: [52.3909553943508, 4.85309666406198],
+        owner: {
+          avatar: `img/avatar-angelina.jpg`,
+          name: `Lolo`,
+          pro: true,
+          id: 10,
+        },
+        id: 89,
+      }, {
+        previewImage: `img/apartment-07.jpg`,
+        pictures: [`img/apartment-02.jpg`],
+        title: `good rererer`,
+        description: [`Wood and stone place`],
+        premium: false,
+        favourite: true,
+        type: `Apartment`,
+        rating: 1.8,
+        bedrooms: 5,
+        guests: 1,
+        cost: 120,
+        conveniences: [`Cool vary cool place`],
+        coordinates: [52.3909553943508, 4.85309666406198],
+        owner: {
+          avatar: `img/avatar-angelina.jpg`,
+          name: `Lolo`,
+          pro: true,
+          id: 12,
         },
         id: 8989,
-        reviwes: [{id: 12}, {id: 11}],
-      }, {
-        pictures: [`img/apartment-02.jpg`],
-        premium: true,
-        cost: 400,
-        description: [`Wood and stone place`],
-        type: `Hotel`,
-        rating: 4,
-        title: `Place cool`,
-        bedrooms: 2,
-        guests: 10,
-        conveniences: [`Beautiful`, `Cize`, `Olo`],
-        coordinates: [52.3909553943508, 4.85309666406198],
-        owner: {
-          avatar: `img/avatar-angelina.jpg`,
-          name: `Clara`,
-          pro: false,
-        },
-        id: 1212,
-        reviwes: [{id: 2}, {id: 9}],
-      }, {
-        pictures: [`img/apartment-01.jpg`],
-        premium: true,
-        cost: 5000,
-        description: [`Good hotel`],
-        type: `Apartment`,
-        rating: 1,
-        title: `Place cool`,
-        bedrooms: 1,
-        guests: 15,
-        conveniences: [`Beautiful`],
-        coordinates: [52.3909553943508, 4.85309666406198],
-        owner: {
-          avatar: `img/avatar-angelina.jpg`,
-          name: `Clara`,
-          pro: false,
-        },
-        id: 1012,
-        reviwes: [{id: 90}, {id: 56}],
       }],
   },
   nearOffers: [
     {
+      previewImage: `img/apartment-01.jpg`,
       pictures: [`img/apartment-01.jpg`],
       title: `good rererer`,
       description: [`Wood and stone place`],
@@ -87,6 +97,7 @@ const props = {
         avatar: `img/avatar-angelina.jpg`,
         name: `Lolo`,
         pro: true,
+        id: 12,
       },
       id: 112},
     {
@@ -113,6 +124,156 @@ const props = {
   step: `main`,
   onAdvertCardTitleClick: jest.fn(),
   getOffers: jest.fn(),
+  error: false,
+};
+
+const mockOffers = {
+  offers: [
+    {
+      city: `Paris`,
+      cityCoordinates: {
+        coordinates: [52.3909553943508, 4.85309666406198],
+        zoom: 12,
+      },
+      offers: [
+        {
+          previewImage: `img/apartment-01.jpg`,
+          pictures: [`img/apartment-01.jpg`],
+          title: `good rererer`,
+          description: [`Wood and stone place`],
+          premium: false,
+          favourite: true,
+          type: `Apartment`,
+          rating: 1.8,
+          bedrooms: 5,
+          guests: 1,
+          cost: 120,
+          conveniences: [`Cool vary cool place`],
+          coordinates: [52.3909553943508, 4.85309666406198],
+          owner: {
+            avatar: `img/avatar-angelina.jpg`,
+            name: `Lolo`,
+            pro: true,
+            id: 12,
+          },
+          id: 89089,
+        }, {
+          previewImage: `img/apartment-01.jpg`,
+          pictures: [`img/apartment-01.jpg`],
+          title: `good rererer`,
+          description: [`Wood and stone place`],
+          premium: false,
+          favourite: true,
+          type: `Apartment`,
+          rating: 6,
+          bedrooms: 1,
+          guests: 1,
+          cost: 12000,
+          conveniences: [`Cool vary cool place`],
+          coordinates: [52.3909553943508, 4.85309666406198],
+          owner: {
+            avatar: `img/avatar-angelina.jpg`,
+            name: `Lolo`,
+            pro: true,
+            id: 10,
+          },
+          id: 89,
+        }, {
+          previewImage: `img/apartment-07.jpg`,
+          pictures: [`img/apartment-02.jpg`],
+          title: `good rererer`,
+          description: [`Wood and stone place`],
+          premium: false,
+          favourite: true,
+          type: `Apartment`,
+          rating: 1.8,
+          bedrooms: 5,
+          guests: 1,
+          cost: 120,
+          conveniences: [`Cool vary cool place`],
+          coordinates: [52.3909553943508, 4.85309666406198],
+          owner: {
+            avatar: `img/avatar-angelina.jpg`,
+            name: `Lolo`,
+            pro: true,
+            id: 12,
+          },
+          id: 8989,
+        }],
+    },
+    {
+      city: `Cologne`,
+      cityCoordinates: {
+        coordinates: [52.3909553943508, 4.85309666406198],
+        zoom: 12,
+      },
+      offers: [
+        {
+          previewImage: `img/apartment-01.jpg`,
+          pictures: [`img/apartment-01.jpg`],
+          title: `good rererer`,
+          description: [`Wood and stone place`],
+          premium: false,
+          favourite: true,
+          type: `Apartment`,
+          rating: 1.8,
+          bedrooms: 5,
+          guests: 1,
+          cost: 120,
+          conveniences: [`Cool vary cool place`],
+          coordinates: [52.3909553943508, 4.85309666406198],
+          owner: {
+            avatar: `img/avatar-angelina.jpg`,
+            name: `Lolo`,
+            pro: true,
+            id: 12,
+          },
+          id: 8989,
+        }, {
+          previewImage: `img/apartment-01.jpg`,
+          pictures: [`img/apartment-01.jpg`],
+          title: `good rererer`,
+          description: [`Wood and stone place`],
+          premium: false,
+          favourite: true,
+          type: `Apartment`,
+          rating: 6,
+          bedrooms: 1,
+          guests: 1,
+          cost: 12000,
+          conveniences: [`Cool vary cool place`],
+          coordinates: [52.3909553943508, 4.85309666406198],
+          owner: {
+            avatar: `img/avatar-angelina.jpg`,
+            name: `Lolo`,
+            pro: true,
+            id: 10,
+          },
+          id: 89,
+        }, {
+          previewImage: `img/apartment-07.jpg`,
+          pictures: [`img/apartment-02.jpg`],
+          title: `good rererer`,
+          description: [`Wood and stone place`],
+          premium: false,
+          favourite: true,
+          type: `Apartment`,
+          rating: 1.8,
+          bedrooms: 5,
+          guests: 1,
+          cost: 120,
+          conveniences: [`Cool vary cool place`],
+          coordinates: [52.3909553943508, 4.85309666406198],
+          owner: {
+            avatar: `img/avatar-angelina.jpg`,
+            name: `Lolo`,
+            pro: true,
+            id: 12,
+          },
+          id: 8989,
+        }],
+    },
+  ]
 };
 
 const mockStore = configureStore([]);
@@ -125,8 +286,10 @@ describe(`App render right page depending on type`, () => {
 
   it(`App render main page when page type - main`, () => {
     const store = mockStore({
-      cities: [`Moscow`, `Colo`],
-      city: `Moscow`,
+      PAGE: {
+        city: `Moscow`,
+      },
+      DATA: mockOffers,
     });
 
     const appComponent = mount(
@@ -140,8 +303,10 @@ describe(`App render right page depending on type`, () => {
 
   it(`App render place property page when page type - details`, () => {
     const store = mockStore({
-      cities: [`Moscow`, `Colo`],
-      city: `Moscow`,
+      PAGE: {
+        city: `Moscow`,
+      },
+      DATA: mockOffers,
     });
 
     const activeOffer = {
@@ -162,8 +327,6 @@ describe(`App render right page depending on type`, () => {
         pro: false,
       },
       id: 909,
-      reviwes: [{id: 1}, {id: 5}],
-
     };
 
     const appComponent = mount(
@@ -181,8 +344,10 @@ describe(`App render right page depending on type`, () => {
 
   it(`Should dispatch at advertCardTitle click`, () => {
     const store = mockStore({
-      cities: [`Moscow`, `Colo`],
-      city: `Moscow`,
+      PAGE: {
+        city: `Moscow`,
+      },
+      DATA: mockOffers,
     });
 
     const appComponent = mount(
