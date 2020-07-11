@@ -73,8 +73,7 @@ class App extends PureComponent {
             type={step}
             authorizationStatus={authorizationStatus}>
             <PlaceProperty offer={propertyOffer}
-              nearOffers={nearOffers}
-              authorizationStatus={authorizationStatus}/>
+              nearOffers={nearOffers}/>
           </PlaceScreen>
         );
 

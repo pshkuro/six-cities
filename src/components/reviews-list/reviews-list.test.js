@@ -1,6 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import ReviewsList from "./reviews-list.jsx";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 
 const props = {
   reviews: [
@@ -21,13 +23,22 @@ const props = {
       id: 14,
     }
   ],
-  authorizationStatus: `AUTH`,
 };
 
+const mockStore = configureStore([]);
+
 it(`ReviewsList Render`, () => {
+  const store = mockStore({
+    USER: {
+      authorizationStatus: `NO_AUTH`
+    },
+  });
+
   const tree = renderer
   .create(
-      <ReviewsList {...props} />
+      <Provider store={store}>
+        <ReviewsList {...props} />
+      </Provider>
   )
   .toJSON();
 

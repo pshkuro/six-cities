@@ -7,7 +7,7 @@ import Map from "../map/map.jsx";
 import {CardClasses} from "../../constants/page.js";
 
 
-export default function PlaceProperty({offer, nearOffers, reviews, authorizationStatus}) {
+export default function PlaceProperty({offer, nearOffers, reviews}) {
   const {pictures, title, description, premium, type, rating, bedrooms, guests, cost, conveniences, owner, id} = offer;
   const {avatar, name, pro} = owner;
   const isOwnerPro = pro ? `property__avatar-wrapper property__avatar-wrapper--pro` : ``;
@@ -110,8 +110,7 @@ export default function PlaceProperty({offer, nearOffers, reviews, authorization
             </div>
 
             {<ReviewsList
-              reviews={reviews}
-              authorizationStatus={authorizationStatus}/>}
+              reviews={reviews}/>}
 
           </div>
         </div>
@@ -165,6 +164,5 @@ PlaceProperty.propTypes = {
   }).isRequired,
   nearOffers: PropTypes.arrayOf(PropTypes.object.isRequired),
   reviews: PropTypes.array,
-  authorizationStatus: PropTypes.string,
 };
 
