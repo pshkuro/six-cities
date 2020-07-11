@@ -2,6 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import ReviewItem from "../review-item/review-item.jsx";
 import ReviewForm from "../review-form/review-form.jsx";
+import withReviewForm from "../../hocs/with-review-form/with-review-form.js";
+
+const ReviewFormWrapped = withReviewForm(ReviewForm);
 
 export default function ReviewsList({reviews}) {
   const sortedReviews = reviews && reviews.slice().sort((a, b) => new Date(b) - new Date(a));
@@ -17,7 +20,7 @@ export default function ReviewsList({reviews}) {
             key={review.id}/>;
         })}
 
-        <ReviewForm/>
+        <ReviewFormWrapped/>
       </ul>
 
     </section>
