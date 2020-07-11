@@ -4,13 +4,15 @@ import {ratingStars} from "../../constants/offer";
 import {convertDateToMonthDayFormat} from "../../utils/common.js";
 
 export default function ReviewItem({review}) {
-  const {avatar, name, stars, description, date} = review;
+  const {comment, date, rating, user} = review;
+  const {avatar, isPro, name} = user;
   const reviewDate = convertDateToMonthDayFormat(new Date(date));
+  const isReviwerPro = isPro ? `property__avatar-wrapper property__avatar-wrapper--pro` : ``;
 
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
-        <div className="reviews__avatar-wrapper user__avatar-wrapper">
+        <div className={`reviews__avatar-wrapper user__avatar-wrapper ${isReviwerPro}`}>
           <img className="reviews__avatar user__avatar" src={avatar} width="54" height="54" alt="Reviews avatar"/>
         </div>
         <span className="reviews__user-name">
@@ -20,12 +22,12 @@ export default function ReviewItem({review}) {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: `${ratingStars[Math.round(stars)]}%`}}></span>
+            <span style={{width: `${ratingStars[Math.round(rating)]}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <p className="reviews__text">
-          {description}
+          {comment}
         </p>
         <time className="reviews__time" dateTime="">{reviewDate}</time>
       </div>
@@ -35,12 +37,18 @@ export default function ReviewItem({review}) {
 
 
 ReviewItem.propTypes = {
-  review: PropTypes.exact({
-    avatar: PropTypes.string,
-    name: PropTypes.string,
-    stars: PropTypes.number,
-    description: PropTypes.arrayOf(PropTypes.string),
+  review: PropTypes.shape({
+    comment: PropTypes.string,
     date: PropTypes.string,
+    rating: PropTypes.number,
     id: PropTypes.number,
-  })
+    user: PropTypes.shape(
+        {
+          avatar: PropTypes.string,
+          name: PropTypes.string,
+          isPro: PropTypes.bool,
+          userId: PropTypes.number,
+        }
+    ),
+  }).isRequired,
 };

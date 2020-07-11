@@ -127,6 +127,7 @@ const props = {
   error: false,
   login: jest.fn(),
   authorizationStatus: `AUTH`,
+  reviews: [],
 };
 
 const mockOffers = {
@@ -280,6 +281,17 @@ const mockOffers = {
 
 const mockStore = configureStore([]);
 
+const store = mockStore({
+  PAGE: {
+    city: `Moscow`,
+  },
+  OFFERS_DATA: mockOffers,
+  USER: {
+    profile: {},
+    authorizationStatus: `AUTH`
+  }
+});
+
 window.Intl.DateTimeFormat = class {
   format() {}
 };
@@ -287,16 +299,6 @@ window.Intl.DateTimeFormat = class {
 describe(`App render right page depending on type`, () => {
 
   it(`App render main page when page type - main`, () => {
-    const store = mockStore({
-      PAGE: {
-        city: `Moscow`,
-      },
-      OFFERS_DATA: mockOffers,
-      USER: {
-        profile: {},
-      }
-    });
-
     const appComponent = mount(
         <Provider store={store}>
           <App {...props} />
@@ -307,16 +309,6 @@ describe(`App render right page depending on type`, () => {
   });
 
   it(`App render place property page when page type - details`, () => {
-    const store = mockStore({
-      PAGE: {
-        city: `Moscow`,
-      },
-      OFFERS_DATA: mockOffers,
-      USER: {
-        profile: {},
-      }
-    });
-
     const activeOffer = {
       pictures: [`img/apartment-05.jpg`],
       premium: true,
@@ -351,16 +343,6 @@ describe(`App render right page depending on type`, () => {
   });
 
   it(`Should dispatch at advertCardTitle click`, () => {
-    const store = mockStore({
-      PAGE: {
-        city: `Moscow`,
-      },
-      OFFERS_DATA: mockOffers,
-      USER: {
-        profile: {},
-      }
-    });
-
     const appComponent = mount(
         <Provider store={store}>
           <App {...props} />

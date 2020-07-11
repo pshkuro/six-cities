@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import ReviewItem from "../review-item/review-item.jsx";
 import ReviewForm from "../review-form/review-form.jsx";
 
-export default function ReviewsList({reviews = []}) {
+export default function ReviewsList({reviews}) {
   const sortedReviews = reviews && reviews.slice().sort((a, b) => new Date(b) - new Date(a));
   const reviewsNumber = !reviews || (reviews && reviews.length === 0) ? 0 : reviews.length;
   return (
@@ -25,7 +25,7 @@ export default function ReviewsList({reviews = []}) {
 }
 
 ReviewsList.propTypes = {
-  reviews: PropTypes.arrayOf(PropTypes.object),
+  reviews: PropTypes.array,
 };
 
 
