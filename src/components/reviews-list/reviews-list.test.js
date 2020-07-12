@@ -46,7 +46,7 @@ it(`ReviewsList Render`, () => {
   const tree = renderer
   .create(
       <Provider store={store}>
-        <ReviewsList {...props} />
+        <ReviewsList {...props} />,
       </Provider>
   )
   .toJSON();

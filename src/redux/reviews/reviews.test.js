@@ -107,4 +107,56 @@ describe(`Reviews operation work correctly`, () => {
         });
       });
   });
+
+  it(`Should make a correct API/post to /comments`, () => {
+    const mockReview = [
+      {
+        comment: `papa@mail.ru`,
+        date: `12 April`,
+        rating: 6,
+        id: 124,
+        user: {
+          "avatar_url": `img/avatar-angelina.jpg`,
+          "name": `Peter`,
+          "is_pro": false,
+          "id": 12,
+        }
+      }
+    ];
+
+    const storeReviews = [
+      {
+        comment: `papa@mail.ru`,
+        date: `12 April`,
+        rating: 6,
+        id: 124,
+        user: {
+          avatar: `img/avatar-angelina.jpg`,
+          name: `Peter`,
+          isPro: false,
+          id: 12,
+        }
+      }];
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const onSuccessMock = jest.fn();
+    const onErrorMock = jest.fn();
+    const mockId = 6;
+    const review = Operation.addReview({
+      comment: `papa@mail.ru`,
+      rating: 6,
+    }, mockId, onSuccessMock, onErrorMock);
+
+    apiMock
+    .onPost(`/comments/${mockId}`)
+    .reply(204, mockReview);
+
+    return review(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch.mock.calls[0][0]).toEqual({type: ActionType.GET_OFFERS_REVIEWS, reviews: storeReviews});
+      });
+  });
+
+
 });

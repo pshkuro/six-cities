@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {ReviewForm} from "./review-form.jsx";
+import ReviewForm from "./review-form.jsx";
 
 
 const props = {
@@ -17,7 +17,12 @@ const props = {
 it(`ReviewForm Render`, () => {
   const tree = renderer
   .create(
-      <ReviewForm {...props} />
+      <ReviewForm {...props} />,
+      {
+        createNodeMock: () => {
+          return document.createElement(`div`);
+        }
+      }
   )
   .toJSON();
 
