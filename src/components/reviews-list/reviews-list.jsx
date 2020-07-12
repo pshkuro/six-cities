@@ -6,7 +6,7 @@ import withReviewForm from "../../hocs/with-review-form/with-review-form.js";
 
 const ReviewFormWrapped = withReviewForm(ReviewForm);
 
-export default function ReviewsList({reviews}) {
+export default function ReviewsList({reviews, offerId}) {
   const sortedReviews = reviews && reviews.slice().sort((a, b) => new Date(b) - new Date(a));
   const reviewsNumber = !reviews || (reviews && reviews.length === 0) ? 0 : reviews.length;
   return (
@@ -20,7 +20,9 @@ export default function ReviewsList({reviews}) {
             key={review.id}/>;
         })}
 
-        <ReviewFormWrapped/>
+        <ReviewFormWrapped
+          offerId={offerId}
+        />
       </ul>
 
     </section>
@@ -29,6 +31,7 @@ export default function ReviewsList({reviews}) {
 
 ReviewsList.propTypes = {
   reviews: PropTypes.array,
+  offerId: PropTypes.number,
 };
 
 

@@ -110,7 +110,8 @@ export default function PlaceProperty({offer, nearOffers, reviews}) {
             </div>
 
             {<ReviewsList
-              reviews={reviews}/>}
+              reviews={reviews}
+              offerId={id}/>}
 
           </div>
         </div>

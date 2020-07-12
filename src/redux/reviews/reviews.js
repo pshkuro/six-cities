@@ -7,7 +7,6 @@ const initialState = {
 
 const ActionType = {
   GET_OFFERS_REVIEWS: `GET_OFFERS_REVIEWS`,
-  // ADD_NEW_REVIEW: `ADD_NEW_REVIEW`,
 };
 
 const ActionCreator = {
@@ -17,22 +16,10 @@ const ActionCreator = {
       reviews,
     };
   },
-
-  // addNewReview: (reviews) => {
-  //   return {
-  //     type: ActionType.ADD_NEW_REVIEW,
-  //     reviews,
-  //   };
-  // },
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    // case ActionType.addNewReview:
-    //   return Object.assign({}, state, {
-    //     review: action.review,
-    //   });
-
     case ActionType.GET_OFFERS_REVIEWS:
       return Object.assign({}, state, {
         reviews: action.reviews,
@@ -47,9 +34,9 @@ const parseReviews = (data) => {
 };
 
 const Operation = {
-  addReview: (data, id) => (dispatch, getState, api) => {
+  addReview: (data, id) => (dispatch, getState, api) => { // ПРОТЕСТИТЬ
     return postNewReview(api, data, id)
-    .then((response) => parseReview(response.data))
+    .then((response) => parseReviews(response.data))
       .then((reviews) => {
         dispatch(ActionCreator.getOffersReviews(reviews));
       })

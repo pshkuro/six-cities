@@ -1,13 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
 import {AuthorizationStatus} from "../../constants/page.js";
-import {getAuthorizationStatus} from "../../redux/user/selectors.js";
 
 const ratingStars = [5, 4, 3, 2, 1];
 
 
-export function ReviewForm({authorizationStatus, onFormSubmit, onFieldChange}) {
+export default function ReviewForm({authorizationStatus, onFormSubmit, onFieldChange}) {
 
   if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
     return null;
@@ -59,8 +57,3 @@ ReviewForm.propTypes = {
   onFieldChange: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthorizationStatus(state),
-});
-
-export default connect(mapStateToProps)(ReviewForm);

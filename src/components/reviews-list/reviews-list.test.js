@@ -31,6 +31,7 @@ const props = {
       },
     }
   ],
+  offerId: 1,
 };
 
 const mockStore = configureStore([]);

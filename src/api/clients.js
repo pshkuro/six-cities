@@ -5,5 +5,8 @@ export const postUserAuthorizationInfo = (api, data) => api.post(`/login`, {
   password: data.password,
 });
 
-export const postNewReview = (api, data, id) => api.post(`/comments/${id}`, data);
+export const postNewReview = (api, data, id) => api.post(`/comments/${id}`, {
+  comment: data.comment,
+  rating: data.rating,
+});
 export const getReviews = (api, id) => api.get(`/comments/${id}`);
