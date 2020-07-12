@@ -5,8 +5,13 @@ import {ReviewForm} from "./review-form.jsx";
 
 const props = {
   authorizationStatus: `AUTH`,
-  onFormSubmit: jest.fn(),
-  onFieldChange: jest.fn(),
+  onFormSubmit: jest.fn((x) => x),
+  onFieldChange: jest.fn((x) => x),
+  commentValue: ``,
+  ratingValue: ``,
+  isReviewInfoCorrect: false,
+  isSending: false,
+  isError: false,
 };
 
 it(`ReviewForm Render`, () => {

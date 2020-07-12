@@ -34,13 +34,15 @@ const parseReviews = (data) => {
 };
 
 const Operation = {
-  addReview: (data, id) => (dispatch, getState, api) => { // ПРОТЕСТИТЬ
+  addReview: (data, id, onSuccess, onError) => (dispatch, getState, api) => { // ПРОТЕСТИТЬ
     return postNewReview(api, data, id)
     .then((response) => parseReviews(response.data))
       .then((reviews) => {
         dispatch(ActionCreator.getOffersReviews(reviews));
+        onSuccess();
       })
       .catch((err) => {
+        onError();
         throw err;
       });
   },

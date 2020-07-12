@@ -7,7 +7,7 @@ import withReviewForm from "../../hocs/with-review-form/with-review-form.js";
 const ReviewFormWrapped = withReviewForm(ReviewForm);
 
 export default function ReviewsList({reviews, offerId}) {
-  const sortedReviews = reviews && reviews.slice().sort((a, b) => new Date(b) - new Date(a));
+  const sortedReviews = reviews && reviews.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
   const reviewsNumber = !reviews || (reviews && reviews.length === 0) ? 0 : reviews.length;
   return (
     <section className="property__reviews reviews">
