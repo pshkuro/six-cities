@@ -1,19 +1,35 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {PageType} from "../../constants/page.js";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../redux/page/page.js";
+import {getProfile} from "../../redux/user/selectors.js";
+import {PageType, AuthorizationStatus} from "../../constants/page.js";
 
-export default function PlaceScreen({children, color, type}) {
+export function PlaceScreen({children, color, type, authorizationStatus, onPageHeaderSignInClick, onHeaderLogoClick, profile}) {
+  const handleHeaderLogoClick = () => onHeaderLogoClick(PageType.MAIN);
+  const handlePageHeaderSignInClick = () => onPageHeaderSignInClick(PageType.SIGN_IN);
+  const isAuthorized = authorizationStatus === AuthorizationStatus.NO_AUTH ?
+    <span
+      className="header__login"
+      onClick={handlePageHeaderSignInClick}>
+    Sign in
+    </span>
+    : <span className="header__user-name user__name">{profile && profile.email}</span>;
+
   return (
     <div className={`page
-      ${color ? `page--${color}` : ``}
+      ${color && `page--${color}`}
       ${type && `page--${type}`}
     `}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
+              <a className="header__logo-link" href="#">
+                <img
+                  className="header__logo"
+                  onClick={handleHeaderLogoClick}
+                  src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
               </a>
             </div>
             <nav className="header__nav">
@@ -22,7 +38,7 @@ export default function PlaceScreen({children, color, type}) {
                   <a className="header__nav-link header__nav-link--profile" href="#">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    {isAuthorized}
                   </a>
                 </li>
               </ul>
@@ -41,7 +57,27 @@ PlaceScreen.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]).isRequired,
-  type: PropTypes.oneOf([PageType.MAIN, PageType.DETAILS]).isRequired,
+  type: PropTypes.string.isRequired,
   color: PropTypes.string,
+  authorizationStatus: PropTypes.string.isRequired,
+  onPageHeaderSignInClick: PropTypes.func.isRequired,
+  onHeaderLogoClick: PropTypes.func.isRequired,
+  profile: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(null)]),
 };
+
+const mapStateToProps = (state) => ({
+  profile: getProfile(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onPageHeaderSignInClick(step) {
+    dispatch(ActionCreator.changePageType(step));
+  },
+
+  onHeaderLogoClick(step) {
+    dispatch(ActionCreator.changePageType(step));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlaceScreen);
 

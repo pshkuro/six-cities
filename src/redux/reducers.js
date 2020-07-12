@@ -6,7 +6,7 @@ import NameSpace from "./name-space.js";
 
 
 export default combineReducers({
-  [NameSpace.DATA]: offersData,
+  [NameSpace.OFFERS_DATA]: offersData,
   [NameSpace.PAGE]: page,
   [NameSpace.USER]: user,
 });

@@ -165,7 +165,7 @@ describe(`Main tests`, () => {
       PAGE: {
         city: `Moscow`,
       },
-      DATA: mockOffers,
+      OFFERS_DATA: mockOffers,
     });
 
     const noOffers = {

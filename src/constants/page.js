@@ -1,3 +1,8 @@
+export const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};
+
 export const SortingType = {
   DEFAULT: `popular`,
   TO_HIGHT: `to-high`,
@@ -17,6 +22,7 @@ export const City = {
 export const PageType = {
   MAIN: `main`,
   DETAILS: `details`,
+  SIGN_IN: `sign-in`,
 };
 
 export const CardClasses = {

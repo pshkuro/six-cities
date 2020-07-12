@@ -238,7 +238,7 @@ it(`Render Main`, () => {
     PAGE: {
       city: `Moscow`,
     },
-    DATA: mockOffers,
+    OFFERS_DATA: mockOffers,
   });
 
   const tree = renderer

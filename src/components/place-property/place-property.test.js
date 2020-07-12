@@ -67,6 +67,7 @@ const props = {
       id: 12},
   ],
   reviews: [],
+  authorizationStatus: `NO_AUTH`,
 };
 
 window.Intl.DateTimeFormat = class {

@@ -1,6 +1,7 @@
 import React from "react";
 import {mount} from "enzyme";
 import {PlaceCard} from "./place-card.jsx";
+import {PageType} from "../../constants/page.js";
 
 const props = {
   offer: {
@@ -33,7 +34,8 @@ const props = {
     wrapper: `cities`,
     cards: `cities__places-`,
     map: `cities`,
-  }
+  },
+  step: PageType.DETAILS,
 };
 
 
@@ -62,7 +64,8 @@ describe(`PlaceCard tests`, () => {
     });
 
     expect(props.onAdvertCardTitleClick).toHaveBeenCalledTimes(1);
-    expect(props.onAdvertCardTitleClick.mock.results[0].value).toMatchObject(props.offer);
+    expect(props.onAdvertCardTitleClick.mock.calls[0][0]).toBe(props.step);
+    expect(props.onAdvertCardTitleClick.mock.calls[0][1]).toBe(props.offer);
 
   });
 });

@@ -21,12 +21,13 @@ exports[`PlaceScreen render correctly with Main 1`] = `
         >
           <a
             className="header__logo-link"
-            href="main.html"
+            href="#"
           >
             <img
               alt="6 cities logo"
               className="header__logo"
               height="41"
+              onClick={[Function]}
               src="img/logo.svg"
               width="81"
             />
@@ -49,9 +50,10 @@ exports[`PlaceScreen render correctly with Main 1`] = `
                   className="header__avatar-wrapper user__avatar-wrapper"
                 />
                 <span
-                  className="header__user-name user__name"
+                  className="header__login"
+                  onClick={[Function]}
                 >
-                  Oliver.conner@gmail.com
+                  Sign in
                 </span>
               </a>
             </li>
@@ -69,7 +71,7 @@ exports[`PlaceScreen render correctly with Main 1`] = `
 exports[`PlaceScreen render correctly with Place Property 1`] = `
 <div
   className="page
-      
+      undefined
       page--details
     "
 >
@@ -87,12 +89,13 @@ exports[`PlaceScreen render correctly with Place Property 1`] = `
         >
           <a
             className="header__logo-link"
-            href="main.html"
+            href="#"
           >
             <img
               alt="6 cities logo"
               className="header__logo"
               height="41"
+              onClick={[Function]}
               src="img/logo.svg"
               width="81"
             />
@@ -115,9 +118,10 @@ exports[`PlaceScreen render correctly with Place Property 1`] = `
                   className="header__avatar-wrapper user__avatar-wrapper"
                 />
                 <span
-                  className="header__user-name user__name"
+                  className="header__login"
+                  onClick={[Function]}
                 >
-                  Oliver.conner@gmail.com
+                  Sign in
                 </span>
               </a>
             </li>

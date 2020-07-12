@@ -66,7 +66,9 @@ const props = {
         pro: true,
       },
       id: 12},
-  ]
+  ],
+  authorizationStatus: `NO_AUTH`,
+  reviews: [],
 };
 
 const mockStore = configureStore([]);

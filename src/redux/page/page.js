@@ -24,11 +24,11 @@ const ActionCreator = {
     );
   },
 
-  changePageType: (offer) => {
+  changePageType: (step, offer) => {
     return (
       {
         type: ActionType.CHANGE_PAGE_TYPE,
-        step: PageType.DETAILS,
+        step,
         propertyOffer: offer,
       }
     );

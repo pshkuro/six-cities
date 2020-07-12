@@ -2,7 +2,7 @@ import {createSelector} from "reselect";
 import NameSpace from "../name-space.js";
 
 const getOffers = (state) => {
-  return state[NameSpace.DATA].offers;
+  return state[NameSpace.OFFERS_DATA].offers;
 };
 
 const getActiveCity = (state) => {
@@ -28,7 +28,7 @@ export const getCityOffers = createSelector(
 );
 
 export const getNearOffers = (state) => {
-  return state[NameSpace.DATA].nearOffers;
+  return state[NameSpace.OFFERS_DATA].nearOffers;
 };
 
 export const getCities = createSelector(
@@ -39,5 +39,5 @@ export const getCities = createSelector(
 );
 
 export const getError = (state) => {
-  return state[NameSpace.DATA].error;
+  return state[NameSpace.OFFERS_DATA].error;
 };

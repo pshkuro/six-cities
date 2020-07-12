@@ -1,16 +1,14 @@
-import {getAuthorizationStatus} from "../../api/clients.js";
-
-const AuthorizationStatus = {
-  AUTH: `AUTH`,
-  NO_AUTH: `NO_AUTH`,
-};
+import {getAuthorizationStatus, postUserAuthorizationInfo} from "../../api/clients.js";
+import {AuthorizationStatus} from "../../constants/page.js";
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
+  profile: null,
 };
 
 const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
+  GET_PROFILE: `GET_PROFILE`,
 };
 
 const ActionCreator = {
@@ -20,6 +18,13 @@ const ActionCreator = {
       status,
     };
   },
+
+  getProfile: (profile) => {
+    return {
+      type: ActionType.GET_PROFILE,
+      profile,
+    };
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -27,6 +32,11 @@ const reducer = (state = initialState, action) => {
     case ActionType.REQUIRED_AUTHORIZATION:
       return Object.assign({}, state, {
         authorizationStatus: action.status,
+      });
+
+    case ActionType.GET_PROFILE:
+      return Object.assign({}, state, {
+        profile: action.profile,
       });
   }
 
@@ -36,8 +46,9 @@ const reducer = (state = initialState, action) => {
 const Operation = {
   checkAuth: () => (dispatch, getState, api) => {
     return getAuthorizationStatus(api)
-      .then(() => {
+      .then((response) => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(ActionCreator.getProfile(response.data));
       })
       .catch((err) => {
         throw err;
@@ -45,12 +56,10 @@ const Operation = {
   },
 
   login: (authData) => (dispatch, getState, api) => {
-    return api.post(`/login`, {
-      email: authData.login,
-      password: authData.password,
-    })
-      .then(() => {
+    return postUserAuthorizationInfo(api, authData)
+      .then((response) => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(ActionCreator.getProfile(response.data));
       });
   },
 };

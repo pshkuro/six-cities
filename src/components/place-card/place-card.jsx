@@ -3,12 +3,13 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../redux/page/page.js";
 import {ratingStars} from "../../constants/offer";
+import {PageType} from "../../constants/page.js";
 
 
 export function PlaceCard({offer, onAdvertCardTitleClick, classes, onAdvertCardMouseOver, onAdvertCardMouseOut}) {
   const {previewImage, premium, favourite, cost, title, type, rating} = offer;
 
-  const handleOnAdvertCardTitle = () => onAdvertCardTitleClick(offer);
+  const handleOnAdvertCardTitle = () => onAdvertCardTitleClick(PageType.DETAILS, offer);
   const handleOnAdvertCardMouse = () => onAdvertCardMouseOver(offer);
 
   return (

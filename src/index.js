@@ -8,7 +8,7 @@ import {Provider} from "react-redux";
 import {createAPI} from "./api/api.js";
 import App from "./components/app/app.jsx";
 import {Operation as DataOperation} from "./redux/offers-data/offers-data.js";
-import {ActionCreator, AuthorizationStatus} from "./redux/user/user.js";
+import {ActionCreator, AuthorizationStatus, Operation as UserOperation} from "./redux/user/user.js";
 import reducer from "./redux/reducers.js";
 
 const onUnauthorized = () => {
@@ -22,6 +22,7 @@ const store = createStore(reducer,
         applyMiddleware(thunk.withExtraArgument(api))));
 
 store.dispatch(DataOperation.getOffers());
+store.dispatch(UserOperation.checkAuth());
 
 ReactDom.render(
     <Provider store={store}>
