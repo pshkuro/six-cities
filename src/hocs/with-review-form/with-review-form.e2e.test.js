@@ -1,6 +1,6 @@
 import React from "react";
-import MockAdapter from "axios-mock-adapter";
-import {createAPI} from "../../api/api.js";
+// import MockAdapter from "axios-mock-adapter";
+// import {createAPI} from "../../api/api.js";
 import PropTypes from "prop-types";
 import {mount} from "enzyme";
 import withReviewForm from "./with-review-form.js";
