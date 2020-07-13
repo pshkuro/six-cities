@@ -1,4 +1,6 @@
 import React from "react";
+import MockAdapter from "axios-mock-adapter";
+import {createAPI} from "../../api/api.js";
 import PropTypes from "prop-types";
 import {mount} from "enzyme";
 import withReviewForm from "./with-review-form.js";
@@ -177,21 +179,41 @@ describe(`With-review-form Hoc tests`, () => {
   // it(`Success form info post should to reset to initial state`, () => {
   //   const store = mockStore({
   //     USER: {
-  //       authorizationStatus: `NO_AUTH`,
+  //       authorizationStatus: `AUTH`,
   //     },
   //     REVIEWS: {
   //       onReviewFormSubmit: jest.fn(),
   //     }
   //   });
 
+  //   const mockReview = [
+  //     {
+  //       comment: `Ghgdshgfshfghdsgf sdjfhsdjfhhfd sdjfsdjfgsdjgfsd shdfsdgfhjdgfhjgf sdjgfjdshgfhjsdgjhsgf sdhfsdhfgjhsgf`,
+  //       date: `12 April`,
+  //       rating: 5,
+  //       id: 124,
+  //       user: {
+  //         "avatar_url": `img/avatar-angelina.jpg`,
+  //         "name": `Peter`,
+  //         "is_pro": false,
+  //         "id": 12,
+  //       }
+  //     }
+  //   ];
+
+  //   const api = createAPI(() => {});
+  //   const apiMock = new MockAdapter(api);
+  //   const mockId = 6;
+
   //   const ComponentWrapped = withReviewForm(mockComponent);
-  //   ComponentWrapped.WrappedComponent.prototype._onSuccessFormSubmit = jest.fn();
 
   //   const wrapped = mount(
   //       <Provider store={store}>
   //         <ComponentWrapped {...props} />
   //       </Provider>
   //   );
+
+  //   const successFormSubmitSpy = jest.spyOn(ComponentWrapped.WrappedComponent.prototype, `_onSuccessFormSubmit`);
   //   const withReviewFormComponent = wrapped.children().children();
   //   withReviewFormComponent.setState(Object.assign(initialState, {
   //     isReviewInfoCorrect: true,
@@ -204,7 +226,11 @@ describe(`With-review-form Hoc tests`, () => {
   //     preventDefault: () => {}
   //   });
 
-  //   expect(ComponentWrapped.WrappedComponent.prototype._onSuccessFormSubmit).toHaveBeenCalledTimes(1);
+  //   apiMock
+  //   .onPost(`/comments/${mockId}`)
+  //   .reply(204, mockReview);
+
+  //   expect(successFormSubmitSpy).toHaveBeenCalledTimes(1);
   // });
 
 

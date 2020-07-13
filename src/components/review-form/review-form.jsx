@@ -29,6 +29,7 @@ export default class ReviewForm extends PureComponent {
     }
 
     const isSubmtButtonDisabled = !isReviewInfoCorrect || isSending ? true : false;
+    const handleFieldChange = (evt) => onFieldChange(evt);
 
     if (isError) {
       shake(this._formRef.current);
@@ -46,7 +47,7 @@ export default class ReviewForm extends PureComponent {
           {ratingStars.map((starNumber) => (
             <React.Fragment key={starNumber}>
               <input className="form__rating-input visually-hidden"
-                onChange={(evt) => onFieldChange(evt)}
+                onChange={handleFieldChange}
                 disabled={isSending}
                 name="rating"
                 value={starNumber}
@@ -63,7 +64,7 @@ export default class ReviewForm extends PureComponent {
         </div>
         <textarea
           className="reviews__textarea form__textarea"
-          onChange={(evt) => onFieldChange(evt)}
+          onChange={handleFieldChange}
           id="review"
           name="comment"
           value={commentValue}
