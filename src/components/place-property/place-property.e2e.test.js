@@ -2,7 +2,7 @@ import React from "react";
 import {mount} from "enzyme";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import PlaceProperty from "./place-property.jsx";
+import {PlaceProperty} from "./place-property.jsx";
 import Map from "../map/map.jsx";
 
 const props = {

@@ -2,7 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import PlaceProperty from "./place-property.jsx";
+import {PlaceProperty} from "./place-property.jsx";
 
 const props = {
   offer: {

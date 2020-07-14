@@ -48,6 +48,7 @@ const Operation = {
   },
 
   getReviews: (id) => (dispatch, getState, api) => {
+
     return getReviews(api, id)
     .then((response) => parseReviews(response.data))
       .then((reviews) => {

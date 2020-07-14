@@ -1,8 +1,9 @@
 import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../redux/page/page.js";
-import {City, PageType} from "../../constants/page.js";
+import {Link} from "react-router-dom";
+import {AppRoute} from "../../routing/routes.js";
+import {getActiveCity} from "../../redux/offers-data/selectors.js";
 
 
 export class SignIn extends PureComponent {
@@ -30,8 +31,7 @@ export class SignIn extends PureComponent {
   }
 
   render() {
-    const {onLocationSignInPageClick} = this.props;
-    const handleLocationSignInPageClick = () => onLocationSignInPageClick(PageType.MAIN, City.AMSTERDAM);
+    const {city} = this.props;
 
     return (
       <main className="page__main page__main--login">
@@ -62,11 +62,12 @@ export class SignIn extends PureComponent {
           </section>
           <section className="locations locations--login locations--current">
             <div
-              className="locations__item"
-              onClick={handleLocationSignInPageClick}>
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
+              className="locations__item">
+              <Link
+                to={AppRoute.MAIN}
+                className="locations__item-link">
+                <span>{city}</span>
+              </Link>
             </div>
           </section>
         </div>
@@ -76,16 +77,13 @@ export class SignIn extends PureComponent {
 }
 
 SignIn.propTypes = {
+  city: PropTypes.string.isRequired,
   onSignInFormSubmit: PropTypes.func.isRequired,
-  onLocationSignInPageClick: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onLocationSignInPageClick(step, city) {
-    dispatch(ActionCreator.chooseCity(city));
-    dispatch(ActionCreator.changePageType(step));
-  },
+const mapStateToProps = (state) => ({
+  city: getActiveCity(state),
 });
 
-export default connect(null, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps)(SignIn);
 

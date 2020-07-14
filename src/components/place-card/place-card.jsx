@@ -1,15 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../redux/page/page.js";
 import {ratingStars} from "../../constants/offer";
-import {PageType} from "../../constants/page.js";
+// import {PageType} from "../../constants/page.js";
 
 
-export function PlaceCard({offer, onAdvertCardTitleClick, classes, onAdvertCardMouseOver, onAdvertCardMouseOut}) {
+export function PlaceCard({
+  offer,
+  // onAdvertCardTitleClick,
+  classes,
+  onAdvertCardMouseOver,
+  onAdvertCardMouseOut
+}) {
   const {previewImage, premium, favourite, cost, title, type, rating} = offer;
 
-  const handleOnAdvertCardTitle = () => onAdvertCardTitleClick(PageType.DETAILS, offer);
+  // const handleOnAdvertCardTitle = () => onAdvertCardTitleClick(PageType.DETAILS, offer);
   const handleOnAdvertCardMouse = () => onAdvertCardMouseOver(offer);
 
   return (
@@ -47,11 +54,15 @@ export function PlaceCard({offer, onAdvertCardTitleClick, classes, onAdvertCardM
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2
-          className="place-card__name"
-          onClick={onAdvertCardTitleClick && handleOnAdvertCardTitle}>
-          <a href="#">{title}</a>
-        </h2>
+        <Link
+          to={`offer/${offer.id}`}>
+          <h2
+            className="place-card__name"
+            // onClick={onAdvertCardTitleClick && handleOnAdvertCardTitle}
+          >
+            {title}
+          </h2>
+        </Link>
         <p className="place-card__type">{type}</p>
       </div>
     </article>
@@ -83,7 +94,7 @@ PlaceCard.propTypes = {
     id: PropTypes.number,
   }).isRequired,
   classes: PropTypes.object.isRequired,
-  onAdvertCardTitleClick: PropTypes.func,
+  // onAdvertCardTitleClick: PropTypes.func,
   onAdvertCardMouseOver: PropTypes.func,
   onAdvertCardMouseOut: PropTypes.func,
 };

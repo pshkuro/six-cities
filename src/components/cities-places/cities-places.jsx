@@ -9,7 +9,13 @@ import {SortingType} from "../../constants/page.js";
 const PlacesSortingWrapped = withToggle(PlacesSorting);
 
 export default function CitiesPlaces(props) {
-  const {onAdvertCardTitleClick, city, offers: sortedOffers, activeSortingType, onSortingListItemClick} = props;
+  const {
+    // onAdvertCardTitleClick,
+    city,
+    offers: sortedOffers,
+    activeSortingType,
+    onSortingListItemClick
+  } = props;
 
   return (
     <section className="cities__places places">
@@ -21,7 +27,7 @@ export default function CitiesPlaces(props) {
       {<PlaceList
         classes= {CardClasses.MAIN}
         offers={sortedOffers}
-        onAdvertCardTitleClick={onAdvertCardTitleClick}
+        // onAdvertCardTitleClick={onAdvertCardTitleClick}
       />}
     </section>
   );
