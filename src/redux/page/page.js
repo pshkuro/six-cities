@@ -1,6 +1,7 @@
 const initialState = {
   city: null,
   activeOffer: null,
+  favoriteOffers: [],
 };
 
 const ActionType = {
@@ -38,7 +39,6 @@ const ActionCreator = {
       }
     );
   },
-
 };
 
 

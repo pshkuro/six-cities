@@ -1,4 +1,4 @@
-export const parseData = (data) => {
+export const parseHotel = (data) => {
   const {
     bedrooms,
     description,
