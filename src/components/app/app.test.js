@@ -124,7 +124,8 @@ const props = {
   getOffers: jest.fn(),
   error: false,
   login: jest.fn(),
-  authorizationStatus: `AUTH`
+  authorizationStatus: `AUTH`,
+  reviews: [],
 };
 
 const mockOffers = {

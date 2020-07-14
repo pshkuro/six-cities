@@ -12,7 +12,9 @@ import {PageType} from "../../constants/page.js";
 import {getCityOffers, getNearOffers, getError} from "../../redux/offers-data/selectors.js";
 import {getPropertyOffer, getPageStep, getActiveOffer} from "../../redux/page/selectors.js";
 import {getAuthorizationStatus} from "../../redux/user/selectors.js";
+import {getReviews} from "../../redux/reviews/selectors.js";
 import {Operation as DataOperation} from "../../redux/user/user.js";
+import {Operation as ReviewsOperation} from "../../redux/reviews/reviews.js";
 
 class App extends PureComponent {
   render() {
@@ -47,7 +49,8 @@ class App extends PureComponent {
       step, propertyOffer,
       activeOffer,
       authorizationStatus,
-      login
+      login,
+      reviews
     } = this.props;
 
     if (offers === null) {
@@ -74,7 +77,7 @@ class App extends PureComponent {
             authorizationStatus={authorizationStatus}>
             <PlaceProperty offer={propertyOffer}
               nearOffers={nearOffers}
-              authorizationStatus={authorizationStatus}/>
+              reviews={reviews}/>
           </PlaceScreen>
         );
 
@@ -105,6 +108,7 @@ App.propTypes = {
   error: PropTypes.bool.isRequired,
   login: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
+  reviews: PropTypes.arrayOf(PropTypes.object),
 };
 
 const mapStateToProps = (state) => ({
@@ -115,11 +119,13 @@ const mapStateToProps = (state) => ({
   activeOffer: getActiveOffer(state),
   error: getError(state),
   authorizationStatus: getAuthorizationStatus(state),
+  reviews: getReviews(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onAdvertCardTitleClick(step, offer) {
     dispatch(ActionCreator.changePageType(step, offer));
+    dispatch(ReviewsOperation.getReviews(offer.id));
   },
 
   login(authData) {

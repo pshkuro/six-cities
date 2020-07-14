@@ -8,7 +8,7 @@ exports[`ReviewItem render 1`] = `
     className="reviews__user user"
   >
     <div
-      className="reviews__avatar-wrapper user__avatar-wrapper"
+      className="reviews__avatar-wrapper user__avatar-wrapper "
     >
       <img
         alt="Reviews avatar"

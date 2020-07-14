@@ -67,7 +67,6 @@ const props = {
       },
       id: 12},
   ],
-  authorizationStatus: `NO_AUTH`,
   reviews: [],
 };
 
@@ -81,6 +80,9 @@ it(`Map render the same active pin that get to place property`, () => {
   const store = mockStore({
     onAdvertCardMouseOver: jest.fn(),
     onAdvertCardMouseOut: jest.fn(),
+    USER: {
+      authorizationStatus: `NO_AUTH`
+    },
   });
 
   const placeProperty = mount(

@@ -50,6 +50,3 @@ export const parseData = (data) => {
   });
 };
 
-export const groupBy = () => {
-
-};

@@ -67,7 +67,6 @@ const props = {
       id: 12},
   ],
   reviews: [],
-  authorizationStatus: `NO_AUTH`,
 };
 
 window.Intl.DateTimeFormat = class {
@@ -80,6 +79,9 @@ it(`Render PlaceProperty`, () => {
   const store = mockStore({
     onAdvertCardMouseOver: jest.fn(),
     onAdvertCardMouseOut: jest.fn(),
+    USER: {
+      authorizationStatus: `NO_AUTH`,
+    },
   });
 
 
