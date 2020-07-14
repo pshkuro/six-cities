@@ -239,6 +239,9 @@ it(`Render Main`, () => {
       city: `Moscow`,
     },
     OFFERS_DATA: mockOffers,
+    USER: {
+      authorizationStatus: `AUTH`,
+    }
   });
 
   const tree = renderer

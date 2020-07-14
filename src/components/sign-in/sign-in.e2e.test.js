@@ -2,9 +2,10 @@ import React from "react";
 import {mount} from "enzyme";
 import {BrowserRouter} from "react-router-dom";
 import {SignIn} from "./sign-in.jsx";
-import {City, PageType} from "../../constants/page.js";
+// import {City, PageType} from "../../constants/page.js";
 
 const props = {
+  cities: [`Paris`, `Moscow`],
   onSignInFormSubmit: jest.fn((x) => x),
   onLocationSignInPageClick: jest.fn((x) => x),
 };

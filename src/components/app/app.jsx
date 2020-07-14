@@ -7,11 +7,13 @@ import PlaceScreen from "../place-screen/place-screen.jsx";
 import PlaceProperty from "../place-property/place-property.jsx";
 import ErrorComponent from "../error/error.jsx";
 import SignIn from "../sign-in/sign-in.jsx";
+import FavoriteOffers from "../favorite-offers/favorite-offers.jsx";
 import {getCityOffers, getError} from "../../redux/offers-data/selectors.js";
 import {getActiveOffer} from "../../redux/page/selectors.js";
 import {getAuthorizationStatus} from "../../redux/user/selectors.js";
 import {Operation as DataOperation} from "../../redux/user/user.js";
 import {AppRoute} from "../../routing/routes.js";
+import PrivateRoute from "../../routing/private-route.jsx";
 
 
 class App extends PureComponent {
@@ -31,7 +33,7 @@ class App extends PureComponent {
       return null;
     }
 
-    // Видимо History Надо удалить совсем
+
     return (
       <BrowserRouter>
         <Switch>
@@ -63,6 +65,13 @@ class App extends PureComponent {
                 onSignInFormSubmit={login}/>
             </PlaceScreen>
           </Route>
+
+          <PrivateRoute exact path={AppRoute.FAVORITES} render={() => {
+            return (<FavoriteOffers/>);
+          }}/>
+
+          <Route component={ErrorComponent}/>
+
         </Switch>
       </BrowserRouter>
     );

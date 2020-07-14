@@ -72,7 +72,9 @@ exports[`SignIn render 1`] = `
           href="/"
           onClick={[Function]}
         >
-          <span />
+          <span>
+            Paris
+          </span>
         </a>
       </div>
     </section>

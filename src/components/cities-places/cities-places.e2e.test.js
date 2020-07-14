@@ -85,6 +85,9 @@ describe(`CitiesPlaces tests`, () => {
     const store = mockStore({
       onAdvertCardMouseOver: jest.fn(),
       onAdvertCardMouseOut: jest.fn(),
+      USER: {
+        authorizationStatus: `AUTH`,
+      }
     });
 
     const citiesPlaces = mount(

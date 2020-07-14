@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {AppRoute} from "../../routing/routes.js";
-import {getActiveCity} from "../../redux/offers-data/selectors.js";
+import {getCities} from "../../redux/offers-data/selectors.js";
 
 
 export class SignIn extends PureComponent {
@@ -31,7 +31,8 @@ export class SignIn extends PureComponent {
   }
 
   render() {
-    const {city} = this.props;
+    const {cities} = this.props;
+    const firstCity = cities[0];
 
     return (
       <main className="page__main page__main--login">
@@ -66,7 +67,7 @@ export class SignIn extends PureComponent {
               <Link
                 to={AppRoute.MAIN}
                 className="locations__item-link">
-                <span>{city}</span>
+                <span>{firstCity}</span>
               </Link>
             </div>
           </section>
@@ -77,12 +78,12 @@ export class SignIn extends PureComponent {
 }
 
 SignIn.propTypes = {
-  city: PropTypes.string.isRequired,
+  cities: PropTypes.array.isRequired,
   onSignInFormSubmit: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  city: getActiveCity(state),
+  cities: getCities(state),
 });
 
 export default connect(mapStateToProps)(SignIn);

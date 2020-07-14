@@ -5,6 +5,7 @@ import {SignIn} from "./sign-in.jsx";
 
 const props = {
   onSignInFormSubmit: jest.fn(),
+  cities: [`Paris`, `Moscow`],
 };
 
 

@@ -260,8 +260,10 @@ exports[`Render PlaceProperty 1`] = `
                   / night
                 </span>
               </div>
-              <button
+              <a
                 className="place-card__bookmark-button button undefined"
+                href="/login"
+                onClick={[Function]}
                 type="button"
               >
                 <svg
@@ -278,7 +280,7 @@ exports[`Render PlaceProperty 1`] = `
                 >
                   To bookmarks
                 </span>
-              </button>
+              </a>
             </div>
             <div
               className="place-card__rating rating"
@@ -358,8 +360,10 @@ exports[`Render PlaceProperty 1`] = `
                   / night
                 </span>
               </div>
-              <button
+              <a
                 className="place-card__bookmark-button button undefined"
+                href="/login"
+                onClick={[Function]}
                 type="button"
               >
                 <svg
@@ -376,7 +380,7 @@ exports[`Render PlaceProperty 1`] = `
                 >
                   To bookmarks
                 </span>
-              </button>
+              </a>
             </div>
             <div
               className="place-card__rating rating"

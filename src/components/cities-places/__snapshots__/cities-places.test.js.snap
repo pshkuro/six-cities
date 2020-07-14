@@ -124,8 +124,10 @@ exports[`CitiesPlaces render tests CitiesPlaces render 1`] = `
               / night
             </span>
           </div>
-          <button
+          <a
             className="place-card__bookmark-button button place-card__bookmark-button--active"
+            href=""
+            onClick={[Function]}
             type="button"
           >
             <svg
@@ -142,7 +144,7 @@ exports[`CitiesPlaces render tests CitiesPlaces render 1`] = `
             >
               To bookmarks
             </span>
-          </button>
+          </a>
         </div>
         <div
           className="place-card__rating rating"
@@ -223,8 +225,10 @@ exports[`CitiesPlaces render tests CitiesPlaces render 1`] = `
               / night
             </span>
           </div>
-          <button
+          <a
             className="place-card__bookmark-button button place-card__bookmark-button--active"
+            href=""
+            onClick={[Function]}
             type="button"
           >
             <svg
@@ -241,7 +245,7 @@ exports[`CitiesPlaces render tests CitiesPlaces render 1`] = `
             >
               To bookmarks
             </span>
-          </button>
+          </a>
         </div>
         <div
           className="place-card__rating rating"
@@ -322,8 +326,10 @@ exports[`CitiesPlaces render tests CitiesPlaces render 1`] = `
               / night
             </span>
           </div>
-          <button
+          <a
             className="place-card__bookmark-button button place-card__bookmark-button--active"
+            href=""
+            onClick={[Function]}
             type="button"
           >
             <svg
@@ -340,7 +346,7 @@ exports[`CitiesPlaces render tests CitiesPlaces render 1`] = `
             >
               To bookmarks
             </span>
-          </button>
+          </a>
         </div>
         <div
           className="place-card__rating rating"

@@ -301,7 +301,6 @@ const offers = [
 const initialState = {
   offers: null,
   nearOffers,
-  cities: null,
   error: false,
 };
 
@@ -312,7 +311,6 @@ describe(`Data Reducer Actions to get data work correctly`, () => {
     expect(reducer(undefined, {})).toEqual({
       offers: null,
       nearOffers,
-      cities: null,
       error: false,
     });
   });

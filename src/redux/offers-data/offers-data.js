@@ -10,7 +10,6 @@ const ActionType = {
 
 const initialState = {
   offers: null,
-  cities: null,
   error: false,
   nearOffers,
 };

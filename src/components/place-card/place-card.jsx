@@ -4,13 +4,17 @@ import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../redux/page/page.js";
 import {ratingStars} from "../../constants/offer";
+import {AuthorizationStatus} from "../../constants/page.js";
+import {getAuthorizationStatus} from "../../redux/user/selectors.js";
+import {AppRoute} from "../../routing/routes.js";
 
 
 export function PlaceCard({
   offer,
   classes,
   onAdvertCardMouseOver,
-  onAdvertCardMouseOut
+  onAdvertCardMouseOut,
+  authorizationStatus
 }) {
   const {previewImage, premium, favourite, cost, title, type, rating} = offer;
 
@@ -36,14 +40,15 @@ export function PlaceCard({
             <b className="place-card__price-value">&euro;{cost}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button
+          <Link
+            to={authorizationStatus === AuthorizationStatus.NO_AUTH ? AppRoute.SIGN_IN : console.log(`pepa`)}
             className={`place-card__bookmark-button button ${favourite && `place-card__bookmark-button--active`}`}
             type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
             <span className="visually-hidden">To bookmarks</span>
-          </button>
+          </Link>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -92,6 +97,7 @@ PlaceCard.propTypes = {
   classes: PropTypes.object.isRequired,
   onAdvertCardMouseOver: PropTypes.func,
   onAdvertCardMouseOut: PropTypes.func,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -104,5 +110,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(null, mapDispatchToProps)(PlaceCard);
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlaceCard);
 

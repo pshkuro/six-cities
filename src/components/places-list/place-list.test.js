@@ -87,6 +87,9 @@ it(`Render PlaceList`, () => {
   const store = mockStore({
     onAdvertCardMouseOver: jest.fn(),
     onAdvertCardMouseOut: jest.fn(),
+    USER: {
+      authorizationStatus: `AUTH`,
+    }
   });
 
   const tree = renderer
