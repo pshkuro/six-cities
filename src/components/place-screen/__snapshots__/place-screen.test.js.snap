@@ -21,14 +21,14 @@ exports[`PlaceScreen render correctly with Main 1`] = `
         >
           <a
             className="header__logo-link"
-            href="#"
+            href="/"
+            onClick={[Function]}
           >
             <img
               alt="6 cities logo"
               className="header__logo"
               height="41"
-              onClick={[Function]}
-              src="img/logo.svg"
+              src="/img/logo.svg"
               width="81"
             />
           </a>
@@ -44,14 +44,14 @@ exports[`PlaceScreen render correctly with Main 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="#"
+                href="/login"
+                onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
                 />
                 <span
                   className="header__login"
-                  onClick={[Function]}
                 >
                   Sign in
                 </span>
@@ -89,14 +89,14 @@ exports[`PlaceScreen render correctly with Place Property 1`] = `
         >
           <a
             className="header__logo-link"
-            href="#"
+            href="/"
+            onClick={[Function]}
           >
             <img
               alt="6 cities logo"
               className="header__logo"
               height="41"
-              onClick={[Function]}
-              src="img/logo.svg"
+              src="/img/logo.svg"
               width="81"
             />
           </a>
@@ -112,14 +112,14 @@ exports[`PlaceScreen render correctly with Place Property 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="#"
+                href="/login"
+                onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
                 />
                 <span
                   className="header__login"
-                  onClick={[Function]}
                 >
                   Sign in
                 </span>

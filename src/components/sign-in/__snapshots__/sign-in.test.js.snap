@@ -66,15 +66,13 @@ exports[`SignIn render 1`] = `
     >
       <div
         className="locations__item"
-        onClick={[Function]}
       >
         <a
           className="locations__item-link"
-          href="#"
+          href="/"
+          onClick={[Function]}
         >
-          <span>
-            Amsterdam
-          </span>
+          <span />
         </a>
       </div>
     </section>

@@ -1,6 +1,4 @@
 import {
-  getPropertyOffer,
-  getPageStep,
   getActiveOffer,
   getActiveCity
 } from "./selectors.js";
@@ -51,14 +49,6 @@ const mockState = {
 };
 
 describe(`Page reducer selectors tests`, () => {
-  it(`Get property offer selector return correct offer`, () => {
-    expect(getPropertyOffer(mockState)).toEqual(mockState.PAGE.propertyOffer);
-  });
-
-  it(`Get page step selector return correct offer`, () => {
-    expect(getPageStep(mockState)).toEqual(`detail`);
-  });
-
   it(`Get active offer selector return correct offer`, () => {
     expect(getActiveOffer(mockState)).toEqual(mockState.PAGE.activeOffer);
   });

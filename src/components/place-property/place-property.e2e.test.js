@@ -2,6 +2,7 @@ import React from "react";
 import {mount} from "enzyme";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
+import {BrowserRouter} from "react-router-dom";
 import {PlaceProperty} from "./place-property.jsx";
 import Map from "../map/map.jsx";
 
@@ -68,6 +69,12 @@ const props = {
       id: 12},
   ],
   reviews: [],
+  match: {
+    params: {
+      id: 3,
+    }
+  },
+  getPropertyOfferInfo: jest.fn((x) => x),
 };
 
 const mockStore = configureStore([]);
@@ -76,35 +83,65 @@ window.Intl.DateTimeFormat = class {
   format() {}
 };
 
-it(`Map render the same active pin that get to place property`, () => {
-  const store = mockStore({
-    onAdvertCardMouseOver: jest.fn(),
-    onAdvertCardMouseOut: jest.fn(),
-    USER: {
-      authorizationStatus: `NO_AUTH`
-    },
+describe(`Place property tests`, () => {
+  it(`Map render the same active pin that get to place property`, () => {
+    const store = mockStore({
+      onAdvertCardMouseOver: jest.fn(),
+      onAdvertCardMouseOut: jest.fn(),
+      USER: {
+        authorizationStatus: `NO_AUTH`
+      },
+    });
+
+    const placeProperty = mount(
+        <Provider store={store}>
+          <BrowserRouter>
+            <PlaceProperty {...props} />
+          </BrowserRouter>
+        </Provider>,
+        {
+          createNodeMock: () => {
+            return document.createElement(`div`);
+          }
+        }
+    );
+
+    const placePropertyComponent = placeProperty.find(PlaceProperty);
+    const placePropertyActiveOffer = placePropertyComponent.props().offer;
+    const placePropertyActiveOfferCoordinates = placePropertyActiveOffer.coordinates;
+
+    const map = placeProperty.find(Map);
+    const mapActivePin = map.props().pins.find((pin) => pin.isActive);
+    const mapActivePinCoordinates = mapActivePin.coordinates;
+
+    expect(placePropertyActiveOfferCoordinates).toBe(mapActivePinCoordinates);
   });
 
-  const placeProperty = mount(
-      <Provider store={store}>
-        <PlaceProperty {...props} />
-      </Provider>,
-      {
-        createNodeMock: () => {
-          return document.createElement(`div`);
+  it(`Place property mount should get reviews on correct id`, () => {
+    const store = mockStore({
+      onAdvertCardMouseOver: jest.fn(),
+      onAdvertCardMouseOut: jest.fn(),
+      USER: {
+        authorizationStatus: `NO_AUTH`
+      },
+    });
+
+    mount(
+        <Provider store={store}>
+          <BrowserRouter>
+            <PlaceProperty {...props} />
+          </BrowserRouter>
+        </Provider>,
+        {
+          createNodeMock: () => {
+            return document.createElement(`div`);
+          }
         }
-      }
-  );
+    );
 
-  const placePropertyComponent = placeProperty.find(PlaceProperty);
-  const placePropertyActiveOffer = placePropertyComponent.props().offer;
-  const placePropertyActiveOfferCoordinates = placePropertyActiveOffer.coordinates;
-
-  const map = placeProperty.find(Map);
-  const mapActivePin = map.props().pins.find((pin) => pin.isActive);
-  const mapActivePinCoordinates = mapActivePin.coordinates;
-
-  expect(placePropertyActiveOfferCoordinates).toBe(mapActivePinCoordinates);
+    expect(props.getPropertyOfferInfo).toHaveBeenCalled();
+    expect(props.getPropertyOfferInfo).toHaveBeenCalledWith(props.match.params.id);
+  });
 });
 
 

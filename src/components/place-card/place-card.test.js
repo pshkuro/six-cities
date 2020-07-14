@@ -1,5 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {BrowserRouter} from "react-router-dom";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
 import {PlaceCard} from "./place-card.jsx";
 
 const props = {
@@ -34,11 +37,20 @@ const props = {
   }
 };
 
+const mockStore = configureStore([]);
+const store = mockStore({
+  onAdvertCardMouseOver: jest.fn(),
+  onAdvertCardMouseOut: jest.fn(),
+});
 
 it(`Render PlaceCard`, () => {
   const tree = renderer
       .create(
-          <PlaceCard {...props}/>
+          <Provider store={store}>
+            <BrowserRouter>
+              <PlaceCard {...props}/>
+            </BrowserRouter>
+          </Provider>
       )
       .toJSON();
 

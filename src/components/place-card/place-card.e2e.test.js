@@ -1,7 +1,7 @@
 import React from "react";
 import {mount} from "enzyme";
+import {BrowserRouter} from "react-router-dom";
 import {PlaceCard} from "./place-card.jsx";
-import {PageType} from "../../constants/page.js";
 
 const props = {
   offer: {
@@ -26,7 +26,6 @@ const props = {
     },
     id: 8989,
   },
-  onAdvertCardTitleClick: jest.fn((x) => x),
   onAdvertCardMouseOver: jest.fn((x) => x),
   onAdvertCardMouseOut: jest.fn(),
   classes: {
@@ -35,37 +34,20 @@ const props = {
     cards: `cities__places-`,
     map: `cities`,
   },
-  step: PageType.DETAILS,
 };
 
 
 describe(`PlaceCard tests`, () => {
   it(`Hovering PlaceCard get to callback info about itself`, () => {
     const placeCard = mount(
-        <PlaceCard {...props}/>
+        <BrowserRouter>
+          <PlaceCard {...props}/>
+        </BrowserRouter>
     );
 
     placeCard.simulate(`mouseEnter`);
 
     expect(props.onAdvertCardMouseOver).toHaveBeenCalledTimes(1);
     expect(props.onAdvertCardMouseOver.mock.results[0].value).toMatchObject(props.offer);
-  });
-
-
-  it(`PlaceCard title should be clicked and get to callback info about itself`, () => {
-
-    const placeCard = mount(
-        <PlaceCard {...props}/>
-    );
-
-    const advertCardTitle = placeCard.find(`.place-card__name`);
-    advertCardTitle.simulate(`click`, {
-      preventDefault: () => {}
-    });
-
-    expect(props.onAdvertCardTitleClick).toHaveBeenCalledTimes(1);
-    expect(props.onAdvertCardTitleClick.mock.calls[0][0]).toBe(props.step);
-    expect(props.onAdvertCardTitleClick.mock.calls[0][1]).toBe(props.offer);
-
   });
 });

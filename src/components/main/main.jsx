@@ -10,9 +10,9 @@ import withSorting from "../../hocs/with-sorting/with-sorting.js";
 const CitiesPlacesWrapped = withSorting(CitiesPlaces);
 
 
-export default function Main({offers,
+export default function Main({
+  offers,
   activeOffer,
-  // onAdvertCardTitleClick
 }) {
   const {offers: cityOffers, cityCoordinates, city} = offers;
 
@@ -34,7 +34,6 @@ export default function Main({offers,
           <div className="cities__places-container container">
             <CitiesPlacesWrapped
               offers={cityOffers}
-              // onAdvertCardTitleClick={onAdvertCardTitleClick}
               city={city}/>
 
             <div className="cities__right-section">
@@ -55,7 +54,6 @@ Main.propTypes = {
   city: PropTypes.string,
   cityCoordinates: PropTypes.arrayOf(PropTypes.number),
   activeOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(null)]),
-  // onAdvertCardTitleClick: PropTypes.func,
 };
 
 

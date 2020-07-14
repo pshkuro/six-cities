@@ -2,6 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
+import {BrowserRouter} from "react-router-dom";
 import {PlaceProperty} from "./place-property.jsx";
 
 const props = {
@@ -67,6 +68,12 @@ const props = {
       id: 12},
   ],
   reviews: [],
+  match: {
+    params: {
+      id: 3,
+    }
+  },
+  getPropertyOfferInfo: jest.fn(),
 };
 
 window.Intl.DateTimeFormat = class {
@@ -88,7 +95,9 @@ it(`Render PlaceProperty`, () => {
   const tree = renderer
   .create(
       <Provider store={store}>
-        <PlaceProperty {...props} />
+        <BrowserRouter>
+          <PlaceProperty {...props} />
+        </BrowserRouter>
       </Provider>,
       {
         createNodeMock: () => {

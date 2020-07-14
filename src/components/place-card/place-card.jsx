@@ -4,19 +4,16 @@ import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../redux/page/page.js";
 import {ratingStars} from "../../constants/offer";
-// import {PageType} from "../../constants/page.js";
 
 
 export function PlaceCard({
   offer,
-  // onAdvertCardTitleClick,
   classes,
   onAdvertCardMouseOver,
   onAdvertCardMouseOut
 }) {
   const {previewImage, premium, favourite, cost, title, type, rating} = offer;
 
-  // const handleOnAdvertCardTitle = () => onAdvertCardTitleClick(PageType.DETAILS, offer);
   const handleOnAdvertCardMouse = () => onAdvertCardMouseOver(offer);
 
   return (
@@ -58,7 +55,6 @@ export function PlaceCard({
           to={`offer/${offer.id}`}>
           <h2
             className="place-card__name"
-            // onClick={onAdvertCardTitleClick && handleOnAdvertCardTitle}
           >
             {title}
           </h2>
@@ -94,7 +90,6 @@ PlaceCard.propTypes = {
     id: PropTypes.number,
   }).isRequired,
   classes: PropTypes.object.isRequired,
-  // onAdvertCardTitleClick: PropTypes.func,
   onAdvertCardMouseOver: PropTypes.func,
   onAdvertCardMouseOut: PropTypes.func,
 };

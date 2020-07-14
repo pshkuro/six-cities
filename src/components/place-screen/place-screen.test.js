@@ -1,13 +1,14 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {BrowserRouter} from "react-router-dom";
 import {PlaceScreen} from "./place-screen.jsx";
-import {PageType} from "../../constants/page.js";
+
 
 const props = [
   {
     children: <div className="children-component" />,
     color: `gray`,
-    type: PageType.MAIN,
+    type: `main`,
     authorizationStatus: `NO_AUTH`,
     profile: {
       email: `pipa`,
@@ -15,7 +16,7 @@ const props = [
   },
   {
     children: <div className="children-component" />,
-    type: PageType.DETAILS,
+    type: `details`,
     authorizationStatus: `NO_AUTH`,
     profile: {
       email: `pipa`,
@@ -27,8 +28,10 @@ describe(`PlaceScreen render correctly`, () => {
   it(`with Main`, () => {
     const tree = renderer
     .create(
-        <PlaceScreen
-          {...props[0]}/>
+        <BrowserRouter>
+          <PlaceScreen
+            {...props[0]}/>
+        </BrowserRouter>
     )
     .toJSON();
 
@@ -38,8 +41,10 @@ describe(`PlaceScreen render correctly`, () => {
   it(`with Place Property`, () => {
     const tree = renderer
     .create(
-        <PlaceScreen
-          {...props[1]}/>
+        <BrowserRouter>
+          <PlaceScreen
+            {...props[1]}/>
+        </BrowserRouter>
     )
     .toJSON();
 

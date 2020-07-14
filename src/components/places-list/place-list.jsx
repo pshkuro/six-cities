@@ -5,7 +5,6 @@ import PlaceCard from "../place-card/place-card.jsx";
 
 export default function PlaceList({
   offers,
-  //  onAdvertCardTitleClick,
   classes
 }) {
 
@@ -14,7 +13,6 @@ export default function PlaceList({
       {offers.map((offer) => (
         <PlaceCard
           offer={offer}
-          // onAdvertCardTitleClick={onAdvertCardTitleClick && onAdvertCardTitleClick}
           key={offer.id}
           classes={classes}/>
       ))}
@@ -26,7 +24,6 @@ export default function PlaceList({
 
 PlaceList.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.object).isRequired,
-  // onAdvertCardTitleClick: PropTypes.func,
   classes: PropTypes.object.isRequired,
 };
 

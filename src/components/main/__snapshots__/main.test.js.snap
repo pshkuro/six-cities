@@ -216,16 +216,16 @@ exports[`Render Main 1`] = `
                   </span>
                 </div>
               </div>
-              <h2
-                className="place-card__name"
+              <a
+                href="/offer/80989"
                 onClick={[Function]}
               >
-                <a
-                  href="#"
+                <h2
+                  className="place-card__name"
                 >
                   good rererer
-                </a>
-              </h2>
+                </h2>
+              </a>
               <p
                 className="place-card__type"
               >
@@ -315,16 +315,16 @@ exports[`Render Main 1`] = `
                   </span>
                 </div>
               </div>
-              <h2
-                className="place-card__name"
+              <a
+                href="/offer/89"
                 onClick={[Function]}
               >
-                <a
-                  href="#"
+                <h2
+                  className="place-card__name"
                 >
                   good rererer
-                </a>
-              </h2>
+                </h2>
+              </a>
               <p
                 className="place-card__type"
               >
@@ -414,16 +414,16 @@ exports[`Render Main 1`] = `
                   </span>
                 </div>
               </div>
-              <h2
-                className="place-card__name"
+              <a
+                href="/offer/8989"
                 onClick={[Function]}
               >
-                <a
-                  href="#"
+                <h2
+                  className="place-card__name"
                 >
                   good rererer
-                </a>
-              </h2>
+                </h2>
+              </a>
               <p
                 className="place-card__type"
               >

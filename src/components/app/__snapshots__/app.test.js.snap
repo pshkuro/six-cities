@@ -21,14 +21,14 @@ exports[`Render App 1`] = `
         >
           <a
             className="header__logo-link"
-            href="#"
+            href="/"
+            onClick={[Function]}
           >
             <img
               alt="6 cities logo"
               className="header__logo"
               height="41"
-              onClick={[Function]}
-              src="img/logo.svg"
+              src="/img/logo.svg"
               width="81"
             />
           </a>
@@ -44,7 +44,8 @@ exports[`Render App 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="#"
+                href="/favorites"
+                onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
@@ -274,16 +275,16 @@ exports[`Render App 1`] = `
                     </span>
                   </div>
                 </div>
-                <h2
-                  className="place-card__name"
+                <a
+                  href="/offer/89089"
                   onClick={[Function]}
                 >
-                  <a
-                    href="#"
+                  <h2
+                    className="place-card__name"
                   >
                     good rererer
-                  </a>
-                </h2>
+                  </h2>
+                </a>
                 <p
                   className="place-card__type"
                 >
@@ -373,16 +374,16 @@ exports[`Render App 1`] = `
                     </span>
                   </div>
                 </div>
-                <h2
-                  className="place-card__name"
+                <a
+                  href="/offer/89"
                   onClick={[Function]}
                 >
-                  <a
-                    href="#"
+                  <h2
+                    className="place-card__name"
                   >
                     good rererer
-                  </a>
-                </h2>
+                  </h2>
+                </a>
                 <p
                   className="place-card__type"
                 >
@@ -472,16 +473,16 @@ exports[`Render App 1`] = `
                     </span>
                   </div>
                 </div>
-                <h2
-                  className="place-card__name"
+                <a
+                  href="/offer/8989"
                   onClick={[Function]}
                 >
-                  <a
-                    href="#"
+                  <h2
+                    className="place-card__name"
                   >
                     good rererer
-                  </a>
-                </h2>
+                  </h2>
+                </a>
                 <p
                   className="place-card__type"
                 >
