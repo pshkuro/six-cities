@@ -243,6 +243,7 @@ it(`Render App`, () => {
     OFFERS_DATA: mockOffers,
     USER: {
       profile: {},
+      authorizationStatus: `AUTH`,
     }
   });
 

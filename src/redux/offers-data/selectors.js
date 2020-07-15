@@ -10,15 +10,6 @@ export const getActiveCity = (state) => {
 };
 
 
-// export const changeFavoriteOffer = (state, id) => {
-//   const favoriteOffer = state[NameSpace.OFFERS_DATA].offers
-//     .map((hotel) => hotel.offers)
-//     .flat()
-//     .find((offer) => offer.id === Number(id));
-//   favoriteOffer.favourite = !favoriteOffer.favourite;
-//   return state[NameSpace.OFFERS_DATA].offers;
-// };
-
 export const getCityOffers = createSelector(
     getOffers,
     getActiveCity,

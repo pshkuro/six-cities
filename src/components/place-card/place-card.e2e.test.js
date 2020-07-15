@@ -2,6 +2,8 @@ import React from "react";
 import {mount} from "enzyme";
 import {BrowserRouter} from "react-router-dom";
 import {PlaceCard} from "./place-card.jsx";
+import {AuthorizationStatus} from "../../constants/page.js";
+
 
 const props = {
   offer: {
@@ -34,7 +36,8 @@ const props = {
     cards: `cities__places-`,
     map: `cities`,
   },
-  setFavorite: jest.fn(),
+  setFavorite: jest.fn((z) => z),
+  authorizationStatus: `AUTH`,
 };
 
 
@@ -50,5 +53,20 @@ describe(`PlaceCard tests`, () => {
 
     expect(props.onAdvertCardMouseOver).toHaveBeenCalledTimes(1);
     expect(props.onAdvertCardMouseOver.mock.results[0].value).toMatchObject(props.offer);
+  });
+
+  it(`Click on favorite button should to callback`, () => {
+    const placeCard = mount(
+        <BrowserRouter>
+          <PlaceCard {...props}
+            authorizationStatus={AuthorizationStatus.AUTH}/>
+        </BrowserRouter>
+    );
+
+    const favoriteButton = placeCard.find(`.place-card__bookmark-button`).first();
+    favoriteButton.simulate(`click`);
+
+    expect(props.setFavorite).toHaveBeenCalledTimes(1);
+    expect(props.setFavorite).toHaveBeenCalledWith(props.offer.id, 0, props.offer);
   });
 });

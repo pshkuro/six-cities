@@ -34,14 +34,15 @@ const props = {
     wrapper: `cities`,
     cards: `cities__places-`,
     map: `cities`,
-  }
+  },
+  setFavorite: jest.fn(),
+  authorizationStatus: `AUTH`,
 };
 
 const mockStore = configureStore([]);
 const store = mockStore({
   onAdvertCardMouseOver: jest.fn(),
   onAdvertCardMouseOut: jest.fn(),
-  setFavorite: jest.fn(),
 });
 
 it(`Render PlaceCard`, () => {

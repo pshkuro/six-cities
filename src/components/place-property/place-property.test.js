@@ -70,7 +70,7 @@ const props = {
   reviews: [],
   match: {
     params: {
-      id: 3,
+      id: `3`,
     }
   },
   getPropertyOfferInfo: jest.fn(),

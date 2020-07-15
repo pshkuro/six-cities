@@ -71,7 +71,7 @@ const props = {
   reviews: [],
   match: {
     params: {
-      id: 3,
+      id: `3`,
     }
   },
   getPropertyOfferInfo: jest.fn((x) => x),
@@ -140,7 +140,7 @@ describe(`Place property tests`, () => {
     );
 
     expect(props.getPropertyOfferInfo).toHaveBeenCalled();
-    expect(props.getPropertyOfferInfo).toHaveBeenCalledWith(props.match.params.id);
+    expect(props.getPropertyOfferInfo).toHaveBeenCalledWith(3);
   });
 });
 

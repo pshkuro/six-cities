@@ -41,9 +41,8 @@ exports[`Render PlaceCard 1`] = `
           / night
         </span>
       </div>
-      <a
+      <button
         className="place-card__bookmark-button button place-card__bookmark-button--active"
-        href=""
         onClick={[Function]}
         type="button"
       >
@@ -61,7 +60,7 @@ exports[`Render PlaceCard 1`] = `
         >
           To bookmarks
         </span>
-      </a>
+      </button>
     </div>
     <div
       className="place-card__rating rating"

@@ -297,6 +297,73 @@ const offers = [
   },
 ];
 
+const offersWithoutFavorites = [
+  {
+    city: `Paris`,
+    cityCoordinates: {
+      coordinates: [52.3909553943508, 4.85309666406198],
+      zoom: 12,
+    },
+    offers: [
+      {
+        previewImage: `img/apartment-01.jpg`,
+        pictures: [`img/apartment-01.jpg`],
+        title: `good rererer`,
+        description: [`Wood and stone place`],
+        premium: false,
+        favourite: false,
+        type: `Apartment`,
+        rating: 1.8,
+        bedrooms: 5,
+        guests: 1,
+        cost: 120,
+        conveniences: [`Cool vary cool place`],
+        coordinates: [52.3909553943508, 4.85309666406198],
+        owner: {
+          avatar: `img/avatar-angelina.jpg`,
+          name: `Lolo`,
+          pro: true,
+          id: 12,
+        },
+        id: 8989,
+      }
+    ],
+  }
+];
+
+const offersWithOneFavorite = [
+  {
+    city: `Paris`,
+    cityCoordinates: {
+      coordinates: [52.3909553943508, 4.85309666406198],
+      zoom: 12,
+    },
+    offers: [
+      {
+        previewImage: `img/apartment-01.jpg`,
+        pictures: [`img/apartment-01.jpg`],
+        title: `good rererer`,
+        description: [`Wood and stone place`],
+        premium: false,
+        favourite: true,
+        type: `Apartment`,
+        rating: 1.8,
+        bedrooms: 5,
+        guests: 1,
+        cost: 120,
+        conveniences: [`Cool vary cool place`],
+        coordinates: [52.3909553943508, 4.85309666406198],
+        owner: {
+          avatar: `img/avatar-angelina.jpg`,
+          name: `Lolo`,
+          pro: true,
+          id: 12,
+        },
+        id: 8989,
+      }
+    ],
+  }
+];
 
 const initialState = {
   offers: null,
@@ -324,6 +391,19 @@ describe(`Data Reducer Actions to get data work correctly`, () => {
     }));
   });
 
+  it(`The reducer set favorite return correct offers`, () => {
+    const stateWithoutFavoriteOffers = Object.assign({}, initialState, {offers: offersWithoutFavorites});
+    const stateWithOneFavoriteOffer = Object.assign({}, initialState, {offers: offersWithOneFavorite});
+    const notFavoriteOffer = stateWithoutFavoriteOffers.offers[0].offers[0];
+    const setFavoriteOfferAction = {
+      type: ActionType.SET_FAVORITE_OFFER,
+      offer: notFavoriteOffer,
+    };
+    const newStateWithOneFavoriteOffer = reducer(stateWithoutFavoriteOffers, setFavoriteOfferAction);
+
+    expect(newStateWithOneFavoriteOffer).toEqual(stateWithOneFavoriteOffer);
+  });
+
   it(`Action creators of get offers returns correct action`, () => {
     expect(ActionCreator.getOffers(offers)).toEqual({
       type: ActionType.GET_OFFERS,
@@ -335,6 +415,35 @@ describe(`Data Reducer Actions to get data work correctly`, () => {
     expect(ActionCreator.offersLoadError()).toEqual({
       type: ActionType.LOAD_ERROR,
       error: true,
+    });
+  });
+
+  it(`Action set favorite offer returna correct action`, () => {
+    const offer = {
+      previewImage: `img/apartment-01.jpg`,
+      pictures: [`img/apartment-01.jpg`],
+      title: `good rererer`,
+      description: [`Wood and stone place`],
+      premium: false,
+      favourite: false,
+      type: `Apartment`,
+      rating: 1.8,
+      bedrooms: 5,
+      guests: 1,
+      cost: 120,
+      conveniences: [`Cool vary cool place`],
+      coordinates: [52.3909553943508, 4.85309666406198],
+      owner: {
+        avatar: `img/avatar-angelina.jpg`,
+        name: `Lolo`,
+        pro: true,
+        id: 12,
+      },
+      id: 8989,
+    };
+    expect(ActionCreator.setFavoriteOffer(offer)).toEqual({
+      type: ActionType.SET_FAVORITE_OFFER,
+      offer,
     });
   });
 });
