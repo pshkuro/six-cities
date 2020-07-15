@@ -2,11 +2,12 @@ import {parseHotel} from "../mapping/hotel-parser.js";
 import {parseHotels} from "../mapping/hotels-pareser.js";
 import {nearOffers} from "../../mocks/near-offers.js";
 import {getHotels} from "../../api/clients.js";
-
+import produce from 'immer';
 
 const ActionType = {
   GET_OFFERS: `GET_OFFERS`,
   LOAD_ERROR: `LOAD_ERROR`,
+  SET_FAVORITE_OFFER: `SET_FAVORITE_OFFER`,
 };
 
 const initialState = {
@@ -28,6 +29,13 @@ const ActionCreator = {
       type: ActionType.LOAD_ERROR,
       error: true,
     });
+  },
+
+  setFavoriteOffer: (offer) => {
+    return ({
+      type: ActionType.SET_FAVORITE_OFFER,
+      offer,
+    });
   }
 };
 
@@ -46,6 +54,7 @@ const Operation = {
         dispatch(ActionCreator.offersLoadError());
       });
   },
+
 };
 
 
@@ -61,6 +70,16 @@ const reducer = (state = initialState, action) => {
       const {error} = action;
       return Object.assign({}, state, {
         error,
+      });
+
+    case ActionType.SET_FAVORITE_OFFER:
+      return produce(state, (draftState) => {
+        draftState.offers.forEach((city) => {
+          const cityOffer = city.offers.find((offer) => offer.id === action.offer.id);
+          if (cityOffer) {
+            cityOffer.favourite = !action.offer.favourite;
+          }
+        });
       });
   }
 

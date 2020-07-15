@@ -34,6 +34,7 @@ const props = {
     cards: `cities__places-`,
     map: `cities`,
   },
+  setFavorite: jest.fn(),
 };
 
 

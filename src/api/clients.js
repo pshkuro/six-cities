@@ -12,5 +12,4 @@ export const postNewReview = (api, data, id) => api.post(`/comments/${id}`, {
 export const getReviews = (api, id) => api.get(`/comments/${id}`);
 
 export const getFavorites = (api) => api.get(`/favorite`);
-export const addFavorite = (api, data, id, status) => api.post(`/favorite/${id}/${status}`, {
-});
+export const setFavorite = (api, id, status) => api.post(`/favorite/${id}/${status}`);

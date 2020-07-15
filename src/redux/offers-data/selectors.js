@@ -9,6 +9,16 @@ export const getActiveCity = (state) => {
   return state[NameSpace.PAGE].city;
 };
 
+
+// export const changeFavoriteOffer = (state, id) => {
+//   const favoriteOffer = state[NameSpace.OFFERS_DATA].offers
+//     .map((hotel) => hotel.offers)
+//     .flat()
+//     .find((offer) => offer.id === Number(id));
+//   favoriteOffer.favourite = !favoriteOffer.favourite;
+//   return state[NameSpace.OFFERS_DATA].offers;
+// };
+
 export const getCityOffers = createSelector(
     getOffers,
     getActiveCity,
@@ -26,6 +36,7 @@ export const getCityOffers = createSelector(
       return cityOffers;
     }
 );
+
 
 export const getNearOffers = (state) => {
   return state[NameSpace.OFFERS_DATA].nearOffers;
@@ -49,3 +60,4 @@ export const getPropertyOffer = (state, id) => {
     .flat()
     .find((offer) => offer.id === Number(id));
 };
+

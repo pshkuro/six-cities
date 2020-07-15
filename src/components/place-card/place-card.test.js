@@ -41,6 +41,7 @@ const mockStore = configureStore([]);
 const store = mockStore({
   onAdvertCardMouseOver: jest.fn(),
   onAdvertCardMouseOut: jest.fn(),
+  setFavorite: jest.fn(),
 });
 
 it(`Render PlaceCard`, () => {
