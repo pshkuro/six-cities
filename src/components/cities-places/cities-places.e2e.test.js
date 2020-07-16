@@ -1,6 +1,7 @@
 import React from "react";
 import {mount} from "enzyme";
 import {Provider} from "react-redux";
+import {BrowserRouter} from "react-router-dom";
 import configureStore from "redux-mock-store";
 import CitiesPlaces from "./cities-places.jsx";
 
@@ -84,11 +85,16 @@ describe(`CitiesPlaces tests`, () => {
     const store = mockStore({
       onAdvertCardMouseOver: jest.fn(),
       onAdvertCardMouseOut: jest.fn(),
+      USER: {
+        authorizationStatus: `AUTH`,
+      }
     });
 
     const citiesPlaces = mount(
         <Provider store={store}>
-          <CitiesPlaces {...props}/>
+          <BrowserRouter>
+            <CitiesPlaces {...props}/>
+          </BrowserRouter>
         </Provider>
     );
 

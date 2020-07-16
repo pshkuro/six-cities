@@ -1,15 +1,12 @@
-import {PageType} from "../../constants/page.js";
 const initialState = {
   city: null,
-  step: PageType.MAIN,
-  propertyOffer: null,
   activeOffer: null,
+  favoriteOffers: [],
 };
 
 const ActionType = {
   GET_OFFERS: `GET_OFFERS`,
   CHOOSE_CITY: `CHOOSE_CITY`,
-  CHANGE_PAGE_TYPE: `CHANGE_PAGE_TYPE`,
   MAKE_OFFER_ACTIVE: `MAKE_OFFER_ACTIVE`,
   MAKE_OFFER_INACTIVE: `MAKE_CARD_INACTIVE`,
 };
@@ -24,15 +21,6 @@ const ActionCreator = {
     );
   },
 
-  changePageType: (step, offer) => {
-    return (
-      {
-        type: ActionType.CHANGE_PAGE_TYPE,
-        step,
-        propertyOffer: offer,
-      }
-    );
-  },
 
   makeOfferCardActive: (offer) => {
     return (
@@ -51,7 +39,6 @@ const ActionCreator = {
       }
     );
   },
-
 };
 
 
@@ -62,13 +49,6 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         city,
         offers: filteredOffers,
-      });
-
-    case ActionType.CHANGE_PAGE_TYPE:
-      const {step, propertyOffer} = action;
-      return Object.assign({}, state, {
-        step,
-        propertyOffer,
       });
 
     case ActionType.MAKE_OFFER_ACTIVE:

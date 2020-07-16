@@ -5,9 +5,10 @@ const getOffers = (state) => {
   return state[NameSpace.OFFERS_DATA].offers;
 };
 
-const getActiveCity = (state) => {
+export const getActiveCity = (state) => {
   return state[NameSpace.PAGE].city;
 };
+
 
 export const getCityOffers = createSelector(
     getOffers,
@@ -27,6 +28,7 @@ export const getCityOffers = createSelector(
     }
 );
 
+
 export const getNearOffers = (state) => {
   return state[NameSpace.OFFERS_DATA].nearOffers;
 };
@@ -41,3 +43,12 @@ export const getCities = createSelector(
 export const getError = (state) => {
   return state[NameSpace.OFFERS_DATA].error;
 };
+
+
+export const getPropertyOffer = (state, id) => {
+  return state[NameSpace.OFFERS_DATA].offers
+    .map((hotel) => hotel.offers)
+    .flat()
+    .find((offer) => offer.id === Number(id));
+};
+

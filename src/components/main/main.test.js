@@ -1,8 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main.jsx";
 import {Provider} from "react-redux";
+import {BrowserRouter} from "react-router-dom";
 import configureStore from "redux-mock-store";
+import Main from "./main.jsx";
 
 const props = {
   offers: {
@@ -77,7 +78,6 @@ const props = {
         id: 8989,
       }],
   },
-  onAdvertCardTitleClick: jest.fn(),
   activeOffer: null,
 };
 
@@ -239,12 +239,17 @@ it(`Render Main`, () => {
       city: `Moscow`,
     },
     OFFERS_DATA: mockOffers,
+    USER: {
+      authorizationStatus: `AUTH`,
+    }
   });
 
   const tree = renderer
   .create(
       <Provider store={store}>
-        <Main {...props}/>
+        <BrowserRouter>
+          <Main {...props}/>
+        </BrowserRouter>
       </Provider>,
       {
         createNodeMock: () => {

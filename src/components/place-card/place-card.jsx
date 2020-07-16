@@ -1,16 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../redux/page/page.js";
 import {ratingStars} from "../../constants/offer";
-import {PageType} from "../../constants/page.js";
+import {AuthorizationStatus} from "../../constants/page.js";
+import {getAuthorizationStatus} from "../../redux/user/selectors.js";
+import {ActionCreator as DataOffersActionCreator} from "../../redux/offers-data/offers-data.js";
+import {AppRoute} from "../../routing/routes.js";
+import {Operation} from "../../redux/offers-favorites/offers-favotites.js";
 
 
-export function PlaceCard({offer, onAdvertCardTitleClick, classes, onAdvertCardMouseOver, onAdvertCardMouseOut}) {
-  const {previewImage, premium, favourite, cost, title, type, rating} = offer;
+export function PlaceCard({
+  offer,
+  classes,
+  onAdvertCardMouseOver,
+  onAdvertCardMouseOut,
+  authorizationStatus,
+  setFavorite,
+}) {
+  const {previewImage, premium, favourite, cost, title, type, rating, id} = offer;
 
-  const handleOnAdvertCardTitle = () => onAdvertCardTitleClick(PageType.DETAILS, offer);
+  const isOfferFavorite = favourite ? 0 : 1;
   const handleOnAdvertCardMouse = () => onAdvertCardMouseOver(offer);
+  const handleSetFavoriteClick = () => {
+    setFavorite(id, isOfferFavorite, offer);
+  };
 
   return (
     <article className={`${classes.card}card place-card`}
@@ -32,14 +47,27 @@ export function PlaceCard({offer, onAdvertCardTitleClick, classes, onAdvertCardM
             <b className="place-card__price-value">&euro;{cost}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button
-            className={`place-card__bookmark-button button ${favourite && `place-card__bookmark-button--active`}`}
-            type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          {
+            authorizationStatus === AuthorizationStatus.NO_AUTH
+              ? <Link
+                to={AppRoute.SIGN_IN}
+                className={`place-card__bookmark-button button ${favourite && `place-card__bookmark-button--active`}`}
+                type="button">
+                <svg className="place-card__bookmark-icon" width="18" height="19">
+                  <use xlinkHref="#icon-bookmark"></use>
+                </svg>
+                <span className="visually-hidden">To bookmarks</span>
+              </Link>
+              : <button
+                onClick={handleSetFavoriteClick}
+                className={`place-card__bookmark-button button ${favourite && `place-card__bookmark-button--active`}`}
+                type="button">
+                <svg className="place-card__bookmark-icon" width="18" height="19">
+                  <use xlinkHref="#icon-bookmark"></use>
+                </svg>
+                <span className="visually-hidden">To bookmarks</span>
+              </button>
+          }
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -47,11 +75,14 @@ export function PlaceCard({offer, onAdvertCardTitleClick, classes, onAdvertCardM
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2
-          className="place-card__name"
-          onClick={onAdvertCardTitleClick && handleOnAdvertCardTitle}>
-          <a href="#">{title}</a>
-        </h2>
+        <Link
+          to={`offer/${offer.id}`}>
+          <h2
+            className="place-card__name"
+          >
+            {title}
+          </h2>
+        </Link>
         <p className="place-card__type">{type}</p>
       </div>
     </article>
@@ -83,9 +114,10 @@ PlaceCard.propTypes = {
     id: PropTypes.number,
   }).isRequired,
   classes: PropTypes.object.isRequired,
-  onAdvertCardTitleClick: PropTypes.func,
   onAdvertCardMouseOver: PropTypes.func,
   onAdvertCardMouseOut: PropTypes.func,
+  authorizationStatus: PropTypes.string.isRequired,
+  setFavorite: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -96,7 +128,16 @@ const mapDispatchToProps = (dispatch) => ({
   onAdvertCardMouseOut() {
     dispatch(ActionCreator.makeOfferInactive());
   },
+
+  setFavorite(id, status, offer) {
+    dispatch(Operation.setFavorite(id, status));
+    dispatch(DataOffersActionCreator.setFavoriteOffer(offer));
+  }
 });
 
-export default connect(null, mapDispatchToProps)(PlaceCard);
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlaceCard);
 

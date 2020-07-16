@@ -157,7 +157,7 @@ exports[`Render PlaceProperty 1`] = `
                 alt="Host avatar"
                 className="property__avatar user__avatar"
                 height="74"
-                src="img/avatar-angelina.jpg"
+                src="/img/avatar-angelina.jpg"
                 width="74"
               />
             </div>
@@ -260,8 +260,10 @@ exports[`Render PlaceProperty 1`] = `
                   / night
                 </span>
               </div>
-              <button
+              <a
                 className="place-card__bookmark-button button undefined"
+                href="/login"
+                onClick={[Function]}
                 type="button"
               >
                 <svg
@@ -278,7 +280,7 @@ exports[`Render PlaceProperty 1`] = `
                 >
                   To bookmarks
                 </span>
-              </button>
+              </a>
             </div>
             <div
               className="place-card__rating rating"
@@ -300,15 +302,16 @@ exports[`Render PlaceProperty 1`] = `
                 </span>
               </div>
             </div>
-            <h2
-              className="place-card__name"
+            <a
+              href="/offer/112"
+              onClick={[Function]}
             >
-              <a
-                href="#"
+              <h2
+                className="place-card__name"
               >
                 good rererer
-              </a>
-            </h2>
+              </h2>
+            </a>
             <p
               className="place-card__type"
             >
@@ -357,8 +360,10 @@ exports[`Render PlaceProperty 1`] = `
                   / night
                 </span>
               </div>
-              <button
+              <a
                 className="place-card__bookmark-button button undefined"
+                href="/login"
+                onClick={[Function]}
                 type="button"
               >
                 <svg
@@ -375,7 +380,7 @@ exports[`Render PlaceProperty 1`] = `
                 >
                   To bookmarks
                 </span>
-              </button>
+              </a>
             </div>
             <div
               className="place-card__rating rating"
@@ -397,15 +402,16 @@ exports[`Render PlaceProperty 1`] = `
                 </span>
               </div>
             </div>
-            <h2
-              className="place-card__name"
+            <a
+              href="/offer/12"
+              onClick={[Function]}
             >
-              <a
-                href="#"
+              <h2
+                className="place-card__name"
               >
                 good rererer
-              </a>
-            </h2>
+              </h2>
+            </a>
             <p
               className="place-card__type"
             >

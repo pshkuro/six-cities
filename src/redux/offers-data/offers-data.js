@@ -1,16 +1,17 @@
-import {parseData} from "../mapping/data-parser.js";
+import {parseHotel} from "../mapping/hotel-parser.js";
+import {parseHotels} from "../mapping/hotels-pareser.js";
 import {nearOffers} from "../../mocks/near-offers.js";
 import {getHotels} from "../../api/clients.js";
-
+import produce from 'immer';
 
 const ActionType = {
   GET_OFFERS: `GET_OFFERS`,
   LOAD_ERROR: `LOAD_ERROR`,
+  SET_FAVORITE_OFFER: `SET_FAVORITE_OFFER`,
 };
 
 const initialState = {
   offers: null,
-  cities: null,
   error: false,
   nearOffers,
 };
@@ -28,25 +29,14 @@ const ActionCreator = {
       type: ActionType.LOAD_ERROR,
       error: true,
     });
-  }
-};
+  },
 
-const parseHotels = (hotels) => {
-  return hotels.reduce((offers, offer) => {
-    if (offers.has(offer.city.name)) {
-      offers.get(offer.city.name).offers.push(offer);
-    } else {
-      offers.set(offer.city.name, {
-        city: offer.city.name,
-        cityCoordinates: {
-          coordinates: [offer.city.location.latitude, offer.city.location.longitude],
-          zoom: offer.city.location.zoom,
-        },
-        offers: [offer]
-      });
-    }
-    return offers;
-  }, new Map());
+  setFavoriteOffer: (offer) => {
+    return ({
+      type: ActionType.SET_FAVORITE_OFFER,
+      offer,
+    });
+  }
 };
 
 
@@ -55,7 +45,7 @@ const Operation = {
     return getHotels(api)
       .then((response) => parseHotels(response.data))
       .then((data) => {
-        return Array.from(data.values()).map((offer) => (Object.assign(offer, {offers: offer.offers.map(parseData)})));
+        return Array.from(data.values()).map((offer) => (Object.assign(offer, {offers: offer.offers.map(parseHotel)})));
       })
       .then((data) => {
         dispatch(ActionCreator.getOffers(data));
@@ -64,6 +54,7 @@ const Operation = {
         dispatch(ActionCreator.offersLoadError());
       });
   },
+
 };
 
 
@@ -79,6 +70,16 @@ const reducer = (state = initialState, action) => {
       const {error} = action;
       return Object.assign({}, state, {
         error,
+      });
+
+    case ActionType.SET_FAVORITE_OFFER:
+      return produce(state, (draftState) => {
+        draftState.offers.forEach((city) => {
+          const cityOffer = city.offers.find((offer) => offer.id === action.offer.id);
+          if (cityOffer) {
+            cityOffer.favourite = !action.offer.favourite;
+          }
+        });
       });
   }
 

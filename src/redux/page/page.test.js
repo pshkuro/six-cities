@@ -1,11 +1,8 @@
 import {reducer, ActionType, ActionCreator} from "./page.js";
-import {PageType} from "../../constants/page.js";
 
 
 const initialState = {
   city: `Paris`,
-  step: PageType.MAIN,
-  propertyOffer: null,
   activeOffer: null,
 };
 
@@ -18,56 +15,6 @@ describe(`Page Reducer tests`, () => {
       city: `Brussels`,
     })).toEqual(Object.assign(initialState, {
       city: `Brussels`,
-    }));
-  });
-
-  it(`The reducer changePageType to new page`, () => {
-    expect(reducer(initialState, {
-      type: ActionType.CHANGE_PAGE_TYPE,
-      step: PageType.DETAILS,
-      propertyOffer: {
-        pictures: [`img/apartment-05.jpg`],
-        premium: true,
-        cost: 11,
-        description: [`Good apartment`],
-        type: `Apartment`,
-        rating: 2,
-        title: `Place cool`,
-        bedrooms: 1,
-        guests: 1,
-        conveniences: [`Beautiful`],
-        coordinates: [52.3909553943508, 4.85309666406198],
-        owner: {
-          avatar: `img/avatar-angelina.jpg`,
-          name: `Clara`,
-          pro: false,
-        },
-        id: 909,
-        reviwes: [{id: 1}, {id: 5}],
-
-      },
-    })).toEqual(Object.assign(initialState, {
-      step: PageType.DETAILS,
-      propertyOffer: {
-        pictures: [`img/apartment-05.jpg`],
-        premium: true,
-        cost: 11,
-        description: [`Good apartment`],
-        type: `Apartment`,
-        rating: 2,
-        title: `Place cool`,
-        bedrooms: 1,
-        guests: 1,
-        conveniences: [`Beautiful`],
-        coordinates: [52.3909553943508, 4.85309666406198],
-        owner: {
-          avatar: `img/avatar-angelina.jpg`,
-          name: `Clara`,
-          pro: false,
-        },
-        id: 909,
-        reviwes: [{id: 1}, {id: 5}],
-      },
     }));
   });
 
@@ -129,43 +76,12 @@ describe(`Page Reducer tests`, () => {
 
 });
 
-describe(`Action creators work correctly`, () => {
+describe(`Page reducer action creators work correctly`, () => {
   it(`Action creators of choose city returns correct action`, () => {
     const activeCity = `Hamburg`;
     expect(ActionCreator.chooseCity(activeCity)).toEqual({
       type: ActionType.CHOOSE_CITY,
       city: activeCity,
-    });
-  });
-
-  it(`Action creators of change page type returns correct action`, () => {
-    const propertyOffer = {
-      pictures: [`img/apartment-05.jpg`],
-      premium: true,
-      cost: 11,
-      description: [`Good apartment`],
-      type: `Apartment`,
-      rating: 2,
-      title: `Place cool`,
-      bedrooms: 1,
-      guests: 1,
-      conveniences: [`Beautiful`],
-      coordinates: [52.3909553943508, 4.85309666406198],
-      owner: {
-        avatar: `img/avatar-angelina.jpg`,
-        name: `Clara`,
-        pro: false,
-      },
-      id: 909,
-      reviwes: [{id: 1}, {id: 5}],
-
-    };
-    const step = PageType.DETAILS;
-
-    expect(ActionCreator.changePageType(step, propertyOffer)).toEqual({
-      type: ActionType.CHANGE_PAGE_TYPE,
-      step,
-      propertyOffer,
     });
   });
 

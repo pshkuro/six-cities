@@ -1,6 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
+import {BrowserRouter} from "react-router-dom";
 import configureStore from "redux-mock-store";
 import PlaceList from "./place-list.jsx";
 
@@ -86,12 +87,17 @@ it(`Render PlaceList`, () => {
   const store = mockStore({
     onAdvertCardMouseOver: jest.fn(),
     onAdvertCardMouseOut: jest.fn(),
+    USER: {
+      authorizationStatus: `AUTH`,
+    }
   });
 
   const tree = renderer
     .create(
         <Provider store={store}>
-          <PlaceList {...props}/>
+          <BrowserRouter>
+            <PlaceList {...props}/>
+          </BrowserRouter>
         </Provider>
     )
     .toJSON();

@@ -1,6 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
+import {BrowserRouter} from "react-router-dom";
 import configureStore from "redux-mock-store";
 import {App} from "./app.jsx";
 
@@ -77,55 +78,10 @@ const props = {
         id: 8989,
       }],
   },
-  nearOffers: [
-    {
-      previewImage: `img/apartment-01.jpg`,
-      pictures: [`img/apartment-01.jpg`],
-      title: `good rererer`,
-      description: [`Wood and stone place`],
-      premium: false,
-      type: `Apartment`,
-      rating: 1.8,
-      bedrooms: 5,
-      guests: 1,
-      cost: 120,
-      conveniences: [`Cool vary cool place`],
-      coordinates: [52.3909553943508, 4.85309666406198],
-      owner: {
-        avatar: `img/avatar-angelina.jpg`,
-        name: `Lolo`,
-        pro: true,
-        id: 12,
-      },
-      id: 112},
-    {
-      pictures: [`img/apartment-01.jpg`],
-      title: `good rererer`,
-      description: [`Wood and stone place`],
-      premium: false,
-      type: `Apartment`,
-      rating: 1.8,
-      bedrooms: 5,
-      guests: 1,
-      cost: 120,
-      conveniences: [`Cool vary cool place`],
-      coordinates: [52.3909553943508, 4.85309666406198],
-      owner: {
-        avatar: `img/avatar-angelina.jpg`,
-        name: `Lolo`,
-        pro: true,
-      },
-      id: 12},
-  ],
-  onAdvertCardTitleClick: jest.fn(),
-  step: `main`,
   activeOffer: null,
-  propertyOffer: null,
-  getOffers: jest.fn(),
   error: false,
   login: jest.fn(),
   authorizationStatus: `AUTH`,
-  reviews: [],
 };
 
 const mockOffers = {
@@ -287,13 +243,16 @@ it(`Render App`, () => {
     OFFERS_DATA: mockOffers,
     USER: {
       profile: {},
+      authorizationStatus: `AUTH`,
     }
   });
 
   const tree = renderer
   .create(
       <Provider store={store}>
-        <App {...props}/>
+        <BrowserRouter>
+          <App {...props}/>
+        </BrowserRouter>
       </Provider>,
       {
         createNodeMock: () => {

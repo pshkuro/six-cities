@@ -126,6 +126,7 @@ exports[`CitiesPlaces render tests CitiesPlaces render 1`] = `
           </div>
           <button
             className="place-card__bookmark-button button place-card__bookmark-button--active"
+            onClick={[Function]}
             type="button"
           >
             <svg
@@ -164,16 +165,16 @@ exports[`CitiesPlaces render tests CitiesPlaces render 1`] = `
             </span>
           </div>
         </div>
-        <h2
-          className="place-card__name"
+        <a
+          href="/offer/80989"
           onClick={[Function]}
         >
-          <a
-            href="#"
+          <h2
+            className="place-card__name"
           >
             good rererer
-          </a>
-        </h2>
+          </h2>
+        </a>
         <p
           className="place-card__type"
         >
@@ -225,6 +226,7 @@ exports[`CitiesPlaces render tests CitiesPlaces render 1`] = `
           </div>
           <button
             className="place-card__bookmark-button button place-card__bookmark-button--active"
+            onClick={[Function]}
             type="button"
           >
             <svg
@@ -263,16 +265,16 @@ exports[`CitiesPlaces render tests CitiesPlaces render 1`] = `
             </span>
           </div>
         </div>
-        <h2
-          className="place-card__name"
+        <a
+          href="/offer/89"
           onClick={[Function]}
         >
-          <a
-            href="#"
+          <h2
+            className="place-card__name"
           >
             good rererer
-          </a>
-        </h2>
+          </h2>
+        </a>
         <p
           className="place-card__type"
         >
@@ -324,6 +326,7 @@ exports[`CitiesPlaces render tests CitiesPlaces render 1`] = `
           </div>
           <button
             className="place-card__bookmark-button button place-card__bookmark-button--active"
+            onClick={[Function]}
             type="button"
           >
             <svg
@@ -362,16 +365,16 @@ exports[`CitiesPlaces render tests CitiesPlaces render 1`] = `
             </span>
           </div>
         </div>
-        <h2
-          className="place-card__name"
+        <a
+          href="/offer/8989"
           onClick={[Function]}
         >
-          <a
-            href="#"
+          <h2
+            className="place-card__name"
           >
             good rererer
-          </a>
-        </h2>
+          </h2>
+        </a>
         <p
           className="place-card__type"
         >

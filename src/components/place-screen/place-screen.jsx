@@ -1,20 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../redux/page/page.js";
 import {getProfile} from "../../redux/user/selectors.js";
-import {PageType, AuthorizationStatus} from "../../constants/page.js";
+import {AuthorizationStatus} from "../../constants/page.js";
+import {Link} from "react-router-dom";
+import {AppRoute} from "../../routing/routes.js";
 
-export function PlaceScreen({children, color, type, authorizationStatus, onPageHeaderSignInClick, onHeaderLogoClick, profile}) {
-  const handleHeaderLogoClick = () => onHeaderLogoClick(PageType.MAIN);
-  const handlePageHeaderSignInClick = () => onPageHeaderSignInClick(PageType.SIGN_IN);
-  const isAuthorized = authorizationStatus === AuthorizationStatus.NO_AUTH ?
-    <span
-      className="header__login"
-      onClick={handlePageHeaderSignInClick}>
-    Sign in
-    </span>
-    : <span className="header__user-name user__name">{profile && profile.email}</span>;
+export function PlaceScreen({children, color, type, authorizationStatus, profile}) {
+
+  const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
+  const avatarComponent = !isAuthorized ?
+    <span className="header__login">Sign in</span> :
+    <span className="header__user-name user__name">{profile && profile.email}</span>;
 
   return (
     <div className={`page
@@ -25,21 +22,24 @@ export function PlaceScreen({children, color, type, authorizationStatus, onPageH
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="#">
+              <Link
+                className="header__logo-link"
+                to={AppRoute.MAIN}>
                 <img
                   className="header__logo"
-                  onClick={handleHeaderLogoClick}
-                  src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
+                  src="/img/logo.svg" alt="6 cities logo" width="81" height="41"/>
+              </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <Link
+                    to={isAuthorized ? AppRoute.FAVORITES : AppRoute.SIGN_IN}
+                    className="header__nav-link header__nav-link--profile">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    {isAuthorized}
-                  </a>
+                    {avatarComponent}
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -60,8 +60,6 @@ PlaceScreen.propTypes = {
   type: PropTypes.string.isRequired,
   color: PropTypes.string,
   authorizationStatus: PropTypes.string.isRequired,
-  onPageHeaderSignInClick: PropTypes.func.isRequired,
-  onHeaderLogoClick: PropTypes.func.isRequired,
   profile: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(null)]),
 };
 
@@ -69,15 +67,6 @@ const mapStateToProps = (state) => ({
   profile: getProfile(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onPageHeaderSignInClick(step) {
-    dispatch(ActionCreator.changePageType(step));
-  },
 
-  onHeaderLogoClick(step) {
-    dispatch(ActionCreator.changePageType(step));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlaceScreen);
+export default connect(mapStateToProps)(PlaceScreen);
 

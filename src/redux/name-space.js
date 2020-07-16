@@ -3,6 +3,7 @@ const NameSpace = {
   PAGE: `PAGE`,
   USER: `USER`,
   REVIEWS: `REVIEWS`,
+  OFFERS_FAVORITES: `OFFERS_FAVORITES`,
 };
 
 export default NameSpace;

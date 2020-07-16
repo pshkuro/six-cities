@@ -2,7 +2,8 @@ import {
   getCityOffers,
   getNearOffers,
   getCities,
-  getError
+  getError,
+  getPropertyOffer
 } from "./selectors.js";
 
 const mockState = {
@@ -168,6 +169,32 @@ describe(`Offers data selectors tests`, () => {
 
   it(`Get error offers data selector return correct error`, () => {
     expect(getError(mockState)).toEqual(false);
+  });
+
+  it(`Get property offer data selector return correct error`, () => {
+    const mockOffer = {
+      previewImage: `img/apartment-01.jpg`,
+      pictures: [`img/apartment-01.jpg`],
+      title: `good rererer`,
+      description: [`Wood and stone place`],
+      premium: false,
+      favourite: true,
+      type: `Apartment`,
+      rating: 1.8,
+      bedrooms: 5,
+      guests: 1,
+      cost: 120,
+      conveniences: [`Cool vary cool place`],
+      coordinates: [52.3909553943508, 4.85309666406198],
+      owner: {
+        avatar: `img/avatar-angelina.jpg`,
+        name: `Lolo`,
+        pro: true,
+        id: 12,
+      },
+      id: 8989,
+    };
+    expect(getPropertyOffer(mockState, 8989)).toEqual(mockOffer);
   });
 });
 

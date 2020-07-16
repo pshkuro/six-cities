@@ -1,17 +1,20 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import {BrowserRouter} from "react-router-dom";
 import {SignIn} from "./sign-in.jsx";
 
 const props = {
   onSignInFormSubmit: jest.fn(),
-  onLocationSignInPageClick: jest.fn(),
+  cities: [`Paris`, `Moscow`],
 };
 
 
 it(`SignIn render`, () => {
   const tree = renderer
   .create(
-      <SignIn {...props}/>,
+      <BrowserRouter>
+        <SignIn {...props}/>
+      </BrowserRouter>,
       {
         createNodeMock: () => {
           return document.createElement(`div`);
