@@ -37,6 +37,7 @@ const props = {
     map: `cities`,
   },
   setFavorite: jest.fn((z) => z),
+  removeFromFavorite: jest.fn((z) => z),
   authorizationStatus: `AUTH`,
 };
 

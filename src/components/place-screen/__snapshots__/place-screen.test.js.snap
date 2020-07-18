@@ -71,7 +71,7 @@ exports[`PlaceScreen render correctly with Main 1`] = `
 exports[`PlaceScreen render correctly with Place Property 1`] = `
 <div
   className="page
-      undefined
+      
       page--details
     "
 >

@@ -37,6 +37,7 @@ const props = {
   },
   setFavorite: jest.fn(),
   authorizationStatus: `AUTH`,
+  removeFromFavorite: jest.fn(),
 };
 
 const mockStore = configureStore([]);

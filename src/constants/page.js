@@ -37,6 +37,11 @@ export const CardClasses = {
     wrapper: `near-places`,
     cards: `near-places__`,
     map: `property`
+  },
+  FAVORITE: {
+    card: `favorites__`,
+    wrapper: `favorites`,
+    info: `favorites`
   }
 };
 

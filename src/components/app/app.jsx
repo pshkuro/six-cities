@@ -7,7 +7,7 @@ import PlaceScreen from "../place-screen/place-screen.jsx";
 import PlaceProperty from "../place-property/place-property.jsx";
 import ErrorComponent from "../error/error.jsx";
 import SignIn from "../sign-in/sign-in.jsx";
-import FavoriteOffers from "../favorite-offers/favorite-offers.jsx";
+import FavoriteOffers from "../favorite/favorite-offers/favorite-offers.jsx";
 import {getCityOffers, getError} from "../../redux/offers-data/selectors.js";
 import {getActiveOffer} from "../../redux/page/selectors.js";
 import {getAuthorizationStatus} from "../../redux/user/selectors.js";
@@ -62,12 +62,18 @@ class App extends PureComponent {
               authorizationStatus={authorizationStatus}
               color="gray">
               <SignIn
-                onSignInFormSubmit={login}/>
+                onSignInFormSubmit={login}
+                authorizationStatus={authorizationStatus}/>
             </PlaceScreen>
           </Route>
 
           <PrivateRoute exact path={AppRoute.FAVORITES} render={() => {
-            return (<FavoriteOffers/>);
+            return <PlaceScreen
+              authorizationStatus={authorizationStatus}
+              type="favorites-empty"
+            >
+              <FavoriteOffers/>
+            </PlaceScreen>;
           }}/>
 
           <Route component={ErrorComponent}/>
