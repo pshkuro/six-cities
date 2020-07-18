@@ -37,7 +37,7 @@ const reducer = (state = initialState, action) => {
 
     case ActionType.REMOVE_FROM_FAVORITE:
       return produce(state, (draftState) => {
-        draftState.favorites.forEach((city) => {
+        draftState.favorites.forEach((city, index) => {
           const offers = city.offers;
           const offerIndex = offers.findIndex((offer) => offer.id === action.id);
 
@@ -45,7 +45,7 @@ const reducer = (state = initialState, action) => {
             offers.splice(offerIndex, 1);
 
             if (offers.length === 0) {
-              draftState.favorites = [];
+              draftState.favorites.splice(index, 1);
             }
           }
         });
