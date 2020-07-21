@@ -7,38 +7,48 @@ import PlaceList from "../places-list/place-list.jsx";
 import Map from "../map/map.jsx";
 import {CardClasses} from "../../constants/page.js";
 import {Operation as ReviewsOperation} from "../../redux/reviews/reviews.js";
-import {getNearOffers, getPropertyOffer} from "../../redux/offers-data/selectors.js";
+import {Operation as OfferOperation} from "../../redux/offers-data/offers-data.js";
+import {getPropertyOffer, getNearOffers} from "../../redux/offers-data/selectors.js";
 import {getReviews} from "../../redux/reviews/selectors.js";
 import {PureComponent} from "react";
 
 export class PlaceProperty extends PureComponent {
   componentDidMount() {
-    const {getPropertyOfferInfo, match} = this.props;
+    const {getPropertyOfferInfo, getPropertyNearOffers, match} = this.props;
     const {params} = match;
     const {id: offerId} = params;
 
     getPropertyOfferInfo(Number(offerId));
+    getPropertyNearOffers(Number(offerId));
   }
 
   render() {
     const {offer, nearOffers, reviews} = this.props;
 
-    if (!offer) {
+    if (!offer || !nearOffers) {
       return null;
     }
 
     const {pictures, title, description, premium, type, rating, bedrooms, guests, cost, conveniences, owner, id} = offer;
     const {avatar, name, pro} = owner;
 
+    const {cityCoordinates, offers: nearPropertyOffers} = nearOffers;
+    const {coordinates, zoom} = cityCoordinates;
+
 
     const isOwnerPro = pro ? `property__avatar-wrapper property__avatar-wrapper--pro` : ``;
-    const pins = nearOffers.map((nearOffer) => ({
+    const pins = nearPropertyOffers.map((nearOffer) => ({
       coordinates: nearOffer.coordinates,
       isActive: false,
     }));
     const activePin = {
       coordinates: offer.coordinates,
       isActive: true,
+    };
+
+    const nearOffersCity = {
+      coordinates,
+      zoom,
     };
 
     return (
@@ -139,10 +149,7 @@ export class PlaceProperty extends PureComponent {
 
           {<Map
             pins={pins.concat(activePin)}
-            cityCoordinates={{
-              coordinates: [48.85661, 2.351499],
-              zoom: 13,
-            }}
+            cityCoordinates={nearOffersCity}
             classes={CardClasses.PROPERTY}/>}
 
         </section>
@@ -152,7 +159,7 @@ export class PlaceProperty extends PureComponent {
 
 
             {<PlaceList
-              offers={nearOffers}
+              offers={nearPropertyOffers}
               classes={CardClasses.PROPERTY}/>}
           </section>
         </div>
@@ -185,8 +192,16 @@ PlaceProperty.propTypes = {
     id: PropTypes.number,
     reviews: PropTypes.array,
   }).isRequired,
-  nearOffers: PropTypes.arrayOf(PropTypes.object.isRequired),
+  nearOffers: PropTypes.exact({
+    city: PropTypes.string,
+    cityCoordinates: PropTypes.exact({
+      coordinates: PropTypes.array,
+      zoom: PropTypes.number,
+    }),
+    offers: PropTypes.arrayOf(PropTypes.object)
+  }),
   getPropertyOfferInfo: PropTypes.func.isRequired,
+  getPropertyNearOffers: PropTypes.func.isRequired,
   reviews: PropTypes.oneOfType([PropTypes.array, PropTypes.instanceOf(null)]),
   match: PropTypes.shape({
     params: PropTypes.shape({
@@ -196,15 +211,19 @@ PlaceProperty.propTypes = {
 };
 
 const mapStateToProps = (state, props) => ({
-  nearOffers: getNearOffers(state),
   offer: getPropertyOffer(state, props.match.params.id),
   reviews: getReviews(state),
+  nearOffers: getNearOffers(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getPropertyOfferInfo(offerId) {
     dispatch(ReviewsOperation.getReviews(offerId));
   },
+
+  getPropertyNearOffers(id) {
+    dispatch(OfferOperation.getNearOffers(id));
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlaceProperty);

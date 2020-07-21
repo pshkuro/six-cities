@@ -13,3 +13,5 @@ export const getReviews = (api, id) => api.get(`/comments/${id}`);
 
 export const getFavorites = (api) => api.get(`/favorite`);
 export const setFavorite = (api, id, status) => api.post(`/favorite/${id}/${status}`);
+
+export const getNearOffers = (api, id) => api.get(`/hotels/${id}/nearby`);

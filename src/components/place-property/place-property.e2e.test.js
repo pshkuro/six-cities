@@ -29,45 +29,52 @@ const props = {
     },
     id: 8989,
   },
-  nearOffers: [
-    {
-      previewImage: `img/apartment-01.jpg`,
-      pictures: [`img/apartment-01.jpg`],
-      title: `good rererer`,
-      description: [`Wood and stone place`],
-      premium: false,
-      type: `Apartment`,
-      rating: 1.8,
-      bedrooms: 5,
-      guests: 1,
-      cost: 120,
-      conveniences: [`Cool vary cool place`],
-      coordinates: [52.3909553943508, 4.85309666406198],
-      owner: {
-        avatar: `img/avatar-angelina.jpg`,
-        name: `Lolo`,
-        pro: true,
-      },
-      id: 112},
-    {
-      pictures: [`img/apartment-01.jpg`],
-      title: `good rererer`,
-      description: [`Wood and stone place`],
-      premium: false,
-      type: `Apartment`,
-      rating: 1.8,
-      bedrooms: 5,
-      guests: 1,
-      cost: 120,
-      conveniences: [`Cool vary cool place`],
-      coordinates: [52.3909553943508, 4.85309666406198],
-      owner: {
-        avatar: `img/avatar-angelina.jpg`,
-        name: `Lolo`,
-        pro: true,
-      },
-      id: 12},
-  ],
+  nearOffers: {
+    city: `Amsterdam`,
+    cityCoordinates: {
+      coordinates: [21212, 1212],
+      zoom: 12,
+    },
+    offers: [
+      {
+        previewImage: `img/apartment-01.jpg`,
+        pictures: [`img/apartment-01.jpg`],
+        title: `good rererer`,
+        description: [`Wood and stone place`],
+        premium: false,
+        type: `Apartment`,
+        rating: 1.8,
+        bedrooms: 5,
+        guests: 1,
+        cost: 120,
+        conveniences: [`Cool vary cool place`],
+        coordinates: [52.3909553943508, 4.85309666406198],
+        owner: {
+          avatar: `img/avatar-angelina.jpg`,
+          name: `Lolo`,
+          pro: true,
+        },
+        id: 112},
+      {
+        pictures: [`img/apartment-01.jpg`],
+        title: `good rererer`,
+        description: [`Wood and stone place`],
+        premium: false,
+        type: `Apartment`,
+        rating: 1.8,
+        bedrooms: 5,
+        guests: 1,
+        cost: 120,
+        conveniences: [`Cool vary cool place`],
+        coordinates: [52.3909553943508, 4.85309666406198],
+        owner: {
+          avatar: `img/avatar-angelina.jpg`,
+          name: `Lolo`,
+          pro: true,
+        },
+        id: 12},
+    ]
+  },
   reviews: [],
   match: {
     params: {
@@ -75,6 +82,7 @@ const props = {
     }
   },
   getPropertyOfferInfo: jest.fn((x) => x),
+  getPropertyNearOffers: jest.fn((x) => x),
 };
 
 const mockStore = configureStore([]);

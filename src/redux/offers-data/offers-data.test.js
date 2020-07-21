@@ -1,7 +1,6 @@
 import MockAdapter from "axios-mock-adapter";
 import {createAPI} from "../../api/api.js";
 import {reducer, ActionType, ActionCreator, Operation} from "./offers-data.js";
-import {nearOffers} from "../../mocks/near-offers";
 
 const cityOffers = [
   {"city": `Amsterdam`,
@@ -367,7 +366,7 @@ const offersWithOneFavorite = [
 
 const initialState = {
   offers: null,
-  nearOffers,
+  nearOffers: null,
   error: false,
 };
 
@@ -377,7 +376,7 @@ describe(`Data Reducer Actions to get data work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(reducer(undefined, {})).toEqual({
       offers: null,
-      nearOffers,
+      nearOffers: null,
       error: false,
     });
   });
@@ -402,6 +401,15 @@ describe(`Data Reducer Actions to get data work correctly`, () => {
     const newStateWithOneFavoriteOffer = reducer(stateWithoutFavoriteOffers, setFavoriteOfferAction);
 
     expect(newStateWithOneFavoriteOffer).toEqual(stateWithOneFavoriteOffer);
+  });
+
+  it(`The reducer get near offers return correct offers`, () => {
+    expect(reducer(initialState, {
+      type: ActionType.GET_NEAR_OFFERS,
+      nearOffers: cityOffers[0],
+    })).toEqual(Object.assign(initialState, {
+      nearOffers: cityOffers[0],
+    }));
   });
 
   it(`Action creators of get offers returns correct action`, () => {
@@ -446,6 +454,13 @@ describe(`Data Reducer Actions to get data work correctly`, () => {
       offer,
     });
   });
+
+  it(`Action get near offers return a correct action`, () => {
+    expect(ActionCreator.getNearOffer(cityOffers[0])).toEqual({
+      type: ActionType.GET_NEAR_OFFERS,
+      nearOffers: cityOffers[0],
+    });
+  });
 });
 
 describe(`Data Reducer operation work correctly`, () => {
@@ -464,6 +479,25 @@ describe(`Data Reducer operation work correctly`, () => {
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.GET_OFFERS,
           availableOffers: cityOffers,
+        });
+      });
+  });
+  it(`Should make a correct API call to /hotels/nearby`, () => {
+    const apiMock = new MockAdapter(api);
+    const mockId = 6;
+    const dispatch = jest.fn();
+    const getNearOffers = Operation.getNearOffers(mockId);
+
+    apiMock
+      .onGet(`/hotels/${mockId}/nearby`)
+      .reply(200, [mockOffers[0]], {});
+
+    return getNearOffers(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch.mock.calls[0][0]).toEqual({
+          type: ActionType.GET_NEAR_OFFERS,
+          nearOffers: cityOffers[0],
         });
       });
   });
