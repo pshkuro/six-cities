@@ -29,52 +29,45 @@ const props = {
     },
     id: 8989,
   },
-  nearOffers: {
-    city: `Amsterdam`,
-    cityCoordinates: {
-      coordinates: [21212, 1212],
-      zoom: 12,
-    },
-    offers: [
-      {
-        previewImage: `img/apartment-01.jpg`,
-        pictures: [`img/apartment-01.jpg`],
-        title: `good rererer`,
-        description: [`Wood and stone place`],
-        premium: false,
-        type: `Apartment`,
-        rating: 1.8,
-        bedrooms: 5,
-        guests: 1,
-        cost: 120,
-        conveniences: [`Cool vary cool place`],
-        coordinates: [52.3909553943508, 4.85309666406198],
-        owner: {
-          avatar: `img/avatar-angelina.jpg`,
-          name: `Lolo`,
-          pro: true,
-        },
-        id: 112},
-      {
-        pictures: [`img/apartment-01.jpg`],
-        title: `good rererer`,
-        description: [`Wood and stone place`],
-        premium: false,
-        type: `Apartment`,
-        rating: 1.8,
-        bedrooms: 5,
-        guests: 1,
-        cost: 120,
-        conveniences: [`Cool vary cool place`],
-        coordinates: [52.3909553943508, 4.85309666406198],
-        owner: {
-          avatar: `img/avatar-angelina.jpg`,
-          name: `Lolo`,
-          pro: true,
-        },
-        id: 12},
-    ]
-  },
+  nearOffers: [
+    {
+      previewImage: `img/apartment-01.jpg`,
+      pictures: [`img/apartment-01.jpg`],
+      title: `good rererer`,
+      description: [`Wood and stone place`],
+      premium: false,
+      type: `Apartment`,
+      rating: 1.8,
+      bedrooms: 5,
+      guests: 1,
+      cost: 120,
+      conveniences: [`Cool vary cool place`],
+      coordinates: [52.3909553943508, 4.85309666406198],
+      owner: {
+        avatar: `img/avatar-angelina.jpg`,
+        name: `Lolo`,
+        pro: true,
+      },
+      id: 112},
+    {
+      pictures: [`img/apartment-01.jpg`],
+      title: `good rererer`,
+      description: [`Wood and stone place`],
+      premium: false,
+      type: `Apartment`,
+      rating: 1.8,
+      bedrooms: 5,
+      guests: 1,
+      cost: 120,
+      conveniences: [`Cool vary cool place`],
+      coordinates: [52.3909553943508, 4.85309666406198],
+      owner: {
+        avatar: `img/avatar-angelina.jpg`,
+        name: `Lolo`,
+        pro: true,
+      },
+      id: 12},
+  ],
   reviews: [],
   match: {
     params: {
@@ -82,7 +75,8 @@ const props = {
     }
   },
   getPropertyOfferInfo: jest.fn((x) => x),
-  getPropertyNearOffers: jest.fn((x) => x),
+  setPropertyFavorite: jest.fn((x) => x),
+  setLocalPropertyFavorite: jest.fn((x) => x),
 };
 
 const mockStore = configureStore([]);
@@ -150,6 +144,42 @@ describe(`Place property tests`, () => {
     expect(props.getPropertyOfferInfo).toHaveBeenCalled();
     expect(props.getPropertyOfferInfo).toHaveBeenCalledWith(3);
   });
+
+  it(`Place property favorite button click shoild to callback`, () => {
+    const store = mockStore({
+      onAdvertCardMouseOver: jest.fn(),
+      onAdvertCardMouseOut: jest.fn(),
+      USER: {
+        authorizationStatus: `NO_AUTH`
+      },
+    });
+
+    const property = mount(
+        <Provider store={store}>
+          <BrowserRouter>
+            <PlaceProperty {...props} />
+          </BrowserRouter>
+        </Provider>,
+        {
+          createNodeMock: () => {
+            return document.createElement(`div`);
+          }
+        }
+    );
+
+    const placePropertyComponent = property.find(PlaceProperty);
+    const favoriteButton = placePropertyComponent.find(`.property__bookmark-button`);
+    favoriteButton.simulate(`click`, {
+      preventDefault: () => {}
+    });
+
+    expect(props.setLocalPropertyFavorite).toHaveBeenCalledTimes(1);
+    expect(props.setLocalPropertyFavorite).toHaveBeenCalledWith(props.offer);
+    expect(props.setPropertyFavorite).toHaveBeenCalledTimes(1);
+    expect(props.setPropertyFavorite).toHaveBeenCalledWith(props.offer.id, Number(props.offer.favourite));
+  });
+
+
 });
 
 

@@ -42,6 +42,7 @@ exports[`Render PlaceProperty 1`] = `
           </h1>
           <button
             className="property__bookmark-button button"
+            onClick={[Function]}
             type="button"
           >
             <svg
