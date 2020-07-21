@@ -75,6 +75,8 @@ const props = {
     }
   },
   getPropertyOfferInfo: jest.fn((x) => x),
+  setPropertyFavorite: jest.fn((x) => x),
+  setLocalPropertyFavorite: jest.fn((x) => x),
 };
 
 const mockStore = configureStore([]);
@@ -142,6 +144,42 @@ describe(`Place property tests`, () => {
     expect(props.getPropertyOfferInfo).toHaveBeenCalled();
     expect(props.getPropertyOfferInfo).toHaveBeenCalledWith(3);
   });
+
+  it(`Place property favorite button click shoild to callback`, () => {
+    const store = mockStore({
+      onAdvertCardMouseOver: jest.fn(),
+      onAdvertCardMouseOut: jest.fn(),
+      USER: {
+        authorizationStatus: `NO_AUTH`
+      },
+    });
+
+    const property = mount(
+        <Provider store={store}>
+          <BrowserRouter>
+            <PlaceProperty {...props} />
+          </BrowserRouter>
+        </Provider>,
+        {
+          createNodeMock: () => {
+            return document.createElement(`div`);
+          }
+        }
+    );
+
+    const placePropertyComponent = property.find(PlaceProperty);
+    const favoriteButton = placePropertyComponent.find(`.property__bookmark-button`);
+    favoriteButton.simulate(`click`, {
+      preventDefault: () => {}
+    });
+
+    expect(props.setLocalPropertyFavorite).toHaveBeenCalledTimes(1);
+    expect(props.setLocalPropertyFavorite).toHaveBeenCalledWith(props.offer);
+    expect(props.setPropertyFavorite).toHaveBeenCalledTimes(1);
+    expect(props.setPropertyFavorite).toHaveBeenCalledWith(props.offer.id, Number(props.offer.favourite));
+  });
+
+
 });
 
 

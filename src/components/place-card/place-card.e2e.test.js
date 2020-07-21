@@ -70,4 +70,21 @@ describe(`PlaceCard tests`, () => {
     expect(props.setFavorite).toHaveBeenCalledTimes(1);
     expect(props.setFavorite).toHaveBeenCalledWith(props.offer.id, 0, props.offer);
   });
+
+  it(`Click on favorite button set offer unfavorite`, () => {
+    const placeCard = mount(
+        <BrowserRouter>
+          <PlaceCard {...props}/>
+        </BrowserRouter>
+    );
+
+    const favoriteButton = placeCard.find(`.place-card__bookmark-button`).first();
+    favoriteButton.simulate(`click`);
+
+
+    expect(props.setFavorite).toHaveBeenCalledTimes(1); /// isFavorute ???
+    expect(props.removeFromFavorite).toHaveBeenCalledTimes(1);
+    expect(props.setFavorite).toHaveBeenCalledWith(props.offer.id, 0, props.offer);
+    expect(props.removeFromFavorite).toHaveBeenCalledWith(props.offer.id);
+  });
 });

@@ -10,6 +10,8 @@ import {Operation as ReviewsOperation} from "../../redux/reviews/reviews.js";
 import {getNearOffers, getPropertyOffer} from "../../redux/offers-data/selectors.js";
 import {getReviews} from "../../redux/reviews/selectors.js";
 import {PureComponent} from "react";
+import {Operation as FavoriteOperation} from "../../redux/offers-favorites/offers-favorites.js";
+import {ActionCreator as OffersDataActionCreator} from "../../redux/offers-data/offers-data";
 
 export class PlaceProperty extends PureComponent {
   componentDidMount() {
@@ -21,13 +23,18 @@ export class PlaceProperty extends PureComponent {
   }
 
   render() {
-    const {offer, nearOffers, reviews} = this.props;
+    const {offer,
+      nearOffers,
+      reviews,
+      setPropertyFavorite,
+      setLocalPropertyFavorite
+    } = this.props;
 
     if (!offer) {
       return null;
     }
 
-    const {pictures, title, description, premium, type, rating, bedrooms, guests, cost, conveniences, owner, id} = offer;
+    const {pictures, title, description, premium, type, rating, bedrooms, guests, cost, conveniences, owner, id, favourite} = offer;
     const {avatar, name, pro} = owner;
 
 
@@ -39,6 +46,11 @@ export class PlaceProperty extends PureComponent {
     const activePin = {
       coordinates: offer.coordinates,
       isActive: true,
+    };
+
+    const handlePropertyButtonClick = () => {
+      setPropertyFavorite(id, Number(favourite));
+      setLocalPropertyFavorite(offer);
     };
 
     return (
@@ -65,12 +77,18 @@ export class PlaceProperty extends PureComponent {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+
+                <button
+                  className="property__bookmark-button button"
+                  type="button"
+                  onClick={handlePropertyButtonClick}
+                >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
                   <span className="visually-hidden">To bookmarks</span>
                 </button>
+
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
@@ -193,6 +211,8 @@ PlaceProperty.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }),
+  setPropertyFavorite: PropTypes.func.isRequired,
+  setLocalPropertyFavorite: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, props) => ({
@@ -205,6 +225,14 @@ const mapDispatchToProps = (dispatch) => ({
   getPropertyOfferInfo(offerId) {
     dispatch(ReviewsOperation.getReviews(offerId));
   },
+
+  setPropertyFavorite(id, status) {
+    dispatch(FavoriteOperation.setFavorite(id, status));
+  },
+
+  setLocalPropertyFavorite(offer) {
+    dispatch(OffersDataActionCreator.setFavoriteOffer(offer));
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlaceProperty);

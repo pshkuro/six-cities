@@ -74,6 +74,8 @@ const props = {
     }
   },
   getPropertyOfferInfo: jest.fn(),
+  setPropertyFavorite: jest.fn(),
+  setLocalPropertyFavorite: jest.fn(),
 };
 
 window.Intl.DateTimeFormat = class {
