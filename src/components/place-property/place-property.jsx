@@ -1,9 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
+import {getAuthorizationStatus} from "../../redux/user/selectors.js";
 import {connect} from "react-redux";
 import {ratingStars} from "../../constants/offer";
 import ReviewsList from "../reviews-list/reviews-list.jsx";
 import PlaceList from "../places-list/place-list.jsx";
+import {AppRoute} from "../../routing/routes.js";
+import {AuthorizationStatus} from "../../constants/page.js";
 import Map from "../map/map.jsx";
 import {CardClasses} from "../../constants/page.js";
 import {Operation as ReviewsOperation} from "../../redux/reviews/reviews.js";
@@ -29,7 +33,8 @@ export class PlaceProperty extends PureComponent {
       nearOffers,
       reviews,
       setPropertyFavorite,
-      setLocalPropertyFavorite
+      setLocalPropertyFavorite,
+      authorizationStatus
     } = this.props;
 
     if (!offer || !nearOffers) {
@@ -41,7 +46,6 @@ export class PlaceProperty extends PureComponent {
 
     const {cityCoordinates, offers: nearPropertyOffers} = nearOffers;
     const {coordinates, zoom} = cityCoordinates;
-
 
     const isOwnerPro = pro ? `property__avatar-wrapper property__avatar-wrapper--pro` : ``;
     const pins = nearPropertyOffers.map((nearOffer) => ({
@@ -58,8 +62,9 @@ export class PlaceProperty extends PureComponent {
       zoom,
     };
 
+    const isOfferFavorite = favourite ? 0 : 1;
     const handlePropertyButtonClick = () => {
-      setPropertyFavorite(id, Number(favourite));
+      setPropertyFavorite(id, isOfferFavorite);
       setLocalPropertyFavorite(offer);
     };
 
@@ -88,16 +93,29 @@ export class PlaceProperty extends PureComponent {
                   {title}
                 </h1>
 
-                <button
-                  className="property__bookmark-button button"
-                  type="button"
-                  onClick={handlePropertyButtonClick}
-                >
-                  <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                {
+                  authorizationStatus === AuthorizationStatus.NO_AUTH ?
+                    <Link
+                      to={AppRoute.SIGN_IN}
+                      className={`property__bookmark-button button ${favourite ? `property__bookmark-button--active` : ``}`}
+                      type="button">
+                      <svg className="property__bookmark-icon" width="31" height="33">
+                        <use xlinkHref="#icon-bookmark"></use>
+                      </svg>
+                      <span className="visually-hidden">To bookmarks</span>
+                    </Link>
+                    :
+                    <button
+                      className={`property__bookmark-button button ${favourite ? `property__bookmark-button--active` : ``}`}
+                      type="button"
+                      onClick={handlePropertyButtonClick}
+                    >
+                      <svg className="property__bookmark-icon" width="31" height="33">
+                        <use xlinkHref="#icon-bookmark"></use>
+                      </svg>
+                      <span className="visually-hidden">To bookmarks</span>
+                    </button>
+                }
 
               </div>
               <div className="property__rating rating">
@@ -228,12 +246,14 @@ PlaceProperty.propTypes = {
   }),
   setPropertyFavorite: PropTypes.func.isRequired,
   setLocalPropertyFavorite: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state, props) => ({
   offer: getPropertyOffer(state, props.match.params.id),
   reviews: getReviews(state),
   nearOffers: getNearOffers(state),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -251,7 +271,6 @@ const mapDispatchToProps = (dispatch) => ({
 
   setLocalPropertyFavorite(offer) {
     dispatch(OffersDataActionCreator.setFavoriteOffer(offer));
-
   }
 });
 

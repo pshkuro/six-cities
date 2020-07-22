@@ -84,6 +84,7 @@ const props = {
   getPropertyNearOffers: jest.fn(),
   setPropertyFavorite: jest.fn(),
   setLocalPropertyFavorite: jest.fn(),
+  authorizationStatus: `AUTH`,
 };
 
 window.Intl.DateTimeFormat = class {
@@ -97,7 +98,7 @@ it(`Render PlaceProperty`, () => {
     onAdvertCardMouseOver: jest.fn(),
     onAdvertCardMouseOut: jest.fn(),
     USER: {
-      authorizationStatus: `NO_AUTH`,
+      authorizationStatus: `AUTH`,
     },
   });
 

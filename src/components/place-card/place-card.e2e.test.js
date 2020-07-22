@@ -74,7 +74,11 @@ describe(`PlaceCard tests`, () => {
   it(`Click on favorite button set offer unfavorite`, () => {
     const placeCard = mount(
         <BrowserRouter>
-          <PlaceCard {...props}/>
+          <PlaceCard
+            {...props}
+            classes={{
+              wrapper: `favorites`
+            }}/>
         </BrowserRouter>
     );
 
@@ -82,8 +86,8 @@ describe(`PlaceCard tests`, () => {
     favoriteButton.simulate(`click`);
 
 
-    expect(props.setFavorite).toHaveBeenCalledTimes(1); /// isFavorute ???
-    expect(props.removeFromFavorite).toHaveBeenCalledTimes(1);
+    expect(props.setFavorite).toHaveBeenCalled();
+    expect(props.removeFromFavorite).toHaveBeenCalled();
     expect(props.setFavorite).toHaveBeenCalledWith(props.offer.id, 0, props.offer);
     expect(props.removeFromFavorite).toHaveBeenCalledWith(props.offer.id);
   });
