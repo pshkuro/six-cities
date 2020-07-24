@@ -158,8 +158,6 @@ const mockStore = configureStore([]);
 
 
 describe(`Main tests`, () => {
-  // Когда будет приходить с сервера не забыть переписать компонент и тест, будет не пустой Offers,
-  // его вообще не будет
   it(`When no office show CitiesNoPlaces component`, () => {
     const store = mockStore({
       PAGE: {

@@ -2,7 +2,7 @@
 
 exports[`ReviewItem render 1`] = `
 <div
-  className="main"
+  className="main page__main--error"
 >
   <img
     src="https://i1.wp.com/neosmart.net/wiki/wp-content/uploads/sites/5/2015/07/0x00000109.jpg?ssl=1"

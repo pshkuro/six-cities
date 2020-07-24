@@ -143,6 +143,7 @@ const propsWithoutOffer = {
   setPropertyFavorite: jest.fn((x) => x),
   setLocalPropertyFavorite: jest.fn((x) => x),
   getPropertyNearOffers: jest.fn((x)=> x),
+  authorizationStatus: `AUTH`,
 };
 
 const mockStore = configureStore([]);
