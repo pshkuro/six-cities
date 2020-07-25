@@ -52,7 +52,7 @@ const mapStateToProps = (state) => ({
   cities: getCities(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = (dispatch) => ({
   onChooseCityClick(city) {
     dispatch(ActionCreator.chooseCity(city));
   },

@@ -33,7 +33,6 @@ export class PlaceProperty extends PureComponent {
       nearOffers,
       reviews,
       setPropertyFavorite,
-      setLocalPropertyFavorite,
       authorizationStatus
     } = this.props;
 
@@ -64,8 +63,7 @@ export class PlaceProperty extends PureComponent {
 
     const isOfferFavorite = favourite ? 0 : 1;
     const handlePropertyButtonClick = () => {
-      setPropertyFavorite(id, isOfferFavorite);
-      setLocalPropertyFavorite(offer);
+      setPropertyFavorite(id, isOfferFavorite, offer);
     };
 
     return (
@@ -245,7 +243,6 @@ PlaceProperty.propTypes = {
     }).isRequired,
   }),
   setPropertyFavorite: PropTypes.func.isRequired,
-  setLocalPropertyFavorite: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
 };
 
@@ -256,7 +253,7 @@ const mapStateToProps = (state, props) => ({
   authorizationStatus: getAuthorizationStatus(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = (dispatch) => ({
   getPropertyOfferInfo(offerId) {
     dispatch(ReviewsOperation.getReviews(offerId));
   },
@@ -265,13 +262,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(OfferOperation.getNearOffers(id));
   },
 
-  setPropertyFavorite(id, status) {
+  setPropertyFavorite(id, status, offer) {
+    dispatch(OffersDataActionCreator.setFavoriteOffer(offer));
     dispatch(FavoriteOperation.setFavorite(id, status));
   },
-
-  setLocalPropertyFavorite(offer) {
-    dispatch(OffersDataActionCreator.setFavoriteOffer(offer));
-  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlaceProperty);

@@ -1,8 +1,9 @@
 import React from "react";
-import {mount} from "enzyme";
 import {BrowserRouter} from "react-router-dom";
-import {PlaceCard} from "./place-card.jsx";
+import {mount} from "enzyme";
 import {AuthorizationStatus} from "../../constants/page.js";
+import {mapDispatchToProps} from "./place-card.jsx";
+import {PlaceCard} from "./place-card.jsx";
 
 
 const props = {
@@ -42,7 +43,7 @@ const props = {
 };
 
 
-describe(`PlaceCard tests`, () => {
+describe(`PlaceCard work tests`, () => {
   it(`Hovering PlaceCard get to callback info about itself`, () => {
     const placeCard = mount(
         <BrowserRouter>
@@ -91,4 +92,44 @@ describe(`PlaceCard tests`, () => {
     expect(props.setFavorite).toHaveBeenCalledWith(props.offer.id, 0, props.offer);
     expect(props.removeFromFavorite).toHaveBeenCalledWith(props.offer.id);
   });
+});
+
+describe(`PlaceCard dispatch actions tests`, () => {
+
+  it(`Mouseover dispatch action with active offer`, () => {
+    const dispatch = jest.fn();
+    mapDispatchToProps(dispatch).onAdvertCardMouseOver(props.offer);
+    expect(dispatch.mock.calls[0][0]).toEqual({
+      type: `MAKE_OFFER_ACTIVE`,
+      activeOffer: props.offer,
+    });
+  });
+
+  it(`Mouseout dispatch action with null offer`, () => {
+    const dispatch = jest.fn();
+    mapDispatchToProps(dispatch).onAdvertCardMouseOut();
+    expect(dispatch.mock.calls[0][0]).toEqual({
+      type: `MAKE_CARD_INACTIVE`,
+      activeOffer: null,
+    });
+  });
+
+  it(`Click on favorite button dispatch action with delete favorite offer id`, () => {
+    const dispatch = jest.fn();
+    mapDispatchToProps(dispatch).removeFromFavorite(5);
+    expect(dispatch.mock.calls[0][0]).toEqual({
+      type: `REMOVE_FROM_FAVORITE`,
+      id: 5,
+    });
+  });
+
+  it(`Click on favorite button dispatch actions with favorite offer`, () => {
+    const dispatch = jest.fn();
+    mapDispatchToProps(dispatch).setFavorite(5, 1, props.offer);
+    expect(dispatch.mock.calls[0][0]).toEqual({
+      type: `SET_FAVORITE_OFFER`,
+      offer: props.offer,
+    });
+  });
+
 });

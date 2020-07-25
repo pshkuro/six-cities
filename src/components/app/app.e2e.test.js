@@ -5,13 +5,14 @@ import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import {BrowserRouter, MemoryRouter} from "react-router-dom";
-import MockAdapter from "axios-mock-adapter";
 import {App} from "./app.jsx";
 import {createAPI} from "../../api/api.js";
 import ErrorComponent from "../error/error.jsx";
 import Main from "../main/main.jsx";
-import {PlaceProperty} from "../place-property/place-property.jsx";
+import PlaceProperty from "../place-property/place-property.jsx";
 import SignIn from "../sign-in/sign-in.jsx";
+import FavoriteOffers from "../favorite/favorite-offers/favorite-offers.jsx";
+// import {mapDispatchToProps} from "./app.jsx";
 
 const props = {
   offers: [{
@@ -92,7 +93,10 @@ const props = {
   authorizationStatus: `AUTH`,
 };
 
-const mockStore = configureStore([thunk]);
+const api = createAPI(() => {});
+const middlwares = [thunk.withExtraArgument(api)];
+const mockStore = configureStore(middlwares);
+
 const mockAppStore = mockStore({
   PAGE: {
     city: `Moscow`,
@@ -104,11 +108,45 @@ const mockAppStore = mockStore({
   },
   USER: {
     profile: {},
-    authorizationStatus: `NO_AUTH`,
+    authorizationStatus: `AUTH`,
   },
   REVIEWS: {
     reviews: []
-  }
+  },
+  OFFERS_FAVORITES: {
+    favorites: [
+      {
+        city: `Paris`,
+        cityCoordinates: {
+          coordinates: [52.3909553943508, 4.85309666406198],
+          zoom: 12,
+        },
+        offers: [
+          {
+            previewImage: `img/apartment-01.jpg`,
+            pictures: [`img/apartment-01.jpg`],
+            title: `good rererer`,
+            description: [`Wood and stone place`],
+            premium: false,
+            favourite: true,
+            type: `Apartment`,
+            rating: 1.8,
+            bedrooms: 5,
+            guests: 1,
+            cost: 120,
+            conveniences: [`Cool vary cool place`],
+            coordinates: [52.3909553943508, 4.85309666406198],
+            owner: {
+              avatar: `img/avatar-angelina.jpg`,
+              name: `Lolo`,
+              pro: true,
+              id: 12,
+            },
+            id: 8989,
+          }],
+      },
+    ],
+  },
 });
 
 // Mock BrouserRouter to memory router work
@@ -122,8 +160,7 @@ rrd.BrowserRouter.propTypes = {
   children: PropTypes.node,
 };
 
-describe(`App component tests`, () => {
-
+describe(`App render tests`, () => {
   it(`App show Error component when error`, () => {
     const store = mockStore({
       PAGE: {
@@ -153,10 +190,50 @@ describe(`App component tests`, () => {
 
   });
 
-  it(`App should login when user enter to site`, () => {
+  it(`App render stub compoenent when offers null`, () => {
+    // const store = mockStore({
+    //   OFFERS_DATA: {
+    //     offers: null,
+    //     error: false,
+    //   },
+    //   USER: {
+    //     profile: {},
+    //     authorizationStatus: `NO_AUTH`,
+    //   }
+    // });
 
+    // const component = mount(
+    //     <Provider store={store}>
+    //       <BrowserRouter>
+    //         <App
+    //           {...props}/>
+    //       </BrowserRouter>
+    //     </Provider>
+    // );
+
+    // expect(component.exists(ErrorComponent)).toBe(true);
   });
+});
 
+describe(`App dispatch tests`, () => {
+  // it(`App should login when user enter to site`, () => {
+  //   const profile = {
+  //     email: `papa@mail.ru`,
+  //     password: `dhjdf`,
+  //   };
+  //   const dispatch = jest.fn();
+  //   mapDispatchToProps(dispatch).login(profile);
+  //   expect(dispatch.mock.calls[0][0]).toEqual({
+  //     type: `REQUIRED_AUTHORIZATION`,
+  //     profile,
+  //   });
+
+  // });
+
+
+});
+
+describe(`App routing tests`, () => {
   it(`Invalid path should redirect to ErrorComponent`, () => {
     const component = mount(
         <Provider store={mockAppStore}>
@@ -185,19 +262,10 @@ describe(`App component tests`, () => {
   });
 
   it(`Valid property path should redirect to PropertyComponent`, () => {
-    const api = createAPI(() => {});
-    const apiMock = new MockAdapter(api);
-    apiMock
-      .onGet(`/comments/5`)
-      .reply(200, {});
-
-    apiMock
-      .onGet(`/hotels/5/nearby`)
-      .reply(200, {});
-
     const component = mount(
         <Provider store={mockAppStore}>
-          <MemoryRouter initialEntries = {[`/offer/5`]}>
+          <MemoryRouter
+            initialEntries={[`/offer/5`]}>
             <App
               {...props}/>
           </MemoryRouter>
@@ -224,5 +292,18 @@ describe(`App component tests`, () => {
     expect(component.find(SignIn)).toHaveLength(1);
   });
 
+  it(`Valid favorite path should redirect to FavoriteComponent`, () => {
+    const component = mount(
+        <Provider store={mockAppStore}>
+          <MemoryRouter initialEntries={[`/favorites`]}>
+            <App
+              {...props}
+              authorizationStatus="AUTH"/>
+          </MemoryRouter>
+        </Provider>
+    );
 
+
+    expect(component.find(FavoriteOffers)).toHaveLength(1);
+  });
 });

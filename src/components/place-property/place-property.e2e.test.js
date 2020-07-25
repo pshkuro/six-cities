@@ -5,6 +5,7 @@ import configureStore from "redux-mock-store";
 import {BrowserRouter} from "react-router-dom";
 import {PlaceProperty} from "./place-property.jsx";
 import Map from "../map/map.jsx";
+import {mapDispatchToProps} from "./place-property.jsx";
 
 const props = {
   offer: {
@@ -141,7 +142,6 @@ const propsWithoutOffer = {
   },
   getPropertyOfferInfo: jest.fn((x) => x),
   setPropertyFavorite: jest.fn((x) => x),
-  setLocalPropertyFavorite: jest.fn((x) => x),
   getPropertyNearOffers: jest.fn((x)=> x),
   authorizationStatus: `AUTH`,
 };
@@ -152,11 +152,9 @@ window.Intl.DateTimeFormat = class {
   format() {}
 };
 
-describe(`Place property tests`, () => {
+describe(`Place property work tests`, () => {
   it(`Map render the same active pin that get to place property`, () => {
     const store = mockStore({
-      onAdvertCardMouseOver: jest.fn(),
-      onAdvertCardMouseOut: jest.fn(),
       USER: {
         authorizationStatus: `NO_AUTH`
       },
@@ -188,8 +186,6 @@ describe(`Place property tests`, () => {
 
   it(`Place property mount should get reviews on correct id`, () => {
     const store = mockStore({
-      onAdvertCardMouseOver: jest.fn(),
-      onAdvertCardMouseOut: jest.fn(),
       USER: {
         authorizationStatus: `NO_AUTH`
       },
@@ -214,8 +210,6 @@ describe(`Place property tests`, () => {
 
   it(`Place property favorite button click should to callback`, () => {
     const store = mockStore({
-      onAdvertCardMouseOver: jest.fn(),
-      onAdvertCardMouseOut: jest.fn(),
       USER: {
         authorizationStatus: `NO_AUTH`
       },
@@ -240,16 +234,12 @@ describe(`Place property tests`, () => {
       preventDefault: () => {}
     });
 
-    expect(props.setLocalPropertyFavorite).toHaveBeenCalledTimes(1);
-    expect(props.setLocalPropertyFavorite).toHaveBeenCalledWith(props.offer);
     expect(props.setPropertyFavorite).toHaveBeenCalledTimes(1);
-    expect(props.setPropertyFavorite).toHaveBeenCalledWith(props.offer.id, Number(!props.offer.favourite));
+    expect(props.setPropertyFavorite).toHaveBeenCalledWith(props.offer.id, Number(!props.offer.favourite), props.offer);
   });
 
   it(`Place property not render when offers null`, () => {
     const store = mockStore({
-      onAdvertCardMouseOver: jest.fn(),
-      onAdvertCardMouseOut: jest.fn(),
       USER: {
         authorizationStatus: `NO_AUTH`
       },
@@ -275,6 +265,17 @@ describe(`Place property tests`, () => {
   });
 
 
+});
+
+describe(`Place property dispatch actions tests`, () => {
+  it(`Click on favorite button dispatch action with favorite offer`, () => {
+    const dispatch = jest.fn();
+    mapDispatchToProps(dispatch).setPropertyFavorite(8989, 1, props.offer);
+    expect(dispatch.mock.calls[0][0]).toEqual({
+      type: `SET_FAVORITE_OFFER`,
+      offer: props.offer,
+    });
+  });
 });
 
 

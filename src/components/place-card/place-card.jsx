@@ -131,7 +131,7 @@ PlaceCard.propTypes = {
   removeFromFavorite: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = (dispatch) => ({
   onAdvertCardMouseOver(offer) {
     dispatch(ActionCreator.makeOfferCardActive(offer));
   },
@@ -141,8 +141,8 @@ const mapDispatchToProps = (dispatch) => ({
   },
 
   setFavorite(id, status, offer) {
-    dispatch(Operation.setFavorite(id, status));
     dispatch(DataOffersActionCreator.setFavoriteOffer(offer));
+    dispatch(Operation.setFavorite(id, status));
   },
 
   removeFromFavorite(id) {

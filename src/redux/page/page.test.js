@@ -67,7 +67,7 @@ describe(`Page Reducer tests`, () => {
 
   it(`The reducer change active offer to null`, () => {
     expect(reducer(initialState, {
-      type: ActionType.MAKE_OFFER_ACTIVE,
+      type: ActionType.MAKE_OFFER_INACTIVE,
       activeOffer: null,
     })).toEqual(Object.assign(initialState, {
       activeOffer: null,

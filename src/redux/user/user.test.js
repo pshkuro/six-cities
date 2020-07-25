@@ -5,6 +5,11 @@ import {AuthorizationStatus} from "../../constants/page.js";
 
 const api = createAPI(() => {});
 
+const initialState = {
+  authorizationStatus: AuthorizationStatus.NO_AUTH,
+  profile: null,
+};
+
 describe(`User reducer work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(reducer(undefined, {})).toEqual({
@@ -49,6 +54,21 @@ describe(`User reducer work correctly`, () => {
     })).toEqual({
       authorizationStatus: AuthorizationStatus.NO_AUTH,
     });
+  });
+
+  it(`Reducer should get propfile info`, () => {
+    expect(reducer(initialState, {
+      type: ActionType.GET_PROFILE,
+      profile: {
+        email: `papa@mail.ru`,
+        password: `dhjdf`,
+      },
+    })).toEqual(Object.assign(initialState, {
+      profile: {
+        email: `papa@mail.ru`,
+        password: `dhjdf`,
+      },
+    }));
   });
 });
 

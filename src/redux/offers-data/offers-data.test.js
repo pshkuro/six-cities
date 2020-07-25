@@ -412,6 +412,15 @@ describe(`Data Reducer Actions to get data work correctly`, () => {
     }));
   });
 
+  it(`The reducer load error return correct error`, () => {
+    expect(reducer(initialState, {
+      type: ActionType.LOAD_ERROR,
+      error: true,
+    })).toEqual(Object.assign(initialState, {
+      error: true,
+    }));
+  });
+
   it(`Action creators of get offers returns correct action`, () => {
     expect(ActionCreator.getOffers(offers)).toEqual({
       type: ActionType.GET_OFFERS,

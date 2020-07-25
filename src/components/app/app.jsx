@@ -15,7 +15,6 @@ import {Operation as DataOperation} from "../../redux/user/user.js";
 import {AppRoute} from "../../routing/routes.js";
 import PrivateRoute from "../../routing/private-route.jsx";
 
-
 class App extends PureComponent {
   render() {
     const {offers,
@@ -99,7 +98,7 @@ const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = (dispatch) => ({
   login(authData) {
     dispatch(DataOperation.login(authData));
   }
