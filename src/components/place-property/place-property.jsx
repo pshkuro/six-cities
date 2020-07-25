@@ -1,44 +1,71 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
+import {getAuthorizationStatus} from "../../redux/user/selectors.js";
 import {connect} from "react-redux";
 import {ratingStars} from "../../constants/offer";
 import ReviewsList from "../reviews-list/reviews-list.jsx";
 import PlaceList from "../places-list/place-list.jsx";
+import {AppRoute} from "../../routing/routes.js";
+import {AuthorizationStatus} from "../../constants/page.js";
 import Map from "../map/map.jsx";
 import {CardClasses} from "../../constants/page.js";
 import {Operation as ReviewsOperation} from "../../redux/reviews/reviews.js";
-import {getNearOffers, getPropertyOffer} from "../../redux/offers-data/selectors.js";
+import {Operation as OfferOperation} from "../../redux/offers-data/offers-data.js";
+import {getPropertyOffer, getNearOffers} from "../../redux/offers-data/selectors.js";
 import {getReviews} from "../../redux/reviews/selectors.js";
 import {PureComponent} from "react";
+import {Operation as FavoriteOperation} from "../../redux/offers-favorites/offers-favorites.js";
+import {ActionCreator as OffersDataActionCreator} from "../../redux/offers-data/offers-data";
 
 export class PlaceProperty extends PureComponent {
   componentDidMount() {
-    const {getPropertyOfferInfo, match} = this.props;
+    const {getPropertyOfferInfo, getPropertyNearOffers, match} = this.props;
     const {params} = match;
     const {id: offerId} = params;
 
     getPropertyOfferInfo(Number(offerId));
+    getPropertyNearOffers(Number(offerId));
   }
 
   render() {
-    const {offer, nearOffers, reviews} = this.props;
+    const {offer,
+      nearOffers,
+      reviews,
+      setPropertyFavorite,
+      setLocalPropertyFavorite,
+      authorizationStatus
+    } = this.props;
 
-    if (!offer) {
+    if (!offer || !nearOffers) {
       return null;
     }
 
-    const {pictures, title, description, premium, type, rating, bedrooms, guests, cost, conveniences, owner, id} = offer;
+    const {pictures, title, description, premium, type, rating, bedrooms, guests, cost, conveniences, owner, id, favourite} = offer;
     const {avatar, name, pro} = owner;
 
+    const {cityCoordinates, offers: nearPropertyOffers} = nearOffers;
+    const {coordinates, zoom} = cityCoordinates;
 
     const isOwnerPro = pro ? `property__avatar-wrapper property__avatar-wrapper--pro` : ``;
-    const pins = nearOffers.map((nearOffer) => ({
+    const pins = nearPropertyOffers.map((nearOffer) => ({
       coordinates: nearOffer.coordinates,
       isActive: false,
     }));
     const activePin = {
       coordinates: offer.coordinates,
       isActive: true,
+    };
+
+    const nearOffersCity = {
+      coordinates,
+      zoom,
+    };
+
+    const isOfferFavorite = favourite ? 0 : 1;
+    const handlePropertyButtonClick = () => {
+      setPropertyFavorite(id, isOfferFavorite);
+      setLocalPropertyFavorite(offer);
     };
 
     return (
@@ -65,12 +92,31 @@ export class PlaceProperty extends PureComponent {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
-                  <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+
+                {
+                  authorizationStatus === AuthorizationStatus.NO_AUTH ?
+                    <Link
+                      to={AppRoute.SIGN_IN}
+                      className={`property__bookmark-button button ${favourite ? `property__bookmark-button--active` : ``}`}
+                      type="button">
+                      <svg className="property__bookmark-icon" width="31" height="33">
+                        <use xlinkHref="#icon-bookmark"></use>
+                      </svg>
+                      <span className="visually-hidden">To bookmarks</span>
+                    </Link>
+                    :
+                    <button
+                      className={`property__bookmark-button button ${favourite ? `property__bookmark-button--active` : ``}`}
+                      type="button"
+                      onClick={handlePropertyButtonClick}
+                    >
+                      <svg className="property__bookmark-icon" width="31" height="33">
+                        <use xlinkHref="#icon-bookmark"></use>
+                      </svg>
+                      <span className="visually-hidden">To bookmarks</span>
+                    </button>
+                }
+
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
@@ -139,10 +185,7 @@ export class PlaceProperty extends PureComponent {
 
           {<Map
             pins={pins.concat(activePin)}
-            cityCoordinates={{
-              coordinates: [48.85661, 2.351499],
-              zoom: 13,
-            }}
+            cityCoordinates={nearOffersCity}
             classes={CardClasses.PROPERTY}/>}
 
         </section>
@@ -152,7 +195,7 @@ export class PlaceProperty extends PureComponent {
 
 
             {<PlaceList
-              offers={nearOffers}
+              offers={nearPropertyOffers}
               classes={CardClasses.PROPERTY}/>}
           </section>
         </div>
@@ -185,26 +228,50 @@ PlaceProperty.propTypes = {
     id: PropTypes.number,
     reviews: PropTypes.array,
   }).isRequired,
-  nearOffers: PropTypes.arrayOf(PropTypes.object.isRequired),
+  nearOffers: PropTypes.exact({
+    city: PropTypes.string,
+    cityCoordinates: PropTypes.exact({
+      coordinates: PropTypes.array,
+      zoom: PropTypes.number,
+    }),
+    offers: PropTypes.arrayOf(PropTypes.object)
+  }),
   getPropertyOfferInfo: PropTypes.func.isRequired,
+  getPropertyNearOffers: PropTypes.func.isRequired,
   reviews: PropTypes.oneOfType([PropTypes.array, PropTypes.instanceOf(null)]),
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
     }).isRequired,
   }),
+  setPropertyFavorite: PropTypes.func.isRequired,
+  setLocalPropertyFavorite: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state, props) => ({
-  nearOffers: getNearOffers(state),
   offer: getPropertyOffer(state, props.match.params.id),
   reviews: getReviews(state),
+  nearOffers: getNearOffers(state),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getPropertyOfferInfo(offerId) {
     dispatch(ReviewsOperation.getReviews(offerId));
   },
+
+  getPropertyNearOffers(id) {
+    dispatch(OfferOperation.getNearOffers(id));
+  },
+
+  setPropertyFavorite(id, status) {
+    dispatch(FavoriteOperation.setFavorite(id, status));
+  },
+
+  setLocalPropertyFavorite(offer) {
+    dispatch(OffersDataActionCreator.setFavoriteOffer(offer));
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlaceProperty);

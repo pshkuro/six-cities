@@ -97,14 +97,14 @@ exports[`CitiesPlaces render tests CitiesPlaces render 1`] = `
           <img
             alt="Place image"
             className="place-card__image"
-            height="200"
+            height={110}
             src="img/apartment-01.jpg"
-            width="260"
+            width={260}
           />
         </a>
       </div>
       <div
-        className="place-card__info"
+        className=" place-card__info"
       >
         <div
           className="place-card__price-wrapper"
@@ -197,14 +197,14 @@ exports[`CitiesPlaces render tests CitiesPlaces render 1`] = `
           <img
             alt="Place image"
             className="place-card__image"
-            height="200"
+            height={110}
             src="img/apartment-01.jpg"
-            width="260"
+            width={260}
           />
         </a>
       </div>
       <div
-        className="place-card__info"
+        className=" place-card__info"
       >
         <div
           className="place-card__price-wrapper"
@@ -297,14 +297,14 @@ exports[`CitiesPlaces render tests CitiesPlaces render 1`] = `
           <img
             alt="Place image"
             className="place-card__image"
-            height="200"
+            height={110}
             src="img/apartment-07.jpg"
-            width="260"
+            width={260}
           />
         </a>
       </div>
       <div
-        className="place-card__info"
+        className=" place-card__info"
       >
         <div
           className="place-card__price-wrapper"

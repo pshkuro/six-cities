@@ -66,7 +66,7 @@ export default class Map extends PureComponent {
 
   _getPinIcon(isActive = false) {
     return leaflet.icon({
-      iconUrl: isActive ? `img/pin-active.svg` : `img/pin.svg`,
+      iconUrl: isActive ? `/img/pin-active.svg` : `/img/pin.svg`,
       iconSize: [30, 30]
     });
   }

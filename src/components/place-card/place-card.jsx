@@ -8,7 +8,8 @@ import {AuthorizationStatus} from "../../constants/page.js";
 import {getAuthorizationStatus} from "../../redux/user/selectors.js";
 import {ActionCreator as DataOffersActionCreator} from "../../redux/offers-data/offers-data.js";
 import {AppRoute} from "../../routing/routes.js";
-import {Operation} from "../../redux/offers-favorites/offers-favotites.js";
+import {Operation} from "../../redux/offers-favorites/offers-favorites.js";
+import {ActionCreator as FavoriteCreator} from "../../redux/offers-favorites/offers-favorites.js";
 
 
 export function PlaceCard({
@@ -18,6 +19,7 @@ export function PlaceCard({
   onAdvertCardMouseOut,
   authorizationStatus,
   setFavorite,
+  removeFromFavorite
 }) {
   const {previewImage, premium, favourite, cost, title, type, rating, id} = offer;
 
@@ -26,6 +28,14 @@ export function PlaceCard({
   const handleSetFavoriteClick = () => {
     setFavorite(id, isOfferFavorite, offer);
   };
+  const handleRemoveFavoriteClick = () => {
+    removeFromFavorite(id);
+    setFavorite(id, 0, offer);
+  };
+
+  const isFavorite = classes.wrapper === `favorites`;
+  const imageWidth = isFavorite ? 150 : 260;
+  const imaheHeight = isFavorite ? 200 : 110;
 
   return (
     <article className={`${classes.card}card place-card`}
@@ -36,12 +46,12 @@ export function PlaceCard({
           <span>Premium</span>
         </div>
         : ``}
-      <div className={`${classes.wrapper}__image-wrapper place-card__image-wrapper`}>
+      <div className={`${classes.wrapper ? `${classes.wrapper}__image-wrapper` : ``} place-card__image-wrapper`}>
         <a href="#">
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={previewImage} width={imageWidth} height={imaheHeight} alt="Place image" />
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={`${classes.info ? `${classes.info}__card-info` : ``} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{cost}</b>
@@ -59,7 +69,7 @@ export function PlaceCard({
                 <span className="visually-hidden">To bookmarks</span>
               </Link>
               : <button
-                onClick={handleSetFavoriteClick}
+                onClick={isFavorite ? handleRemoveFavoriteClick : handleSetFavoriteClick}
                 className={`place-card__bookmark-button button ${favourite && `place-card__bookmark-button--active`}`}
                 type="button">
                 <svg className="place-card__bookmark-icon" width="18" height="19">
@@ -118,6 +128,7 @@ PlaceCard.propTypes = {
   onAdvertCardMouseOut: PropTypes.func,
   authorizationStatus: PropTypes.string.isRequired,
   setFavorite: PropTypes.func.isRequired,
+  removeFromFavorite: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -132,6 +143,10 @@ const mapDispatchToProps = (dispatch) => ({
   setFavorite(id, status, offer) {
     dispatch(Operation.setFavorite(id, status));
     dispatch(DataOffersActionCreator.setFavoriteOffer(offer));
+  },
+
+  removeFromFavorite(id) {
+    dispatch(FavoriteCreator.removeFromFavorite(id));
   }
 });
 

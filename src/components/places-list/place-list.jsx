@@ -10,7 +10,7 @@ export default function PlaceList({
 
   return (
     <div className={`${classes.cards}list places__list tabs__content`}>
-      {offers.map((offer) => (
+      {offers && offers.map((offer) => (
         <PlaceCard
           offer={offer}
           key={offer.id}

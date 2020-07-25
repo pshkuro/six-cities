@@ -1,19 +1,19 @@
 import {parseHotel} from "../mapping/hotel-parser.js";
 import {parseHotels} from "../mapping/hotels-pareser.js";
-import {nearOffers} from "../../mocks/near-offers.js";
-import {getHotels} from "../../api/clients.js";
+import {getHotels, getNearOffers} from "../../api/clients.js";
 import produce from 'immer';
 
 const ActionType = {
   GET_OFFERS: `GET_OFFERS`,
   LOAD_ERROR: `LOAD_ERROR`,
   SET_FAVORITE_OFFER: `SET_FAVORITE_OFFER`,
+  GET_NEAR_OFFERS: `GET_NEAR_OFFERS`,
 };
 
 const initialState = {
   offers: null,
   error: false,
-  nearOffers,
+  nearOffers: null,
 };
 
 const ActionCreator = {
@@ -36,7 +36,14 @@ const ActionCreator = {
       type: ActionType.SET_FAVORITE_OFFER,
       offer,
     });
-  }
+  },
+
+  getNearOffer: (nearOffers) => {
+    return ({
+      type: ActionType.GET_NEAR_OFFERS,
+      nearOffers,
+    });
+  },
 };
 
 
@@ -54,6 +61,21 @@ const Operation = {
         dispatch(ActionCreator.offersLoadError());
       });
   },
+
+  getNearOffers: (id) => (dispatch, getState, api) => {
+    return getNearOffers(api, id)
+    .then((response) => parseHotels(response.data))
+      .then((data) => {
+        return Array.from(data.values()).map((offer) => (Object.assign(offer, {offers: offer.offers.map(parseHotel)})));
+      })
+      .then((data) => {
+        dispatch(ActionCreator.getNearOffer(data[0]));
+      })
+      .catch(() => {
+        dispatch(ActionCreator.offersLoadError());
+      });
+
+  }
 
 };
 
@@ -80,6 +102,12 @@ const reducer = (state = initialState, action) => {
             cityOffer.favourite = !action.offer.favourite;
           }
         });
+      });
+
+    case ActionType.GET_NEAR_OFFERS: // Тест
+      const {nearOffers} = action;
+      return Object.assign({}, state, {
+        nearOffers,
       });
   }
 

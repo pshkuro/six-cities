@@ -15,8 +15,8 @@ export function PlaceScreen({children, color, type, authorizationStatus, profile
 
   return (
     <div className={`page
-      ${color && `page--${color}`}
-      ${type && `page--${type}`}
+      ${color ? `page--${color}` : ``}
+      ${type ? `page--${type}` : ``}
     `}>
       <header className="header">
         <div className="container">
@@ -57,7 +57,7 @@ PlaceScreen.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]).isRequired,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   color: PropTypes.string,
   authorizationStatus: PropTypes.string.isRequired,
   profile: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(null)]),

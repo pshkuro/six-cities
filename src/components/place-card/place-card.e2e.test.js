@@ -37,6 +37,7 @@ const props = {
     map: `cities`,
   },
   setFavorite: jest.fn((z) => z),
+  removeFromFavorite: jest.fn((z) => z),
   authorizationStatus: `AUTH`,
 };
 
@@ -68,5 +69,26 @@ describe(`PlaceCard tests`, () => {
 
     expect(props.setFavorite).toHaveBeenCalledTimes(1);
     expect(props.setFavorite).toHaveBeenCalledWith(props.offer.id, 0, props.offer);
+  });
+
+  it(`Click on favorite button set offer unfavorite`, () => {
+    const placeCard = mount(
+        <BrowserRouter>
+          <PlaceCard
+            {...props}
+            classes={{
+              wrapper: `favorites`
+            }}/>
+        </BrowserRouter>
+    );
+
+    const favoriteButton = placeCard.find(`.place-card__bookmark-button`).first();
+    favoriteButton.simulate(`click`);
+
+
+    expect(props.setFavorite).toHaveBeenCalled();
+    expect(props.removeFromFavorite).toHaveBeenCalled();
+    expect(props.setFavorite).toHaveBeenCalledWith(props.offer.id, 0, props.offer);
+    expect(props.removeFromFavorite).toHaveBeenCalledWith(props.offer.id);
   });
 });
