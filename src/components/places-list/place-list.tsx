@@ -1,6 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
-import PlaceCard from "../place-card/place-card.jsx";
+import * as React from "react";
+import PlaceCard from "../place-card/place-card";
 
 
 export default function PlaceList({
@@ -22,8 +21,8 @@ export default function PlaceList({
 
 }
 
-PlaceList.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.object).isRequired,
-  classes: PropTypes.object.isRequired,
-};
+// PlaceList.propTypes = {
+//   offers: PropTypes.arrayOf(PropTypes.object).isRequired,
+//   classes: PropTypes.object.isRequired,
+// };
 

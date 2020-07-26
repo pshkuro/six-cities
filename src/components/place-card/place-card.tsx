@@ -1,15 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
+import * as React from "react";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../redux/page/page.js";
+import {Link} from "react-router-dom";
+import {ActionCreator} from "../../redux/page/page";
+import {ActionCreator as DataOffersActionCreator} from "../../redux/offers-data/offers-data";
+import {ActionCreator as FavoriteCreator} from "../../redux/offers-favorites/offers-favorites";
+import {AppRoute} from "../../routing/routes";
+import {AuthorizationStatus} from "../../constants/page";
+import {getAuthorizationStatus} from "../../redux/user/selectors";
+import {Operation} from "../../redux/offers-favorites/offers-favorites";
 import {ratingStars} from "../../constants/offer";
-import {AuthorizationStatus} from "../../constants/page.js";
-import {getAuthorizationStatus} from "../../redux/user/selectors.js";
-import {ActionCreator as DataOffersActionCreator} from "../../redux/offers-data/offers-data.js";
-import {AppRoute} from "../../routing/routes.js";
-import {Operation} from "../../redux/offers-favorites/offers-favorites.js";
-import {ActionCreator as FavoriteCreator} from "../../redux/offers-favorites/offers-favorites.js";
 
 
 export function PlaceCard({
@@ -100,36 +99,36 @@ export function PlaceCard({
 }
 
 
-PlaceCard.propTypes = {
-  offer: PropTypes.exact({
-    pictures: PropTypes.arrayOf(PropTypes.string),
-    previewImage: PropTypes.string,
-    title: PropTypes.string,
-    description: PropTypes.arrayOf(PropTypes.string),
-    premium: PropTypes.bool,
-    favourite: PropTypes.bool,
-    type: PropTypes.string,
-    rating: PropTypes.number,
-    bedrooms: PropTypes.number,
-    guests: PropTypes.number,
-    cost: PropTypes.number,
-    conveniences: PropTypes.arrayOf(PropTypes.string),
-    coordinates: PropTypes.arrayOf(PropTypes.number),
-    owner: PropTypes.exact({
-      avatar: PropTypes.string,
-      name: PropTypes.string,
-      pro: PropTypes.bool,
-      id: PropTypes.number,
-    }).isRequired,
-    id: PropTypes.number,
-  }).isRequired,
-  classes: PropTypes.object.isRequired,
-  onAdvertCardMouseOver: PropTypes.func,
-  onAdvertCardMouseOut: PropTypes.func,
-  authorizationStatus: PropTypes.string.isRequired,
-  setFavorite: PropTypes.func.isRequired,
-  removeFromFavorite: PropTypes.func.isRequired,
-};
+// PlaceCard.propTypes = {
+//   offer: PropTypes.exact({
+//     pictures: PropTypes.arrayOf(PropTypes.string),
+//     previewImage: PropTypes.string,
+//     title: PropTypes.string,
+//     description: PropTypes.arrayOf(PropTypes.string),
+//     premium: PropTypes.bool,
+//     favourite: PropTypes.bool,
+//     type: PropTypes.string,
+//     rating: PropTypes.number,
+//     bedrooms: PropTypes.number,
+//     guests: PropTypes.number,
+//     cost: PropTypes.number,
+//     conveniences: PropTypes.arrayOf(PropTypes.string),
+//     coordinates: PropTypes.arrayOf(PropTypes.number),
+//     owner: PropTypes.exact({
+//       avatar: PropTypes.string,
+//       name: PropTypes.string,
+//       pro: PropTypes.bool,
+//       id: PropTypes.number,
+//     }).isRequired,
+//     id: PropTypes.number,
+//   }).isRequired,
+//   classes: PropTypes.object.isRequired,
+//   onAdvertCardMouseOver: PropTypes.func,
+//   onAdvertCardMouseOut: PropTypes.func,
+//   authorizationStatus: PropTypes.string.isRequired,
+//   setFavorite: PropTypes.func.isRequired,
+//   removeFromFavorite: PropTypes.func.isRequired,
+// };
 
 export const mapDispatchToProps = (dispatch) => ({
   onAdvertCardMouseOver(offer) {

@@ -1,15 +1,15 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {connect} from "react-redux";
-import {Operation} from "../../../redux/offers-favorites/offers-favorites.js";
-import {getFavoriteOffers} from "../../../redux/offers-favorites/selectors.js";
-import PlaceCard from "../../place-card/place-card.jsx";
-import FavoriteFooter from "../favorite-footer/favorite-footer.jsx";
-import {CardClasses} from "../../../constants/page.js";
-import FavoriteEmpty from "../favorite-empty/favorite-empty.jsx";
+import {PureComponent} from "react"
+import {CardClasses} from "../../../constants/page";
+import FavoriteFooter from "../favorite-footer/favorite-footer";
+import FavoriteEmpty from "../favorite-empty/favorite-empty";
+import {getFavoriteOffers} from "../../../redux/offers-favorites/selectors";
+import {Operation} from "../../../redux/offers-favorites/offers-favorites";
+import PlaceCard from "../../place-card/place-card";
 
 
-export class FavoriteOffers extends PureComponent {
+export class FavoriteOffers extends React.PureComponent {
   componentDidMount() {
     const {getFavoritesCityOffers} = this.props;
     getFavoritesCityOffers();
@@ -61,10 +61,10 @@ export class FavoriteOffers extends PureComponent {
   }
 }
 
-FavoriteOffers.propTypes = {
-  getFavoritesCityOffers: PropTypes.func.isRequired,
-  favoriteOffers: PropTypes.oneOfType([PropTypes.array, PropTypes.instanceOf(null)])
-};
+// FavoriteOffers.propTypes = {
+//   getFavoritesCityOffers: PropTypes.func.isRequired,
+//   favoriteOffers: PropTypes.oneOfType([PropTypes.array, PropTypes.instanceOf(null)])
+// };
 
 const mapStateToProps = (state) => ({
   favoriteOffers: getFavoriteOffers(state),

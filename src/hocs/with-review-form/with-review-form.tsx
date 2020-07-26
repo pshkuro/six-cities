@@ -1,8 +1,7 @@
-import React, {PureComponent} from "react";
+import * as React from "react";
 import {connect} from "react-redux";
-import {getAuthorizationStatus} from "../../redux/user/selectors.js";
-import PropTypes from "prop-types";
-import {Operation} from "../../redux/reviews/reviews.js";
+import {getAuthorizationStatus} from "../../redux/user/selectors";
+import {Operation} from "../../redux/reviews/reviews";
 
 
 const CorrectReviewValue = {
@@ -20,7 +19,7 @@ const CorrectReviewValue = {
 
 export default function withReviewForm(Component) {
 
-  class WithReviewForm extends PureComponent {
+  class WithReviewForm extends React.PureComponent {
     constructor(props) {
       super(props);
 
@@ -113,11 +112,11 @@ export default function withReviewForm(Component) {
     }
   }
 
-  WithReviewForm.propTypes = {
-    authorizationStatus: PropTypes.string.isRequired,
-    onReviewFormSubmit: PropTypes.func.isRequired,
-    offerId: PropTypes.number.isRequired,
-  };
+  // WithReviewForm.propTypes = {
+  //   authorizationStatus: PropTypes.string.isRequired,
+  //   onReviewFormSubmit: PropTypes.func.isRequired,
+  //   offerId: PropTypes.number.isRequired,
+  // };
 
   const mapStateToProps = (state) => ({
     authorizationStatus: getAuthorizationStatus(state),

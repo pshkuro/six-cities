@@ -1,10 +1,10 @@
 import {combineReducers} from "redux";
-import {reducer as offersData} from "./offers-data/offers-data.js";
-import {reducer as page} from "./page/page.js";
-import {reducer as user} from "./user/user.js";
-import {reducer as reviews} from "./reviews/reviews.js";
-import {reducer as favorites} from "./offers-favorites/offers-favorites.js";
-import NameSpace from "./name-space.js";
+import {reducer as offersData} from "./offers-data/offers-data";
+import {reducer as page} from "./page/page";
+import {reducer as user} from "./user/user";
+import {reducer as reviews} from "./reviews/reviews";
+import {reducer as favorites} from "./offers-favorites/offers-favorites";
+import NameSpace from "./name-space";
 
 
 export default combineReducers({

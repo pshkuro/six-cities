@@ -1,17 +1,15 @@
-import React from "react";
-import PropTypes from "prop-types";
-import {AuthorizationStatus} from "../../constants/page.js";
-import {shake} from "../../utils/form.js";
-import {PureComponent} from "react";
-import {createRef} from "react";
+import * as React from "react";
+import {AuthorizationStatus} from "../../constants/page";
+import {shake} from "../../utils/form";
+
 
 const ratingStars = [5, 4, 3, 2, 1];
 
 
-export default class ReviewForm extends PureComponent {
+export default class ReviewForm extends React.PureComponent {
   constructor(props) {
     super(props);
-    this._formRef = createRef();
+    this._formRef = React.createRef();
   }
 
   render() {
@@ -84,14 +82,14 @@ export default class ReviewForm extends PureComponent {
   }
 }
 
-ReviewForm.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  onFormSubmit: PropTypes.func.isRequired,
-  onFieldChange: PropTypes.func.isRequired,
-  commentValue: PropTypes.string.isRequired,
-  ratingValue: PropTypes.string.isRequired,
-  isReviewInfoCorrect: PropTypes.bool.isRequired,
-  isSending: PropTypes.bool.isRequired,
-  isError: PropTypes.bool.isRequired,
-};
+// ReviewForm.propTypes = {
+//   authorizationStatus: PropTypes.string.isRequired,
+//   onFormSubmit: PropTypes.func.isRequired,
+//   onFieldChange: PropTypes.func.isRequired,
+//   commentValue: PropTypes.string.isRequired,
+//   ratingValue: PropTypes.string.isRequired,
+//   isReviewInfoCorrect: PropTypes.bool.isRequired,
+//   isSending: PropTypes.bool.isRequired,
+//   isError: PropTypes.bool.isRequired,
+// };
 

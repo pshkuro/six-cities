@@ -1,7 +1,5 @@
 import * as React from "react";
 import {connect} from "react-redux";
-import {PureComponent} from "react";
-import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import {AppRoute} from "../../routing/routes";
 import ErrorComponent from "../error/error";
@@ -84,13 +82,13 @@ class App extends React.PureComponent {
   }
 }
 
-App.propTypes = {
-  offers: PropTypes.object,
-  activeOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(null)]),
-  error: PropTypes.bool.isRequired,
-  login: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-};
+// App.propTypes = {
+//   offers: PropTypes.object,
+//   activeOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(null)]),
+//   error: PropTypes.bool.isRequired,
+//   login: PropTypes.func.isRequired,
+//   authorizationStatus: PropTypes.string.isRequired,
+// };
 
 const mapStateToProps = (state) => ({
   offers: getCityOffers(state),

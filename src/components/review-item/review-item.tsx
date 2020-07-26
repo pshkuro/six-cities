@@ -1,7 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {ratingStars} from "../../constants/offer";
-import {convertDateToMonthDayFormat} from "../../utils/common.js";
+import {convertDateToMonthDayFormat} from "../../utils/common";
 
 export default function ReviewItem({review}) {
   const {comment, date, rating, user} = review;
@@ -36,19 +35,19 @@ export default function ReviewItem({review}) {
 }
 
 
-ReviewItem.propTypes = {
-  review: PropTypes.shape({
-    comment: PropTypes.string,
-    date: PropTypes.string,
-    rating: PropTypes.number,
-    id: PropTypes.number,
-    user: PropTypes.shape(
-        {
-          avatar: PropTypes.string,
-          name: PropTypes.string,
-          isPro: PropTypes.bool,
-          userId: PropTypes.number,
-        }
-    ),
-  }).isRequired,
-};
+// ReviewItem.propTypes = {
+//   review: PropTypes.shape({
+//     comment: PropTypes.string,
+//     date: PropTypes.string,
+//     rating: PropTypes.number,
+//     id: PropTypes.number,
+//     user: PropTypes.shape(
+//         {
+//           avatar: PropTypes.string,
+//           name: PropTypes.string,
+//           isPro: PropTypes.bool,
+//           userId: PropTypes.number,
+//         }
+//     ),
+//   }).isRequired,
+// };

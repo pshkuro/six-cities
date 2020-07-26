@@ -1,11 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import CitiesList from "../cities-list/cities-list.jsx";
-import Map from "../map/map.jsx";
-import {CardClasses} from "../../constants/page.js";
-import CitiesNoPlaces from "../cities-no-places/cities-no-places.jsx";
-import CitiesPlaces from "../cities-places/cities-places.jsx";
-import withSorting from "../../hocs/with-sorting/with-sorting.js";
+import * as React from "react";
+import {CardClasses} from "../../constants/page";
+import CitiesList from "../cities-list/cities-list";
+import CitiesNoPlaces from "../cities-no-places/cities-no-places";
+import CitiesPlaces from "../cities-places/cities-places";
+import Map from "../map/map";
+import withSorting from "../../hocs/with-sorting/with-sorting";
 
 const CitiesPlacesWrapped = withSorting(CitiesPlaces);
 
@@ -49,11 +48,11 @@ export default function Main({
 }
 
 
-Main.propTypes = {
-  offers: PropTypes.object,
-  city: PropTypes.string,
-  cityCoordinates: PropTypes.arrayOf(PropTypes.number),
-  activeOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(null)]),
-};
+// Main.propTypes = {
+//   offers: PropTypes.object,
+//   city: PropTypes.string,
+//   cityCoordinates: PropTypes.arrayOf(PropTypes.number),
+//   activeOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(null)]),
+// };
 
 

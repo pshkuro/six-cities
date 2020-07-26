@@ -1,6 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
-import {SortingType} from "../../constants/page.js";
+import * as React from "react";
+// import {SortingType} from "../../constants/page";
 
 
 const options = [
@@ -73,12 +72,12 @@ export default function PlacesSorting(props) {
   );
 }
 
-PlacesSorting.propTypes = {
-  onSortingListItemClick: PropTypes.func.isRequired,
-  activeSortingType: PropTypes.oneOf(
-      [SortingType.DEFAULT, SortingType.TOP_RATED, SortingType.TO_HIGHT, SortingType.TO_LAW]),
-  handleChangeToggleClick: PropTypes.func.isRequired,
-  activeClass: PropTypes.string.isRequired,
-};
+// PlacesSorting.propTypes = {
+//   onSortingListItemClick: PropTypes.func.isRequired,
+//   activeSortingType: PropTypes.oneOf(
+//       [SortingType.DEFAULT, SortingType.TOP_RATED, SortingType.TO_HIGHT, SortingType.TO_LAW]),
+//   handleChangeToggleClick: PropTypes.func.isRequired,
+//   activeClass: PropTypes.string.isRequired,
+// };
 
 

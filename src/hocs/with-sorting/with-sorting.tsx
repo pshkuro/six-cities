@@ -1,9 +1,8 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
-import {SortingType} from "../../constants/page.js";
+import * as React from "react";
+import {SortingType} from "../../constants/page";
 
 export default function withSorting(Component) {
-  class WithSorting extends PureComponent {
+  class WithSorting extends React.PureComponent {
     constructor(props) {
       super(props);
 
@@ -56,9 +55,9 @@ export default function withSorting(Component) {
     }
   }
 
-  WithSorting.propTypes = {
-    offers: PropTypes.arrayOf(PropTypes.object),
-  };
+  // WithSorting.propTypes = {
+  //   offers: PropTypes.arrayOf(PropTypes.object),
+  // };
 
   return WithSorting;
 }

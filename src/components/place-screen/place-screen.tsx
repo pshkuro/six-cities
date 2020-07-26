@@ -1,10 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {connect} from "react-redux";
-import {getProfile} from "../../redux/user/selectors.js";
-import {AuthorizationStatus} from "../../constants/page.js";
 import {Link} from "react-router-dom";
-import {AppRoute} from "../../routing/routes.js";
+import {AppRoute} from "../../routing/routes";
+import {AuthorizationStatus} from "../../constants/page";
+import {getProfile} from "../../redux/user/selectors";
 
 export function PlaceScreen({children, color, type, authorizationStatus, profile}) {
 
@@ -52,16 +51,16 @@ export function PlaceScreen({children, color, type, authorizationStatus, profile
   );
 }
 
-PlaceScreen.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
-  type: PropTypes.string,
-  color: PropTypes.string,
-  authorizationStatus: PropTypes.string.isRequired,
-  profile: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(null)]),
-};
+// PlaceScreen.propTypes = {
+//   children: PropTypes.oneOfType([
+//     PropTypes.arrayOf(PropTypes.node),
+//     PropTypes.node
+//   ]).isRequired,
+//   type: PropTypes.string,
+//   color: PropTypes.string,
+//   authorizationStatus: PropTypes.string.isRequired,
+//   profile: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(null)]),
+// };
 
 const mapStateToProps = (state) => ({
   profile: getProfile(state),

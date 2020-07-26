@@ -1,7 +1,7 @@
-import React, {PureComponent} from "react";
+import * as React from "react";
 
 export default function withToggle(Component) {
-  return class WithToggle extends PureComponent {
+  return class WithToggle extends React.PureComponent {
     constructor(props) {
       super(props);
 

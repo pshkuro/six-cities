@@ -1,5 +1,5 @@
-import React from "react";
-import FavoriteFooter from "../favorite-footer/favorite-footer.jsx";
+import * as React from "react";
+import FavoriteFooter from "../favorite-footer/favorite-footer";
 
 export default function FavoriteEmpty() {
   return (

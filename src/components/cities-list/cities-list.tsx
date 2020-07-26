@@ -1,12 +1,12 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../redux/page/page.js";
-import {getActiveCity} from "../../redux/page/selectors.js";
-import {getCities} from "../../redux/offers-data/selectors.js";
+import {PureComponent} from "react";
+import {ActionCreator} from "../../redux/page/page";
+import {getActiveCity} from "../../redux/page/selectors";
+import {getCities} from "../../redux/offers-data/selectors";
 
 
-class CitiesList extends PureComponent {
+class CitiesList extends React.PureComponent {
   componentDidMount() {
     const {city: activeCity, cities, setDefaultCity} = this.props;
     return activeCity === null && setDefaultCity(cities[0]);
@@ -40,12 +40,12 @@ class CitiesList extends PureComponent {
   }
 }
 
-CitiesList.propTypes = {
-  city: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(null)]),
-  onChooseCityClick: PropTypes.func.isRequired,
-  setDefaultCity: PropTypes.func,
-  cities: PropTypes.array.isRequired,
-};
+// CitiesList.propTypes = {
+//   city: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(null)]),
+//   onChooseCityClick: PropTypes.func.isRequired,
+//   setDefaultCity: PropTypes.func,
+//   cities: PropTypes.array.isRequired,
+// };
 
 const mapStateToProps = (state) => ({
   city: getActiveCity(state),

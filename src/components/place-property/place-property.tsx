@@ -1,24 +1,24 @@
-import React from "react";
-import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
-import {getAuthorizationStatus} from "../../redux/user/selectors.js";
+import * as React from "react";
 import {connect} from "react-redux";
-import {ratingStars} from "../../constants/offer";
-import ReviewsList from "../reviews-list/reviews-list.jsx";
-import PlaceList from "../places-list/place-list.jsx";
-import {AppRoute} from "../../routing/routes.js";
-import {AuthorizationStatus} from "../../constants/page.js";
-import Map from "../map/map.jsx";
-import {CardClasses} from "../../constants/page.js";
-import {Operation as ReviewsOperation} from "../../redux/reviews/reviews.js";
-import {Operation as OfferOperation} from "../../redux/offers-data/offers-data.js";
-import {getPropertyOffer, getNearOffers} from "../../redux/offers-data/selectors.js";
-import {getReviews} from "../../redux/reviews/selectors.js";
 import {PureComponent} from "react";
-import {Operation as FavoriteOperation} from "../../redux/offers-favorites/offers-favorites.js";
+import {Link} from "react-router-dom";
 import {ActionCreator as OffersDataActionCreator} from "../../redux/offers-data/offers-data";
+import {AppRoute} from "../../routing/routes";
+import {AuthorizationStatus} from "../../constants/page";
+import {CardClasses} from "../../constants/page";
+import {getAuthorizationStatus} from "../../redux/user/selectors";
+import {getPropertyOffer, getNearOffers} from "../../redux/offers-data/selectors";
+import {getReviews} from "../../redux/reviews/selectors";
+import Map from "../map/map";
+import {Operation as OfferOperation} from "../../redux/offers-data/offers-data";
+import {Operation as ReviewsOperation} from "../../redux/reviews/reviews";
+import {Operation as FavoriteOperation} from "../../redux/offers-favorites/offers-favorites";
+import PlaceList from "../places-list/place-list";
+import {ratingStars} from "../../constants/offer";
+import ReviewsList from "../reviews-list/reviews-list";
 
-export class PlaceProperty extends PureComponent {
+
+export class PlaceProperty extends React.PureComponent {
   componentDidMount() {
     const {getPropertyOfferInfo, getPropertyNearOffers, match} = this.props;
     const {params} = match;
@@ -202,49 +202,49 @@ export class PlaceProperty extends PureComponent {
   }
 }
 
-PlaceProperty.propTypes = {
-  offer: PropTypes.exact({
-    pictures: PropTypes.arrayOf(PropTypes.string),
-    previewImage: PropTypes.string,
-    title: PropTypes.string,
-    description: PropTypes.arrayOf(PropTypes.string),
-    premium: PropTypes.bool,
-    favourite: PropTypes.bool,
-    type: PropTypes.string,
-    rating: PropTypes.number,
-    bedrooms: PropTypes.number,
-    guests: PropTypes.number,
-    cost: PropTypes.number,
-    conveniences: PropTypes.arrayOf(PropTypes.string),
-    coordinates: PropTypes.arrayOf(PropTypes.number),
-    owner: PropTypes.exact({
-      avatar: PropTypes.string,
-      name: PropTypes.string,
-      pro: PropTypes.bool,
-      id: PropTypes.number,
-    }).isRequired,
-    id: PropTypes.number,
-    reviews: PropTypes.array,
-  }).isRequired,
-  nearOffers: PropTypes.exact({
-    city: PropTypes.string,
-    cityCoordinates: PropTypes.exact({
-      coordinates: PropTypes.array,
-      zoom: PropTypes.number,
-    }),
-    offers: PropTypes.arrayOf(PropTypes.object)
-  }),
-  getPropertyOfferInfo: PropTypes.func.isRequired,
-  getPropertyNearOffers: PropTypes.func.isRequired,
-  reviews: PropTypes.oneOfType([PropTypes.array, PropTypes.instanceOf(null)]),
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-    }).isRequired,
-  }),
-  setPropertyFavorite: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-};
+// PlaceProperty.propTypes = {
+//   offer: PropTypes.exact({
+//     pictures: PropTypes.arrayOf(PropTypes.string),
+//     previewImage: PropTypes.string,
+//     title: PropTypes.string,
+//     description: PropTypes.arrayOf(PropTypes.string),
+//     premium: PropTypes.bool,
+//     favourite: PropTypes.bool,
+//     type: PropTypes.string,
+//     rating: PropTypes.number,
+//     bedrooms: PropTypes.number,
+//     guests: PropTypes.number,
+//     cost: PropTypes.number,
+//     conveniences: PropTypes.arrayOf(PropTypes.string),
+//     coordinates: PropTypes.arrayOf(PropTypes.number),
+//     owner: PropTypes.exact({
+//       avatar: PropTypes.string,
+//       name: PropTypes.string,
+//       pro: PropTypes.bool,
+//       id: PropTypes.number,
+//     }).isRequired,
+//     id: PropTypes.number,
+//     reviews: PropTypes.array,
+//   }).isRequired,
+//   nearOffers: PropTypes.exact({
+//     city: PropTypes.string,
+//     cityCoordinates: PropTypes.exact({
+//       coordinates: PropTypes.array,
+//       zoom: PropTypes.number,
+//     }),
+//     offers: PropTypes.arrayOf(PropTypes.object)
+//   }),
+//   getPropertyOfferInfo: PropTypes.func.isRequired,
+//   getPropertyNearOffers: PropTypes.func.isRequired,
+//   reviews: PropTypes.oneOfType([PropTypes.array, PropTypes.instanceOf(null)]),
+//   match: PropTypes.shape({
+//     params: PropTypes.shape({
+//       id: PropTypes.string.isRequired,
+//     }).isRequired,
+//   }),
+//   setPropertyFavorite: PropTypes.func.isRequired,
+//   authorizationStatus: PropTypes.string.isRequired,
+// };
 
 const mapStateToProps = (state, props) => ({
   offer: getPropertyOffer(state, props.match.params.id),

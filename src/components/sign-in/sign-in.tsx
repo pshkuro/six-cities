@@ -1,18 +1,17 @@
-import React, {PureComponent, createRef} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {connect} from "react-redux";
 import {Link, Redirect} from "react-router-dom";
-import {AppRoute} from "../../routing/routes.js";
-import {getCities} from "../../redux/offers-data/selectors.js";
-import {AuthorizationStatus} from "../../constants/page.js";
+import {AppRoute} from "../../routing/routes";
+import {getCities} from "../../redux/offers-data/selectors";
+import {AuthorizationStatus} from "../../constants/page";
 
 
-export class SignIn extends PureComponent {
+export class SignIn extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.loginRef = createRef();
-    this.passwordRef = createRef();
+    this.loginRef = React.createRef();
+    this.passwordRef = React.createRef();
 
     this._handleSubmit = this._handleSubmit.bind(this);
   }
@@ -79,11 +78,11 @@ export class SignIn extends PureComponent {
   }
 }
 
-SignIn.propTypes = {
-  cities: PropTypes.array.isRequired,
-  onSignInFormSubmit: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-};
+// SignIn.propTypes = {
+//   cities: PropTypes.array.isRequired,
+//   onSignInFormSubmit: PropTypes.func.isRequired,
+//   authorizationStatus: PropTypes.string.isRequired,
+// };
 
 const mapStateToProps = (state) => ({
   cities: getCities(state),

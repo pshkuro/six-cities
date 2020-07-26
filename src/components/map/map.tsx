@@ -1,10 +1,10 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
-import leaflet from "leaflet";
+import * as React from "react";
 import {createRef} from "react";
+import leaflet from "leaflet";
+import {PureComponent} from "react"
 
 
-export default class Map extends PureComponent {
+export default class Map extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -105,13 +105,13 @@ export default class Map extends PureComponent {
   }
 }
 
-Map.propTypes = {
-  pins: PropTypes.arrayOf(PropTypes.object).isRequired,
-  cityCoordinates: PropTypes.exact({
-    coordinates: PropTypes.arrayOf(PropTypes.number),
-    zoom: PropTypes.number,
-  }).isRequired,
-  classes: PropTypes.object.isRequired,
-};
+// Map.propTypes = {
+//   pins: PropTypes.arrayOf(PropTypes.object).isRequired,
+//   cityCoordinates: PropTypes.exact({
+//     coordinates: PropTypes.arrayOf(PropTypes.number),
+//     zoom: PropTypes.number,
+//   }).isRequired,
+//   classes: PropTypes.object.isRequired,
+// };
 
 

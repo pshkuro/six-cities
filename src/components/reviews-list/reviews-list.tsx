@@ -1,8 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import ReviewItem from "../review-item/review-item.jsx";
-import ReviewForm from "../review-form/review-form.jsx";
-import withReviewForm from "../../hocs/with-review-form/with-review-form.js";
+import * as React from "react";
+import ReviewItem from "../review-item/review-item";
+import ReviewForm from "../review-form/review-form";
+import withReviewForm from "../../hocs/with-review-form/with-review-form";
 
 const ReviewFormWrapped = withReviewForm(ReviewForm);
 
@@ -29,9 +28,9 @@ export default function ReviewsList({reviews, offerId}) {
   );
 }
 
-ReviewsList.propTypes = {
-  reviews: PropTypes.array,
-  offerId: PropTypes.number,
-};
+// ReviewsList.propTypes = {
+//   reviews: PropTypes.array,
+//   offerId: PropTypes.number,
+// };
 
 

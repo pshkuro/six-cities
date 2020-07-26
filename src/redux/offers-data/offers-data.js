@@ -1,6 +1,6 @@
-import {parseHotel} from "../mapping/hotel-parser.js";
-import {parseHotels} from "../mapping/hotels-pareser.js";
-import {getHotels, getNearOffers} from "../../api/clients.js";
+import {getHotels, getNearOffers} from "../../api/clients";
+import {parseHotel} from "../mapping/hotel-parser";
+import {parseHotels} from "../mapping/hotels-pareser";
 import produce from 'immer';
 
 const ActionType = {
