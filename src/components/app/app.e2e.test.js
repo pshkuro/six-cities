@@ -12,7 +12,6 @@ import Main from "../main/main.jsx";
 import PlaceProperty from "../place-property/place-property.jsx";
 import SignIn from "../sign-in/sign-in.jsx";
 import FavoriteOffers from "../favorite/favorite-offers/favorite-offers.jsx";
-// import {mapDispatchToProps} from "./app.jsx";
 
 const props = {
   offers: [{
@@ -188,30 +187,6 @@ describe(`App render tests`, () => {
     expect(component.exists(ErrorComponent)).toBe(true);
 
 
-  });
-
-  it(`App render stub compoenent when offers null`, () => {
-    // const store = mockStore({
-    //   OFFERS_DATA: {
-    //     offers: null,
-    //     error: false,
-    //   },
-    //   USER: {
-    //     profile: {},
-    //     authorizationStatus: `NO_AUTH`,
-    //   }
-    // });
-
-    // const component = mount(
-    //     <Provider store={store}>
-    //       <BrowserRouter>
-    //         <App
-    //           {...props}/>
-    //       </BrowserRouter>
-    //     </Provider>
-    // );
-
-    // expect(component.exists(ErrorComponent)).toBe(true);
   });
 });
 

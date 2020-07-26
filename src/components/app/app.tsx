@@ -1,21 +1,22 @@
-import React, {PureComponent} from "react";
+import * as React from "react";
+import {connect} from "react-redux";
+import {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
-import {connect} from "react-redux";
-import Main from "../main/main.jsx";
-import PlaceScreen from "../place-screen/place-screen.jsx";
-import PlaceProperty from "../place-property/place-property.jsx";
-import ErrorComponent from "../error/error.jsx";
-import SignIn from "../sign-in/sign-in.jsx";
-import FavoriteOffers from "../favorite/favorite-offers/favorite-offers.jsx";
-import {getCityOffers, getError} from "../../redux/offers-data/selectors.js";
-import {getActiveOffer} from "../../redux/page/selectors.js";
-import {getAuthorizationStatus} from "../../redux/user/selectors.js";
-import {Operation as DataOperation} from "../../redux/user/user.js";
-import {AppRoute} from "../../routing/routes.js";
-import PrivateRoute from "../../routing/private-route.jsx";
+import {AppRoute} from "../../routing/routes";
+import ErrorComponent from "../error/error";
+import FavoriteOffers from "../favorite/favorite-offers/favorite-offers";
+import {getCityOffers, getError} from "../../redux/offers-data/selectors";
+import {getActiveOffer} from "../../redux/page/selectors";
+import {getAuthorizationStatus} from "../../redux/user/selectors";
+import {Operation as DataOperation} from "../../redux/user/user";
+import Main from "../main/main";
+import PlaceScreen from "../place-screen/place-screen";
+import PlaceProperty from "../place-property/place-property";
+import PrivateRoute from "../../routing/private-route";
+import SignIn from "../sign-in/sign-in";
 
-class App extends PureComponent {
+class App extends React.PureComponent {
   render() {
     const {offers,
       error,
