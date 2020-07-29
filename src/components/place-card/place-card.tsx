@@ -8,8 +8,19 @@ import {AppRoute} from "../../routing/routes";
 import {AuthorizationStatus} from "../../constants/page";
 import {getAuthorizationStatus} from "../../redux/user/selectors";
 import {Operation} from "../../redux/offers-favorites/offers-favorites";
+import {Offer, AuthorizationStatus as AuthorizationStatusType, Classes} from "../../types/types";
 import {ratingStars} from "../../constants/offer";
 
+
+interface Props {
+  offer: Offer;
+  classes: Classes;
+  onAdvertCardMouseOver: (offer: Offer) => void;
+  onAdvertCardMouseOut: () => void;
+  authorizationStatus: AuthorizationStatusType;
+  setFavorite: (id: number, isOfferFavorite: number, offer: Offer) => void;
+  removeFromFavorite: (id: number) => void;
+}
 
 export function PlaceCard({
   offer,
@@ -19,7 +30,7 @@ export function PlaceCard({
   authorizationStatus,
   setFavorite,
   removeFromFavorite
-}) {
+}: Props): JSX.Element {
   const {previewImage, premium, favourite, cost, title, type, rating, id} = offer;
 
   const isOfferFavorite = favourite ? 0 : 1;
@@ -98,37 +109,6 @@ export function PlaceCard({
   );
 }
 
-
-// PlaceCard.propTypes = {
-//   offer: PropTypes.exact({
-//     pictures: PropTypes.arrayOf(PropTypes.string),
-//     previewImage: PropTypes.string,
-//     title: PropTypes.string,
-//     description: PropTypes.arrayOf(PropTypes.string),
-//     premium: PropTypes.bool,
-//     favourite: PropTypes.bool,
-//     type: PropTypes.string,
-//     rating: PropTypes.number,
-//     bedrooms: PropTypes.number,
-//     guests: PropTypes.number,
-//     cost: PropTypes.number,
-//     conveniences: PropTypes.arrayOf(PropTypes.string),
-//     coordinates: PropTypes.arrayOf(PropTypes.number),
-//     owner: PropTypes.exact({
-//       avatar: PropTypes.string,
-//       name: PropTypes.string,
-//       pro: PropTypes.bool,
-//       id: PropTypes.number,
-//     }).isRequired,
-//     id: PropTypes.number,
-//   }).isRequired,
-//   classes: PropTypes.object.isRequired,
-//   onAdvertCardMouseOver: PropTypes.func,
-//   onAdvertCardMouseOut: PropTypes.func,
-//   authorizationStatus: PropTypes.string.isRequired,
-//   setFavorite: PropTypes.func.isRequired,
-//   removeFromFavorite: PropTypes.func.isRequired,
-// };
 
 export const mapDispatchToProps = (dispatch) => ({
   onAdvertCardMouseOver(offer) {

@@ -104,7 +104,7 @@ const reducer = (state = initialState, action) => {
         });
       });
 
-    case ActionType.GET_NEAR_OFFERS: // Тест
+    case ActionType.GET_NEAR_OFFERS:
       const {nearOffers} = action;
       return Object.assign({}, state, {
         nearOffers,

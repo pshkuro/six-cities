@@ -3,9 +3,24 @@ import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {AppRoute} from "../../routing/routes";
 import {AuthorizationStatus} from "../../constants/page";
+import {AuthorizationStatus as AuthorizationStatusType} from "../../types/types";
 import {getProfile} from "../../redux/user/selectors";
 
-export function PlaceScreen({children, color, type, authorizationStatus, profile}) {
+interface Props {
+  children: React.ReactNode;
+  color: string;
+  type: string;
+  authorizationStatus: AuthorizationStatusType;
+  profile: {
+    id: number;
+    email: string;
+    name: string;
+    avatar_url: string;
+    is_pro: boolean;
+  };
+}
+
+export function PlaceScreen({children, color, type, authorizationStatus, profile}: Props): JSX.Element {
 
   const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
   const avatarComponent = !isAuthorized ?
@@ -51,16 +66,6 @@ export function PlaceScreen({children, color, type, authorizationStatus, profile
   );
 }
 
-// PlaceScreen.propTypes = {
-//   children: PropTypes.oneOfType([
-//     PropTypes.arrayOf(PropTypes.node),
-//     PropTypes.node
-//   ]).isRequired,
-//   type: PropTypes.string,
-//   color: PropTypes.string,
-//   authorizationStatus: PropTypes.string.isRequired,
-//   profile: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(null)]),
-// };
 
 const mapStateToProps = (state) => ({
   profile: getProfile(state),

@@ -2,11 +2,25 @@ import * as React from "react";
 import {connect} from "react-redux";
 import {Link, Redirect} from "react-router-dom";
 import {AppRoute} from "../../routing/routes";
-import {getCities} from "../../redux/offers-data/selectors";
 import {AuthorizationStatus} from "../../constants/page";
+import {AuthorizationStatus as AuthorizationStatusType} from "../../types/types";
+import {getCities} from "../../redux/offers-data/selectors";
 
+interface SignInFormSubmitParams {
+  login: string;
+  password: string;
+}
 
-export class SignIn extends React.PureComponent {
+interface Props {
+  cities: Array<string>;
+  authorizationStatus: AuthorizationStatusType;
+  onSignInFormSubmit: ({login, password}: SignInFormSubmitParams) => void;
+}
+
+export class SignIn extends React.PureComponent<Props, {}> {
+  private loginRef: React.RefObject<HTMLInputElement>;
+  private passwordRef: React.RefObject<HTMLInputElement>;
+
   constructor(props) {
     super(props);
 
@@ -16,7 +30,7 @@ export class SignIn extends React.PureComponent {
     this._handleSubmit = this._handleSubmit.bind(this);
   }
 
-  _handleSubmit(evt) {
+  private _handleSubmit(evt: React.FormEvent<HTMLFormElement>) {
     const {onSignInFormSubmit} = this.props;
 
     evt.preventDefault();
@@ -50,14 +64,14 @@ export class SignIn extends React.PureComponent {
                   <input
                     className="login__input form__input"
                     ref={this.loginRef}
-                    type="email" name="email" placeholder="Email" required=""/>
+                    type="email" name="email" placeholder="Email" required/>
                 </div>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">Password</label>
                   <input
                     className="login__input form__input"
                     ref={this.passwordRef}
-                    type="password" name="password" placeholder="Password" required=""/>
+                    type="password" name="password" placeholder="Password" required/>
                 </div>
                 <button className="login__submit form__submit button" type="submit">Sign in</button>
               </form>
@@ -77,12 +91,6 @@ export class SignIn extends React.PureComponent {
     );
   }
 }
-
-// SignIn.propTypes = {
-//   cities: PropTypes.array.isRequired,
-//   onSignInFormSubmit: PropTypes.func.isRequired,
-//   authorizationStatus: PropTypes.string.isRequired,
-// };
 
 const mapStateToProps = (state) => ({
   cities: getCities(state),

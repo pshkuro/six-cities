@@ -13,12 +13,28 @@ import Map from "../map/map";
 import {Operation as OfferOperation} from "../../redux/offers-data/offers-data";
 import {Operation as ReviewsOperation} from "../../redux/reviews/reviews";
 import {Operation as FavoriteOperation} from "../../redux/offers-favorites/offers-favorites";
+import {Offer, CityOffers, Review, AuthorizationStatus as AuthorizationStatusType} from "../../types/types";
 import PlaceList from "../places-list/place-list";
 import {ratingStars} from "../../constants/offer";
 import ReviewsList from "../reviews-list/reviews-list";
 
+interface Props {
+  offer: Offer;
+  nearOffers: CityOffers;
+  reviews: Array<Review>;
+  match: {
+    params: {
+      id: string;
+    };
+  };
+  getPropertyOfferInfo: (id: number) => void;
+  getPropertyNearOffers: (id: number) => void;
+  setPropertyFavorite: (id: number, status: number, offer: Offer) => void;
+  authorizationStatus: AuthorizationStatusType;
+}
 
-export class PlaceProperty extends React.PureComponent {
+
+export class PlaceProperty extends React.PureComponent<Props, {}> {
   componentDidMount() {
     const {getPropertyOfferInfo, getPropertyNearOffers, match} = this.props;
     const {params} = match;
@@ -47,7 +63,7 @@ export class PlaceProperty extends React.PureComponent {
     const {coordinates, zoom} = cityCoordinates;
 
     const isOwnerPro = pro ? `property__avatar-wrapper property__avatar-wrapper--pro` : ``;
-    const pins = nearPropertyOffers.map((nearOffer) => ({
+    const pins = nearPropertyOffers.map((nearOffer: Offer) => ({
       coordinates: nearOffer.coordinates,
       isActive: false,
     }));
@@ -67,11 +83,11 @@ export class PlaceProperty extends React.PureComponent {
     };
 
     return (
-      <main className="page__main page__main--property" id={id}>
+      <main className="page__main page__main--property" id={String(id)}>
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {pictures.map((picture) => {
+              {pictures.map((picture: string) => {
                 return (
                   <div className="property__image-wrapper" key={Math.random()}>
                     <img className="property__image" src={picture} alt="Photo studio"/>
@@ -143,7 +159,7 @@ export class PlaceProperty extends React.PureComponent {
                 <h2 className="property__inside-title">What&apos;s inside</h2>
 
                 <ul className="property__inside-list">
-                  {conveniences.map((convenience) => {
+                  {conveniences.map((convenience: string) => {
                     return (
                       <li className="property__inside-item" key={Math.random()}>
                         {convenience}
@@ -163,7 +179,7 @@ export class PlaceProperty extends React.PureComponent {
                   </span>
                 </div>
                 <div className="property__description">
-                  {description.map((paragraph) => {
+                  {description.map((paragraph: string) => {
                     return (
                       <p className="property__text" key={Math.random()}>
                         {paragraph}
@@ -202,49 +218,6 @@ export class PlaceProperty extends React.PureComponent {
   }
 }
 
-// PlaceProperty.propTypes = {
-//   offer: PropTypes.exact({
-//     pictures: PropTypes.arrayOf(PropTypes.string),
-//     previewImage: PropTypes.string,
-//     title: PropTypes.string,
-//     description: PropTypes.arrayOf(PropTypes.string),
-//     premium: PropTypes.bool,
-//     favourite: PropTypes.bool,
-//     type: PropTypes.string,
-//     rating: PropTypes.number,
-//     bedrooms: PropTypes.number,
-//     guests: PropTypes.number,
-//     cost: PropTypes.number,
-//     conveniences: PropTypes.arrayOf(PropTypes.string),
-//     coordinates: PropTypes.arrayOf(PropTypes.number),
-//     owner: PropTypes.exact({
-//       avatar: PropTypes.string,
-//       name: PropTypes.string,
-//       pro: PropTypes.bool,
-//       id: PropTypes.number,
-//     }).isRequired,
-//     id: PropTypes.number,
-//     reviews: PropTypes.array,
-//   }).isRequired,
-//   nearOffers: PropTypes.exact({
-//     city: PropTypes.string,
-//     cityCoordinates: PropTypes.exact({
-//       coordinates: PropTypes.array,
-//       zoom: PropTypes.number,
-//     }),
-//     offers: PropTypes.arrayOf(PropTypes.object)
-//   }),
-//   getPropertyOfferInfo: PropTypes.func.isRequired,
-//   getPropertyNearOffers: PropTypes.func.isRequired,
-//   reviews: PropTypes.oneOfType([PropTypes.array, PropTypes.instanceOf(null)]),
-//   match: PropTypes.shape({
-//     params: PropTypes.shape({
-//       id: PropTypes.string.isRequired,
-//     }).isRequired,
-//   }),
-//   setPropertyFavorite: PropTypes.func.isRequired,
-//   authorizationStatus: PropTypes.string.isRequired,
-// };
 
 const mapStateToProps = (state, props) => ({
   offer: getPropertyOffer(state, props.match.params.id),

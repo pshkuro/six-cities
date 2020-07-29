@@ -1,8 +1,18 @@
 import * as React from "react";
+import {Offer} from "../../types/types";
 import {SortingType} from "../../constants/page";
 
+interface Props {
+  offers: Array<Offer>;
+  city: string;
+}
+
+interface State {
+  sortingType: string;
+}
+
 export default function withSorting(Component) {
-  class WithSorting extends React.PureComponent {
+  class WithSorting extends React.PureComponent<Props, State> {
     constructor(props) {
       super(props);
 
@@ -34,11 +44,11 @@ export default function withSorting(Component) {
       );
     }
 
-    _handleSortingListItemClick(sortingType) {
+    private _handleSortingListItemClick(sortingType: string) {
       this.setState({sortingType});
     }
 
-    _getSortedOffers(sortingType, offers) {
+    private _getSortedOffers(sortingType: string, offers: Array<Offer>) {
       switch (sortingType) {
         case SortingType.TO_HIGHT:
           return offers.slice().sort((a, b) => a.cost - b.cost);
@@ -54,10 +64,6 @@ export default function withSorting(Component) {
       }
     }
   }
-
-  // WithSorting.propTypes = {
-  //   offers: PropTypes.arrayOf(PropTypes.object),
-  // };
 
   return WithSorting;
 }

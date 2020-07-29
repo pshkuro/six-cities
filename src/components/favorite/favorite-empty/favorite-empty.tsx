@@ -1,7 +1,7 @@
 import * as React from "react";
 import FavoriteFooter from "../favorite-footer/favorite-footer";
 
-export default function FavoriteEmpty() {
+export default function FavoriteEmpty(): JSX.Element {
   return (
     <React.Fragment>
       <main className="page__main page__main--favorites page__main--favorites-empty">

@@ -1,10 +1,10 @@
 import * as React from "react";
 
 type Props = {
-  city: string,
+  city: string;
 }
 
-export default function CitiesNoPlaces({city}: Props): React.ReactNode {
+export default function CitiesNoPlaces({city}: Props): JSX.Element {
   return (
     <div className="cities__places-container cities__places-container--empty container">
       <section className="cities__no-places">
@@ -17,9 +17,5 @@ export default function CitiesNoPlaces({city}: Props): React.ReactNode {
     </div>
   );
 }
-
-// CitiesNoPlaces.propTypes = {
-//   city: PropTypes.string.isRequired,
-// };
 
 

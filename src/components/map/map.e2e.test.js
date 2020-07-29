@@ -24,21 +24,22 @@ const props = {
 };
 
 describe(`Map tests`, () => {
-  it(`Ref delete after unmount element`, () => {
-    const map = mount(
-        <Map {...props}/>,
-        {
-          createNodeMock: () => {
-            return document.createElement(`div`);
-          }
-        }
-    );
+  // Удалила этот метод удалить тест?
+  // it(`Ref delete after unmount element`, () => {
+  //   const map = mount(
+  //       <Map {...props}/>,
+  //       {
+  //         createNodeMock: () => {
+  //           return document.createElement(`div`);
+  //         }
+  //       }
+  //   );
 
-    const {_mapRef} = map.instance();
-    map.instance().componentWillUnmount();
-    expect(_mapRef.current).toBe(null);
+  //   const {_mapRef} = map.instance();
+  //   map.instance().componentWillUnmount();
+  //   expect(_mapRef.current).toBe(null);
 
-  });
+  // });
 
   it(`Map work correctly after new city coordinates`, () => {
     const map = mount(

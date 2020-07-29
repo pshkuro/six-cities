@@ -2,12 +2,20 @@ import * as React from "react";
 import {CardClasses} from "../../constants/page";
 import PlacesSorting from "../places-sorting/places-sorting";
 import PlaceList from "../places-list/place-list";
-// import {SortingType} from "../../constants/page";
 import withToggle from "../../hocs/with-toggle/with-toggle";
+import {Offer, Sorting} from "../../types/types";
+
+
+interface Props {
+  city: string;
+  offers: Array<Offer>;
+  activeSortingType: Sorting;
+  onSortingListItemClick: () => void;
+}
 
 const PlacesSortingWrapped = withToggle(PlacesSorting);
 
-export default function CitiesPlaces(props) {
+export default function CitiesPlaces(props: Props): JSX.Element {
   const {
     city,
     offers: sortedOffers,
@@ -30,11 +38,3 @@ export default function CitiesPlaces(props) {
   );
 }
 
-// CitiesPlaces.propTypes = {
-//   onAdvertCardTitleClick: PropTypes.func,
-//   city: PropTypes.string,
-//   offers: PropTypes.arrayOf(PropTypes.object),
-//   activeSortingType: PropTypes.oneOf(
-//       [SortingType.DEFAULT, SortingType.TOP_RATED, SortingType.TO_HIGHT, SortingType.TO_LAW]),
-//   onSortingListItemClick: PropTypes.func.isRequired,
-// };

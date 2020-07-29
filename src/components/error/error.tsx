@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export default function ErrorComponent() {
+export default function ErrorComponent(): JSX.Element {
   return (
     <div className="main page__main--error">
       <img

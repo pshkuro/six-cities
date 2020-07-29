@@ -1,5 +1,6 @@
 import * as React from "react";
 import {connect} from "react-redux";
+import {AuthorizationStatus} from "../../types/types";
 import {getAuthorizationStatus} from "../../redux/user/selectors";
 import {Operation} from "../../redux/reviews/reviews";
 
@@ -16,10 +17,31 @@ const CorrectReviewValue = {
   }
 };
 
+interface State {
+  ratingValue: string;
+  commentValue: string;
+  isSending: boolean;
+  isReviewInfoCorrect: boolean;
+  isError: boolean;
+}
+
+interface ReviewValue {
+  comment: string;
+  rating: string;
+}
+
+interface Props {
+  authorizationStatus: AuthorizationStatus;
+  onReviewFormSubmit: (reviewData: ReviewValue, id: number, onSuccess: () => void, onError: () => void) => void;
+  offerId: number;
+}
+
 
 export default function withReviewForm(Component) {
 
-  class WithReviewForm extends React.PureComponent {
+  class WithReviewForm extends React.PureComponent<Props, State> {
+    private _baseState: State;
+
     constructor(props) {
       super(props);
 
@@ -41,32 +63,33 @@ export default function withReviewForm(Component) {
       this._onErrorFormSubmit = this._onErrorFormSubmit.bind(this);
     }
 
-    _checkReviewInfoCorrect() {
+    private _checkReviewInfoCorrect() {
       const isCommentCorrectLenght =
       this.state.commentValue.length >= CorrectReviewValue.COMMENT.minLength
       && this.state.commentValue.length <= CorrectReviewValue.COMMENT.maxLength
         ? true : false;
+      const rating = Number(this.state.ratingValue);
       const isRatingCorrect =
-      this.state.ratingValue >= CorrectReviewValue.RATING.minStars &&
-      this.state.ratingValue <= CorrectReviewValue.RATING.maxStars ? true : false;
+      rating >= CorrectReviewValue.RATING.minStars &&
+      rating <= CorrectReviewValue.RATING.maxStars ? true : false;
 
       return isCommentCorrectLenght && isRatingCorrect ?
         this.setState({isReviewInfoCorrect: true}) :
         this.setState({isReviewInfoCorrect: false});
     }
 
-    _onSuccessFormSubmit() {
+    private _onSuccessFormSubmit() {
       this.setState(this._baseState);
     }
 
-    _onErrorFormSubmit() {
+    private _onErrorFormSubmit() {
       this.setState({
         isSending: false,
         isError: true
       });
     }
 
-    _addNewReview() {
+    private _addNewReview() {
       const {onReviewFormSubmit, offerId} = this.props;
       this.setState({isSending: true});
       onReviewFormSubmit(
@@ -80,7 +103,7 @@ export default function withReviewForm(Component) {
 
     }
 
-    _handleFormSubmit(evt) {
+    private _handleFormSubmit(evt: React.FormEvent<HTMLFormElement>) {
       evt.preventDefault();
       this.setState({
         isError: false,
@@ -89,11 +112,11 @@ export default function withReviewForm(Component) {
       return this.state.isReviewInfoCorrect ? this._addNewReview() : null;
     }
 
-    _handleFieldChange(evt) {
+    private _handleFieldChange(evt: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) {
       const fieldName = evt.target.name;
       this.setState({
         [`${fieldName}Value`]: evt.target.value,
-      }, () => this._checkReviewInfoCorrect());
+      } as unknown as State, () => this._checkReviewInfoCorrect());
     }
 
     render() {
@@ -112,11 +135,6 @@ export default function withReviewForm(Component) {
     }
   }
 
-  // WithReviewForm.propTypes = {
-  //   authorizationStatus: PropTypes.string.isRequired,
-  //   onReviewFormSubmit: PropTypes.func.isRequired,
-  //   offerId: PropTypes.number.isRequired,
-  // };
 
   const mapStateToProps = (state) => ({
     authorizationStatus: getAuthorizationStatus(state),

@@ -1,10 +1,33 @@
 import * as React from "react";
 import {createRef} from "react";
-import leaflet from "leaflet";
-import {PureComponent} from "react"
+import * as leaflet from "leaflet";
+import {
+  tileLayer,
+  Map as LeafletMap,
+  Icon,
+} from "leaflet";
+import {CityCoordinates, Classes} from "../../types/types";
+
+interface Pin {
+    coordinates: number[];
+    isActive: boolean;
+}
+
+interface Props {
+  pins: Array<Pin>;
+  cityCoordinates: CityCoordinates;
+  classes: Classes;
+}
 
 
-export default class Map extends React.PureComponent {
+export default class Map extends React.PureComponent<Props, {}> {
+  private _mapRef: React.RefObject<HTMLDivElement>;
+  private _map = LeafletMap;
+  private _pinIcon = Icon;
+  private _activePinIcon = Icon;
+  private _pins = tileLayer;
+
+
   constructor(props) {
     super(props);
 
@@ -32,14 +55,9 @@ export default class Map extends React.PureComponent {
     this._setView();
     this._connectLayer();
     this._addPins();
-
   }
 
-  componentWillUnmount() {
-    this._mapRef.current = null;
-  }
-
-  _createMap() {
+  private _createMap() {
     const {cityCoordinates: city} = this.props;
     const {coordinates, zoom} = city;
 
@@ -51,27 +69,27 @@ export default class Map extends React.PureComponent {
     });
   }
 
-  _setView() {
+  private _setView() {
     const {cityCoordinates: city} = this.props;
     const {coordinates, zoom} = city;
     this._map.setView(coordinates, zoom);
   }
 
-  _connectLayer() {
+  private _connectLayer() {
     leaflet.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
       attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
     })
     .addTo(this._map);
   }
 
-  _getPinIcon(isActive = false) {
+  private _getPinIcon(isActive = false) {
     return leaflet.icon({
       iconUrl: isActive ? `/img/pin-active.svg` : `/img/pin.svg`,
       iconSize: [30, 30]
     });
   }
 
-  _addPins() {
+  private _addPins() {
     const {pins} = this.props;
     this._pins.addTo(this._map);
 
@@ -83,13 +101,13 @@ export default class Map extends React.PureComponent {
 
   }
 
-  _cleanPins() {
+  private _cleanPins() {
     this._pins.clearLayers();
   }
 
-  _cleanMap() {
+  private _cleanMap() {
     this._cleanPins();
-    this._map.eachLayer((layer) => {
+    this._map.eachLayer((layer: tileLayer) => {
       layer.remove();
     });
   }
@@ -104,14 +122,5 @@ export default class Map extends React.PureComponent {
     );
   }
 }
-
-// Map.propTypes = {
-//   pins: PropTypes.arrayOf(PropTypes.object).isRequired,
-//   cityCoordinates: PropTypes.exact({
-//     coordinates: PropTypes.arrayOf(PropTypes.number),
-//     zoom: PropTypes.number,
-//   }).isRequired,
-//   classes: PropTypes.object.isRequired,
-// };
 
 

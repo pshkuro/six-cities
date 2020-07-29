@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export default function FavoriteFooter() {
+export default function FavoriteFooter(): JSX.Element {
   return (
     <footer className="footer container">
       <a className="footer__logo-link" href="main.html">

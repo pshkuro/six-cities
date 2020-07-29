@@ -5,8 +5,15 @@ import {ActionCreator} from "../../redux/page/page";
 import {getActiveCity} from "../../redux/page/selectors";
 import {getCities} from "../../redux/offers-data/selectors";
 
+interface Props {
+  city: string;
+  cities: Array<string>;
+  setDefaultCity: (city: string) => void;
+  onChooseCityClick: (city: string) => void;
+}
 
-class CitiesList extends React.PureComponent {
+
+class CitiesList extends React.PureComponent<Props, {}> {
   componentDidMount() {
     const {city: activeCity, cities, setDefaultCity} = this.props;
     return activeCity === null && setDefaultCity(cities[0]);
@@ -40,12 +47,6 @@ class CitiesList extends React.PureComponent {
   }
 }
 
-// CitiesList.propTypes = {
-//   city: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(null)]),
-//   onChooseCityClick: PropTypes.func.isRequired,
-//   setDefaultCity: PropTypes.func,
-//   cities: PropTypes.array.isRequired,
-// };
 
 const mapStateToProps = (state) => ({
   city: getActiveCity(state),

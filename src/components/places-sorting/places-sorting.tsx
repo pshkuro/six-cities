@@ -1,5 +1,5 @@
 import * as React from "react";
-// import {SortingType} from "../../constants/page";
+import {Sorting} from "../../types/types";
 
 
 const options = [
@@ -25,7 +25,21 @@ const options = [
   },
 ];
 
-export default function PlacesSorting(props) {
+interface Option {
+  label: string;
+  value: string;
+  active: boolean;
+}
+
+interface Props {
+  activeClass: string;
+  onSortingListItemClick: (value: string) => void;
+  activeSortingType: Sorting;
+  handleChangeToggleClick: () => void;
+}
+
+
+export default function PlacesSorting(props: Props): JSX.Element {
   const {onSortingListItemClick,
     activeSortingType,
     handleChangeToggleClick,
@@ -35,7 +49,7 @@ export default function PlacesSorting(props) {
   const activeSortingListItem = options.find((option) => option.value === activeSortingType);
 
   const activeSortingListItemClass = `places__option--active`;
-  const isSortingListItemActive = (option) => option === activeSortingListItem && activeSortingListItemClass;
+  const isSortingListItemActive = (option: Option) => option === activeSortingListItem && activeSortingListItemClass;
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -43,7 +57,7 @@ export default function PlacesSorting(props) {
       <span
         className="places__sorting-type"
         onClick={handleChangeToggleClick}
-        tabIndex="0">
+        tabIndex={0}>
         {activeSortingListItem.label}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
@@ -64,20 +78,12 @@ export default function PlacesSorting(props) {
               className={`places__option ${isSortingListItemActive(option)}`}
               key={option.value}
               value={option.value}
-              tabIndex="0"
+              tabIndex={0}
             >{option.label}</li>);
         })}
       </ul>
     </form>
   );
 }
-
-// PlacesSorting.propTypes = {
-//   onSortingListItemClick: PropTypes.func.isRequired,
-//   activeSortingType: PropTypes.oneOf(
-//       [SortingType.DEFAULT, SortingType.TOP_RATED, SortingType.TO_HIGHT, SortingType.TO_LAW]),
-//   handleChangeToggleClick: PropTypes.func.isRequired,
-//   activeClass: PropTypes.string.isRequired,
-// };
 
 

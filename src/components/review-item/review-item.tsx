@@ -1,8 +1,13 @@
 import * as React from "react";
 import {ratingStars} from "../../constants/offer";
+import {Review} from "../../types/types";
 import {convertDateToMonthDayFormat} from "../../utils/common";
 
-export default function ReviewItem({review}) {
+interface Props {
+  review: Review;
+}
+
+export default function ReviewItem({review}: Props): JSX.Element {
   const {comment, date, rating, user} = review;
   const {avatar, isPro, name} = user;
   const reviewDate = convertDateToMonthDayFormat(new Date(date));
@@ -35,19 +40,3 @@ export default function ReviewItem({review}) {
 }
 
 
-// ReviewItem.propTypes = {
-//   review: PropTypes.shape({
-//     comment: PropTypes.string,
-//     date: PropTypes.string,
-//     rating: PropTypes.number,
-//     id: PropTypes.number,
-//     user: PropTypes.shape(
-//         {
-//           avatar: PropTypes.string,
-//           name: PropTypes.string,
-//           isPro: PropTypes.bool,
-//           userId: PropTypes.number,
-//         }
-//     ),
-//   }).isRequired,
-// };

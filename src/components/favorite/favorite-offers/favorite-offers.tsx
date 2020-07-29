@@ -1,15 +1,21 @@
 import * as React from "react";
 import {connect} from "react-redux";
-import {PureComponent} from "react"
+import {PureComponent} from "react";
 import {CardClasses} from "../../../constants/page";
 import FavoriteFooter from "../favorite-footer/favorite-footer";
 import FavoriteEmpty from "../favorite-empty/favorite-empty";
 import {getFavoriteOffers} from "../../../redux/offers-favorites/selectors";
 import {Operation} from "../../../redux/offers-favorites/offers-favorites";
 import PlaceCard from "../../place-card/place-card";
+import {CityOffers, Offer} from "../../../types/types";
 
 
-export class FavoriteOffers extends React.PureComponent {
+interface Props {
+  getFavoritesCityOffers: () => void;
+  favoriteOffers: Array<CityOffers>;
+}
+
+export class FavoriteOffers extends React.PureComponent<Props, {}> {
   componentDidMount() {
     const {getFavoritesCityOffers} = this.props;
     getFavoritesCityOffers();
@@ -25,7 +31,7 @@ export class FavoriteOffers extends React.PureComponent {
               <section className="favorites">
                 <h1 className="favorites__title">Saved listing</h1>
                 <ul className="favorites__list">
-                  {favoriteOffers && favoriteOffers.map((favoriteOffer) => {
+                  {favoriteOffers && favoriteOffers.map((favoriteOffer: CityOffers) => {
                     return (
                       <React.Fragment key={favoriteOffer.city}>
                         <li className="favorites__locations-items">
@@ -37,7 +43,7 @@ export class FavoriteOffers extends React.PureComponent {
                             </div>
                           </div>
                           <div className="favorites__places">
-                            {favoriteOffer.offers.map((offer) => {
+                            {favoriteOffer.offers.map((offer: Offer) => {
                               return (
                                 <PlaceCard
                                   key={offer.id}
@@ -61,10 +67,6 @@ export class FavoriteOffers extends React.PureComponent {
   }
 }
 
-// FavoriteOffers.propTypes = {
-//   getFavoritesCityOffers: PropTypes.func.isRequired,
-//   favoriteOffers: PropTypes.oneOfType([PropTypes.array, PropTypes.instanceOf(null)])
-// };
 
 const mapStateToProps = (state) => ({
   favoriteOffers: getFavoriteOffers(state),

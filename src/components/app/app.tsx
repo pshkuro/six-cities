@@ -13,8 +13,17 @@ import PlaceScreen from "../place-screen/place-screen";
 import PlaceProperty from "../place-property/place-property";
 import PrivateRoute from "../../routing/private-route";
 import SignIn from "../sign-in/sign-in";
+import {CityOffers, Offer} from "../../types/types";
 
-class App extends React.PureComponent {
+interface Props {
+  offers: CityOffers;
+  activeOffer: Offer;
+  error: boolean;
+  login: () => void;
+  authorizationStatus: string;
+}
+
+class App extends React.PureComponent<Props, {}> {
   render() {
     const {offers,
       error,
@@ -82,13 +91,6 @@ class App extends React.PureComponent {
   }
 }
 
-// App.propTypes = {
-//   offers: PropTypes.object,
-//   activeOffer: PropTypes.oneOfType([PropTypes.object, PropTypes.instanceOf(null)]),
-//   error: PropTypes.bool.isRequired,
-//   login: PropTypes.func.isRequired,
-//   authorizationStatus: PropTypes.string.isRequired,
-// };
 
 const mapStateToProps = (state) => ({
   offers: getCityOffers(state),

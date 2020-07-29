@@ -1,15 +1,27 @@
 import * as React from "react";
 import {AuthorizationStatus} from "../../constants/page";
+import {AuthorizationStatus as AuthorizationStatusType} from "../../types/types";
 import {shake} from "../../utils/form";
 
+interface Props {
+  authorizationStatus: AuthorizationStatusType;
+  onFormSubmit: () => void;
+  onFieldChange: (evt: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void;
+  commentValue: string;
+  ratingValue: string;
+  isReviewInfoCorrect: boolean;
+  isSending: boolean;
+  isError: boolean;
+}
 
 const ratingStars = [5, 4, 3, 2, 1];
 
+export default class ReviewForm extends React.PureComponent<Props, {}> {
+  private formRef: React.RefObject<HTMLFormElement>;
 
-export default class ReviewForm extends React.PureComponent {
   constructor(props) {
     super(props);
-    this._formRef = React.createRef();
+    this.formRef = React.createRef();
   }
 
   render() {
@@ -27,16 +39,16 @@ export default class ReviewForm extends React.PureComponent {
     }
 
     const isSubmtButtonDisabled = !isReviewInfoCorrect || isSending ? true : false;
-    const handleFieldChange = (evt) => onFieldChange(evt);
+    const handleFieldChange = (evt: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => onFieldChange(evt);
 
     if (isError) {
-      shake(this._formRef.current);
+      shake(this.formRef.current);
     }
 
     return (
       <form
         className="reviews__form form"
-        ref={this._formRef}
+        ref={this.formRef}
         onSubmit={onFormSubmit}
         action="#" method="post">
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
@@ -82,14 +94,4 @@ export default class ReviewForm extends React.PureComponent {
   }
 }
 
-// ReviewForm.propTypes = {
-//   authorizationStatus: PropTypes.string.isRequired,
-//   onFormSubmit: PropTypes.func.isRequired,
-//   onFieldChange: PropTypes.func.isRequired,
-//   commentValue: PropTypes.string.isRequired,
-//   ratingValue: PropTypes.string.isRequired,
-//   isReviewInfoCorrect: PropTypes.bool.isRequired,
-//   isSending: PropTypes.bool.isRequired,
-//   isError: PropTypes.bool.isRequired,
-// };
 
