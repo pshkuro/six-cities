@@ -73,6 +73,7 @@ const props = {
   setPropertyFavorite: jest.fn((x) => x),
   setLocalPropertyFavorite: jest.fn((x) => x),
   getPropertyNearOffers: jest.fn((x)=> x),
+  removeFromFavorite: jest.fn((x) => x),
   authorizationStatus: AuthorizationStatus.AUTH,
 };
 
@@ -118,6 +119,7 @@ const propsWithoutOffer = {
   getPropertyOfferInfo: jest.fn((x) => x),
   setPropertyFavorite: jest.fn((x) => x),
   getPropertyNearOffers: jest.fn((x)=> x),
+  removeFromFavorite: jest.fn((x) => x),
   authorizationStatus: AuthorizationStatus.AUTH,
 };
 

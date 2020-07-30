@@ -11,7 +11,7 @@ import {getReviews} from "../../redux/reviews/selectors";
 import Map from "../map/map";
 import {Operation as OfferOperation} from "../../redux/offers-data/offers-data";
 import {Operation as ReviewsOperation} from "../../redux/reviews/reviews";
-import {Operation as FavoriteOperation} from "../../redux/offers-favorites/offers-favorites";
+import {Operation as FavoriteOperation, ActionCreator as FavoriteCreator} from "../../redux/offers-favorites/offers-favorites";
 import {Offer, CityOffers, Review, AuthorizationStatus as AuthorizationStatusType} from "../../types/types";
 import PlaceList from "../places-list/place-list";
 import {ratingStars} from "../../constants/offer";
@@ -28,6 +28,7 @@ interface Props {
   };
   getPropertyOfferInfo: (id: number) => void;
   getPropertyNearOffers: (id: number) => void;
+  removeFromFavorite: (id: number) => void;
   setPropertyFavorite: (id: number, status: number, offer: Offer) => void;
   authorizationStatus: AuthorizationStatusType;
 }
@@ -48,6 +49,7 @@ export class PlaceProperty extends React.PureComponent<Props, {}> {
       nearOffers,
       reviews,
       setPropertyFavorite,
+      removeFromFavorite,
       authorizationStatus
     } = this.props;
 
@@ -79,6 +81,11 @@ export class PlaceProperty extends React.PureComponent<Props, {}> {
     const isOfferFavorite = favourite ? 0 : 1;
     const handlePropertyButtonClick = () => {
       setPropertyFavorite(id, isOfferFavorite, offer);
+    };
+
+    const handleRemoveFavoritePropertyButtonClick = () => {
+      removeFromFavorite(id);
+      setPropertyFavorite(id, 0, offer);
     };
 
     return (
@@ -121,7 +128,7 @@ export class PlaceProperty extends React.PureComponent<Props, {}> {
                     <button
                       className={`property__bookmark-button button ${favourite ? `property__bookmark-button--active` : ``}`}
                       type="button"
-                      onClick={handlePropertyButtonClick}
+                      onClick={favourite ? handleRemoveFavoritePropertyButtonClick : handlePropertyButtonClick}
                     >
                       <svg className="property__bookmark-icon" width="31" height="33">
                         <use xlinkHref="#icon-bookmark"></use>
@@ -238,6 +245,10 @@ export const mapDispatchToProps = (dispatch) => ({
     dispatch(OffersDataActionCreator.setFavoriteOffer(offer));
     dispatch(FavoriteOperation.setFavorite(id, status));
   },
+
+  removeFromFavorite(id) {
+    dispatch(FavoriteCreator.removeFromFavorite(id));
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlaceProperty);

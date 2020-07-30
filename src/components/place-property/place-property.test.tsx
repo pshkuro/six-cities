@@ -70,6 +70,7 @@ const props = {
   getPropertyNearOffers: jest.fn(),
   setPropertyFavorite: jest.fn(),
   setLocalPropertyFavorite: jest.fn(),
+  removeFromFavorite: jest.fn(),
   authorizationStatus: AuthorizationStatus.AUTH,
 };
 
