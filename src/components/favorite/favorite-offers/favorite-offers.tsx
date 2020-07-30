@@ -1,6 +1,5 @@
 import * as React from "react";
 import {connect} from "react-redux";
-import {PureComponent} from "react";
 import {CardClasses} from "../../../constants/page";
 import FavoriteFooter from "../favorite-footer/favorite-footer";
 import FavoriteEmpty from "../favorite-empty/favorite-empty";

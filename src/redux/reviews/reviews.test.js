@@ -1,9 +1,10 @@
 import MockAdapter from "axios-mock-adapter";
-import {createAPI} from "../../api/api.js";
-import {reducer, ActionCreator, ActionType, Operation} from "./reviews.js";
+import {createAPI} from "../../api/api";
+import {reducer, ActionCreator, ActionType, Operation} from "./reviews";
+import {noop} from "../../utils/common";
 
 
-const api = createAPI(() => {});
+const api = createAPI(noop);
 
 const initialState = {
   reviews: null,
@@ -98,7 +99,7 @@ describe(`Reviews operation work correctly`, () => {
       .onGet(`/comments/${mockId}`)
       .reply(200, mockReviews, {});
 
-    return getOfferReviews(dispatch, () => {}, api)
+    return getOfferReviews(dispatch, noop, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch.mock.calls[0][0]).toEqual({
@@ -151,7 +152,7 @@ describe(`Reviews operation work correctly`, () => {
     .onPost(`/comments/${mockId}`)
     .reply(204, mockReview);
 
-    return review(dispatch, () => {}, api)
+    return review(dispatch, noop, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch.mock.calls[0][0]).toEqual({type: ActionType.GET_OFFERS_REVIEWS, reviews: storeReviews});

@@ -1,9 +1,10 @@
 import MockAdapter from "axios-mock-adapter";
-import {createAPI} from "../../api/api.js";
-import {reducer, ActionCreator, ActionType, Operation} from "./user.js";
-import {AuthorizationStatus} from "../../constants/page.js";
+import {createAPI} from "../../api/api";
+import {reducer, ActionCreator, ActionType, Operation} from "./user";
+import {AuthorizationStatus} from "../../constants/page";
+import {noop} from "../../utils/common";
 
-const api = createAPI(() => {});
+const api = createAPI(noop);
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
@@ -107,7 +108,7 @@ describe(`User operation work correctly`, () => {
       .onGet(`/login`)
       .reply(200, {});
 
-    return checkAuth(dispatch, () => {}, api)
+    return checkAuth(dispatch, noop, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch.mock.calls[0][0]).toEqual({type: ActionType.REQUIRED_AUTHORIZATION, status: `AUTH`});
@@ -129,7 +130,7 @@ describe(`User operation work correctly`, () => {
         password: `dhjdf`,
       });
 
-    return login(dispatch, () => {}, api)
+    return login(dispatch, noop, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch.mock.calls[0][0]).toEqual({type: ActionType.REQUIRED_AUTHORIZATION, status: `AUTH`});

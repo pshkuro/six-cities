@@ -8,15 +8,15 @@ import {getProfile} from "../../redux/user/selectors";
 
 interface Props {
   children: React.ReactNode;
-  color: string;
+  color?: string;
   type: string;
   authorizationStatus: AuthorizationStatusType;
   profile: {
-    id: number;
+    id?: number;
     email: string;
-    name: string;
-    avatar_url: string;
-    is_pro: boolean;
+    name?: string;
+    avatar_url?: string;
+    is_pro?: boolean;
   };
 }
 

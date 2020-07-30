@@ -1,7 +1,7 @@
 import {
   getActiveOffer,
   getActiveCity
-} from "./selectors.js";
+} from "./selectors";
 
 const mockState = {
   PAGE: {

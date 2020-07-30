@@ -1,6 +1,5 @@
 import * as React from "react";
 import {connect} from "react-redux";
-import {PureComponent} from "react";
 import {ActionCreator} from "../../redux/page/page";
 import {getActiveCity} from "../../redux/page/selectors";
 import {getCities} from "../../redux/offers-data/selectors";

@@ -1,13 +1,14 @@
 import MockAdapter from "axios-mock-adapter";
-import {createAPI} from "../../api/api.js";
-import {reducer, ActionType, ActionCreator, Operation} from "./offers-favorites.js";
+import {createAPI} from "../../api/api";
+import {reducer, ActionType, ActionCreator, Operation} from "./offers-favorites";
+import {noop} from "../../utils/common";
 
 
 const initialState = {
   favorites: null,
 };
 
-const api = createAPI(() => {});
+const api = createAPI(noop);
 
 const mockFavorites = [{
   "city": {
@@ -467,7 +468,7 @@ describe(`Offers favorite reducer work correctly`, () => {
       .onGet(`/favorite`)
       .reply(200, mockFavorites, {});
 
-    return offersLoader(dispatch, () => {}, api)
+    return offersLoader(dispatch, noop, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {

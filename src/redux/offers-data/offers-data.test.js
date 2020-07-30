@@ -1,6 +1,7 @@
 import MockAdapter from "axios-mock-adapter";
-import {createAPI} from "../../api/api.js";
-import {reducer, ActionType, ActionCreator, Operation} from "./offers-data.js";
+import {createAPI} from "../../api/api";
+import {reducer, ActionType, ActionCreator, Operation} from "./offers-data";
+import {noop} from "../../utils/common";
 
 const cityOffers = [
   {"city": `Amsterdam`,
@@ -370,7 +371,7 @@ const initialState = {
   error: false,
 };
 
-const api = createAPI(() => {});
+const api = createAPI(noop);
 
 describe(`Data Reducer Actions to get data work correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
@@ -482,7 +483,7 @@ describe(`Data Reducer operation work correctly`, () => {
       .onGet(`/hotels`)
       .reply(200, mockOffers, {});
 
-    return offersLoader(dispatch, () => {}, api)
+    return offersLoader(dispatch, noop, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -501,7 +502,7 @@ describe(`Data Reducer operation work correctly`, () => {
       .onGet(`/hotels/${mockId}/nearby`)
       .reply(200, [mockOffers[0]], {});
 
-    return getNearOffers(dispatch, () => {}, api)
+    return getNearOffers(dispatch, noop, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch.mock.calls[0][0]).toEqual({

@@ -1,4 +1,4 @@
-import {reducer, ActionType, ActionCreator} from "./page.js";
+import {reducer, ActionType, ActionCreator} from "./page";
 
 
 const initialState = {

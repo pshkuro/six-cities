@@ -1,6 +1,5 @@
 import * as React from "react";
 import {connect} from "react-redux";
-import {PureComponent} from "react";
 import {Link} from "react-router-dom";
 import {ActionCreator as OffersDataActionCreator} from "../../redux/offers-data/offers-data";
 import {AppRoute} from "../../routing/routes";
