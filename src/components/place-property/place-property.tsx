@@ -19,7 +19,7 @@ import ReviewsList from "../reviews-list/reviews-list";
 
 interface Props {
   offer: Offer;
-  nearOffers: CityOffers;
+  nearOffers: Array<CityOffers>;
   reviews: Array<Review>;
   match: {
     params: {
@@ -29,19 +29,20 @@ interface Props {
   getPropertyOfferInfo: (id: number) => void;
   getPropertyNearOffers: (id: number) => void;
   removeFromFavorite: (id: number) => void;
-  setPropertyFavorite: (id: number, status: number, offer: Offer) => void;
+  setPropertyFavorite: (id: number, status: number, offer: Offer, offerType: string) => void;
   authorizationStatus: AuthorizationStatusType;
 }
 
 
 export class PlaceProperty extends React.PureComponent<Props, {}> {
   componentDidMount() {
-    const {getPropertyOfferInfo, getPropertyNearOffers, match} = this.props;
-    const {params} = match;
-    const {id: offerId} = params;
+    this._getOfferInfo();
+  }
 
-    getPropertyOfferInfo(Number(offerId));
-    getPropertyNearOffers(Number(offerId));
+  componentDidUpdate(prevPorps) {
+    if (this.props.offer.id !== prevPorps.offer.id) {
+      this._getOfferInfo();
+    }
   }
 
   render() {
@@ -60,7 +61,7 @@ export class PlaceProperty extends React.PureComponent<Props, {}> {
     const {pictures, title, description, premium, type, rating, bedrooms, guests, cost, conveniences, owner, id, favourite} = offer;
     const {avatar, name, pro} = owner;
 
-    const {cityCoordinates, offers: nearPropertyOffers} = nearOffers;
+    const {cityCoordinates, offers: nearPropertyOffers} = nearOffers[0];
     const {coordinates, zoom} = cityCoordinates;
 
     const isOwnerPro = pro ? `property__avatar-wrapper property__avatar-wrapper--pro` : ``;
@@ -80,12 +81,12 @@ export class PlaceProperty extends React.PureComponent<Props, {}> {
 
     const isOfferFavorite = favourite ? 0 : 1;
     const handlePropertyButtonClick = () => {
-      setPropertyFavorite(id, isOfferFavorite, offer);
+      setPropertyFavorite(id, isOfferFavorite, offer, `offers`);
     };
 
     const handleRemoveFavoritePropertyButtonClick = () => {
       removeFromFavorite(id);
-      setPropertyFavorite(id, 0, offer);
+      setPropertyFavorite(id, 0, offer, `offers`);
     };
 
     return (
@@ -222,6 +223,15 @@ export class PlaceProperty extends React.PureComponent<Props, {}> {
       </main>
     );
   }
+
+  private _getOfferInfo() {
+    const {getPropertyOfferInfo, getPropertyNearOffers, match} = this.props;
+    const {params} = match;
+    const {id: offerId} = params;
+
+    getPropertyOfferInfo(Number(offerId));
+    getPropertyNearOffers(Number(offerId));
+  }
 }
 
 
@@ -241,8 +251,8 @@ export const mapDispatchToProps = (dispatch) => ({
     dispatch(OfferOperation.getNearOffers(id));
   },
 
-  setPropertyFavorite(id, status, offer) {
-    dispatch(OffersDataActionCreator.setFavoriteOffer(offer));
+  setPropertyFavorite(id, status, offer, offerType) {
+    dispatch(OffersDataActionCreator.setFavoriteOffer(offer, offerType));
     dispatch(FavoriteOperation.setFavorite(id, status));
   },
 

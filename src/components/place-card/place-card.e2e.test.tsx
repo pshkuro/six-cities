@@ -70,7 +70,7 @@ describe(`PlaceCard work tests`, () => {
     favoriteButton.simulate(`click`);
 
     expect(props.setFavorite).toHaveBeenCalledTimes(1);
-    expect(props.setFavorite).toHaveBeenCalledWith(props.offer.id, 0, props.offer);
+    expect(props.setFavorite).toHaveBeenCalledWith(props.offer.id, 0, props.offer, `offers`);
   });
 
   it(`Click on favorite button set offer unfavorite`, () => {
@@ -91,7 +91,7 @@ describe(`PlaceCard work tests`, () => {
 
     expect(props.setFavorite).toHaveBeenCalled();
     expect(props.removeFromFavorite).toHaveBeenCalled();
-    expect(props.setFavorite).toHaveBeenCalledWith(props.offer.id, 0, props.offer);
+    expect(props.setFavorite).toHaveBeenCalledWith(props.offer.id, 0, props.offer, `offers`);
     expect(props.removeFromFavorite).toHaveBeenCalledWith(props.offer.id);
   });
 });
@@ -127,10 +127,11 @@ describe(`PlaceCard dispatch actions tests`, () => {
 
   it(`Click on favorite button dispatch actions with favorite offer`, () => {
     const dispatch = jest.fn();
-    mapDispatchToProps(dispatch).setFavorite(5, 1, props.offer);
+    mapDispatchToProps(dispatch).setFavorite(5, 1, props.offer, `offers`);
     expect(dispatch.mock.calls[0][0]).toEqual({
       type: `SET_FAVORITE_OFFER`,
       offer: props.offer,
+      offerType: `offers`,
     });
   });
 

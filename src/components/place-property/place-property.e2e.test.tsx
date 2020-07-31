@@ -32,7 +32,7 @@ const props = {
     },
     id: 8989,
   },
-  nearOffers: {
+  nearOffers: [{
     city: `Amsterdam`,
     cityCoordinates: {
       coordinates: [21212, 1212],
@@ -62,7 +62,7 @@ const props = {
         id: 8989,
       }
     ]
-  },
+  }],
   reviews: [],
   match: {
     params: {
@@ -78,7 +78,7 @@ const props = {
 };
 
 const propsWithoutOffer = {
-  nearOffers: {
+  nearOffers: [{
     city: `Amsterdam`,
     cityCoordinates: {
       coordinates: [21212, 1212],
@@ -108,7 +108,7 @@ const propsWithoutOffer = {
         id: 8989,
       }
     ]
-  },
+  }],
   offer: undefined,
   reviews: [],
   match: {
@@ -214,7 +214,7 @@ describe(`Place property work tests`, () => {
     });
 
     expect(props.setPropertyFavorite).toHaveBeenCalledTimes(1);
-    expect(props.setPropertyFavorite).toHaveBeenCalledWith(props.offer.id, Number(!props.offer.favourite), props.offer);
+    expect(props.setPropertyFavorite).toHaveBeenCalledWith(props.offer.id, Number(!props.offer.favourite), props.offer, `offers`);
   });
 
   it(`Place property not render when offers null`, () => {
@@ -249,10 +249,11 @@ describe(`Place property work tests`, () => {
 describe(`Place property dispatch actions tests`, () => {
   it(`Click on favorite button dispatch action with favorite offer`, () => {
     const dispatch = jest.fn();
-    mapDispatchToProps(dispatch).setPropertyFavorite(8989, 1, props.offer);
+    mapDispatchToProps(dispatch).setPropertyFavorite(8989, 1, props.offer, `offers`);
     expect(dispatch.mock.calls[0][0]).toEqual({
       type: `SET_FAVORITE_OFFER`,
       offer: props.offer,
+      offerType: `offers`
     });
   });
 });

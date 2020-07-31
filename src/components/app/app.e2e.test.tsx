@@ -103,7 +103,7 @@ const mockAppStore = mockStore({
   OFFERS_DATA: {
     error: false,
     offers: [props.offers],
-    nearOffers: props.offers,
+    nearOffers: [props.offers],
   },
   USER: {
     profile: {},

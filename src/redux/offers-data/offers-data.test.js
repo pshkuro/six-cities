@@ -398,6 +398,7 @@ describe(`Data Reducer Actions to get data work correctly`, () => {
     const setFavoriteOfferAction = {
       type: ActionType.SET_FAVORITE_OFFER,
       offer: notFavoriteOffer,
+      offerType: `offers`
     };
     const newStateWithOneFavoriteOffer = reducer(stateWithoutFavoriteOffers, setFavoriteOfferAction);
 
@@ -409,7 +410,7 @@ describe(`Data Reducer Actions to get data work correctly`, () => {
       type: ActionType.GET_NEAR_OFFERS,
       nearOffers: cityOffers[0],
     })).toEqual(Object.assign(initialState, {
-      nearOffers: cityOffers[0],
+      nearOffers: Array(cityOffers[0]),
     }));
   });
 

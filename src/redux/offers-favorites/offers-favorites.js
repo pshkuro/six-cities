@@ -36,7 +36,7 @@ const reducer = (state = initialState, action) => {
       });
 
     case ActionType.REMOVE_FROM_FAVORITE:
-      return produce(state, (draftState) => {
+      return state.favorites !== null ? produce(state, (draftState) => {
         draftState.favorites.forEach((city, index) => {
           const offers = city.offers;
           const offerIndex = offers.findIndex((offer) => offer.id === action.id);
@@ -49,7 +49,10 @@ const reducer = (state = initialState, action) => {
             }
           }
         });
-      });
+      }) :
+        Object.assign({}, state, {
+          favorites: null,
+        });
   }
 
   return state;
@@ -66,14 +69,14 @@ const Operation = {
         dispatch(ActionCreator.getFavoritesOffers(data));
       })
       .catch((err) => {
-        throw err; // Обработать перед защитой
+        throw err;
       });
   },
 
   setFavorite: (id, status) => (dispatch, getState, api) => {
     return setFavorite(api, id, status)
       .catch((err) => {
-        throw err; // Обработать перед защитой
+        throw err;
       });
   }
 };

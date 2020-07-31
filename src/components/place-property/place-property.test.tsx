@@ -13,7 +13,7 @@ const props = {
     title: `good rererer`,
     description: [`Wood and stone place`],
     premium: false,
-    favourite: true,
+    favourite: false,
     type: `Apartment`,
     rating: 1.8,
     bedrooms: 5,
@@ -29,7 +29,7 @@ const props = {
     },
     id: 8989,
   },
-  nearOffers: {
+  nearOffers: [{
     city: `Amsterdam`,
     cityCoordinates: {
       coordinates: [21212, 1212],
@@ -59,18 +59,18 @@ const props = {
         id: 8989,
       }
     ]
-  },
+  }],
   reviews: [],
   match: {
     params: {
       id: `3`,
     }
   },
-  getPropertyOfferInfo: jest.fn(),
-  getPropertyNearOffers: jest.fn(),
-  setPropertyFavorite: jest.fn(),
-  setLocalPropertyFavorite: jest.fn(),
-  removeFromFavorite: jest.fn(),
+  getPropertyOfferInfo: jest.fn((x) => x),
+  setPropertyFavorite: jest.fn((x) => x),
+  setLocalPropertyFavorite: jest.fn((x) => x),
+  getPropertyNearOffers: jest.fn((x)=> x),
+  removeFromFavorite: jest.fn((x) => x),
   authorizationStatus: AuthorizationStatus.AUTH,
 };
 
@@ -84,8 +84,6 @@ const mockStore = configureStore([]);
 
 it(`Render PlaceProperty`, () => {
   const store = mockStore({
-    onAdvertCardMouseOver: jest.fn(),
-    onAdvertCardMouseOut: jest.fn(),
     USER: {
       authorizationStatus: `AUTH`,
     },

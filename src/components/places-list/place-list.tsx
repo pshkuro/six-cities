@@ -23,8 +23,4 @@ export default function PlaceList({offers, classes}: Props): JSX.Element {
 
 }
 
-// PlaceList.propTypes = {
-//   offers: PropTypes.arrayOf(PropTypes.object).isRequired,
-//   classes: PropTypes.object.isRequired,
-// };
 
