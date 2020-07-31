@@ -14,7 +14,7 @@ interface Props {
   isError: boolean;
 }
 
-const ratingStars = [5, 4, 3, 2, 1];
+const RATING_STARS = [5, 4, 3, 2, 1];
 
 export default class ReviewForm extends React.PureComponent<Props, {}> {
   private formRef: React.RefObject<HTMLFormElement>;
@@ -54,7 +54,7 @@ export default class ReviewForm extends React.PureComponent<Props, {}> {
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
         <div className="reviews__rating-form form__rating">
 
-          {ratingStars.map((starNumber) => (
+          {RATING_STARS.map((starNumber) => (
             <React.Fragment key={starNumber}>
               <input className="form__rating-input visually-hidden"
                 onChange={handleFieldChange}

@@ -25,6 +25,12 @@ export default function withToggle(Component) {
       this._activeClass = `places__options--opened`;
     }
 
+    private _handleChangeToggleClick() {
+      this.setState((prevState) => ({
+        isActive: !prevState.isActive,
+      }));
+    }
+
     render() {
       const isPlaceSortingActive = this.state.isActive ? this._activeClass : ``;
 
@@ -37,11 +43,5 @@ export default function withToggle(Component) {
       );
     }
 
-
-    private _handleChangeToggleClick() {
-      this.setState((prevState) => ({
-        isActive: !prevState.isActive,
-      }));
-    }
   };
 }

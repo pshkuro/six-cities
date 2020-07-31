@@ -14,7 +14,7 @@ import {Operation as ReviewsOperation} from "../../redux/reviews/reviews";
 import {Operation as FavoriteOperation, ActionCreator as FavoriteCreator} from "../../redux/offers-favorites/offers-favorites";
 import {Offer, CityOffers, Review, AuthorizationStatus as AuthorizationStatusType} from "../../types/types";
 import PlaceList from "../places-list/place-list";
-import {ratingStars} from "../../constants/offer";
+import {RatingStars} from "../../constants/offer";
 import ReviewsList from "../reviews-list/reviews-list";
 
 interface Props {
@@ -43,6 +43,15 @@ export class PlaceProperty extends React.PureComponent<Props, {}> {
     if (this.props.offer.id !== prevPorps.offer.id) {
       this._getOfferInfo();
     }
+  }
+
+  private _getOfferInfo() {
+    const {getPropertyOfferInfo, getPropertyNearOffers, match} = this.props;
+    const {params} = match;
+    const {id: offerId} = params;
+
+    getPropertyOfferInfo(Number(offerId));
+    getPropertyNearOffers(Number(offerId));
   }
 
   render() {
@@ -141,7 +150,7 @@ export class PlaceProperty extends React.PureComponent<Props, {}> {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `${ratingStars[Math.round(rating)]}%`}}></span>
+                  <span style={{width: `${RatingStars[Math.round(rating)]}%`}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{rating}</span>
@@ -222,15 +231,6 @@ export class PlaceProperty extends React.PureComponent<Props, {}> {
         </div>
       </main>
     );
-  }
-
-  private _getOfferInfo() {
-    const {getPropertyOfferInfo, getPropertyNearOffers, match} = this.props;
-    const {params} = match;
-    const {id: offerId} = params;
-
-    getPropertyOfferInfo(Number(offerId));
-    getPropertyNearOffers(Number(offerId));
   }
 }
 

@@ -36,7 +36,12 @@ const reducer = (state = initialState, action) => {
       });
 
     case ActionType.REMOVE_FROM_FAVORITE:
-      return state.favorites !== null ? produce(state, (draftState) => {
+      if (state.favorites === null) {
+        return Object.assign({}, state, {
+          favorites: null,
+        });
+      }
+      return produce(state, (draftState) => {
         draftState.favorites.forEach((city, index) => {
           const offers = city.offers;
           const offerIndex = offers.findIndex((offer) => offer.id === action.id);
@@ -49,10 +54,7 @@ const reducer = (state = initialState, action) => {
             }
           }
         });
-      }) :
-        Object.assign({}, state, {
-          favorites: null,
-        });
+      });
   }
 
   return state;

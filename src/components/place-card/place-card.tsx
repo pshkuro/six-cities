@@ -9,7 +9,7 @@ import {AuthorizationStatus, CardClasses} from "../../constants/page";
 import {getAuthorizationStatus} from "../../redux/user/selectors";
 import {Operation} from "../../redux/offers-favorites/offers-favorites";
 import {Offer, AuthorizationStatus as AuthorizationStatusType, Classes} from "../../types/types";
-import {ratingStars} from "../../constants/offer";
+import {RatingStars} from "../../constants/offer";
 
 
 const getOfferType = (offerClasses: Classes) => {
@@ -104,7 +104,7 @@ export function PlaceCard({
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${ratingStars[Math.round(rating)]}%`}}></span>
+            <span style={{width: `${RatingStars[Math.round(rating)]}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -122,6 +122,9 @@ export function PlaceCard({
   );
 }
 
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+});
 
 export const mapDispatchToProps = (dispatch) => ({
   onAdvertCardMouseOver(offer) {
@@ -142,9 +145,6 @@ export const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthorizationStatus(state),
-});
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlaceCard);
 

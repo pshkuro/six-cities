@@ -1,5 +1,5 @@
 import * as React from "react";
-import {ratingStars} from "../../constants/offer";
+import {RatingStars} from "../../constants/offer";
 import {Review} from "../../types/types";
 import {convertDateToMonthDayFormat} from "../../utils/common";
 
@@ -26,7 +26,7 @@ export default function ReviewItem({review}: Props): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: `${ratingStars[Math.round(rating)]}%`}}></span>
+            <span style={{width: `${RatingStars[Math.round(rating)]}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

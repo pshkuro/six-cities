@@ -29,21 +29,6 @@ export default function withSorting(Component) {
       }
     }
 
-    render() {
-      const {offers} = this.props;
-
-      const sortedOffers = this._getSortedOffers(this.state.sortingType, offers);
-
-      return (
-        <Component
-          {...this.props}
-          offers={sortedOffers}
-          activeSortingType={this.state.sortingType}
-          onSortingListItemClick={this._handleSortingListItemClick}
-        />
-      );
-    }
-
     private _handleSortingListItemClick(sortingType: string) {
       this.setState({sortingType});
     }
@@ -63,6 +48,22 @@ export default function withSorting(Component) {
           return offers;
       }
     }
+
+    render() {
+      const {offers} = this.props;
+
+      const sortedOffers = this._getSortedOffers(this.state.sortingType, offers);
+
+      return (
+        <Component
+          {...this.props}
+          offers={sortedOffers}
+          activeSortingType={this.state.sortingType}
+          onSortingListItemClick={this._handleSortingListItemClick}
+        />
+      );
+    }
+
   }
 
   return WithSorting;
