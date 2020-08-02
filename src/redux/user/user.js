@@ -1,5 +1,5 @@
-import {getAuthorizationStatus, postUserAuthorizationInfo} from "../../api/clients.js";
-import {AuthorizationStatus} from "../../constants/page.js";
+import {getAuthorizationStatus, postUserAuthorizationInfo} from "../../api/clients";
+import {AuthorizationStatus} from "../../constants/page";
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,

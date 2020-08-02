@@ -1,5 +1,5 @@
-import {postNewReview, getReviews} from "../../api/clients.js";
-import {parseReview} from "../mapping/review-parser.js";
+import {postNewReview, getReviews} from "../../api/clients";
+import {parseReview} from "../mapping/review-parser";
 
 const initialState = {
   reviews: null,

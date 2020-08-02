@@ -1,7 +1,7 @@
 import {
   getAuthorizationStatus,
   getProfile
-} from "./selectors.js";
+} from "./selectors";
 
 const mockState = {
   USER: {

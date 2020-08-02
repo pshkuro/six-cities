@@ -1,6 +1,6 @@
 import {getFavorites, setFavorite} from "../../api/clients";
-import {parseHotel} from "../mapping/hotel-parser.js";
-import {parseHotels} from "../mapping/hotels-pareser.js";
+import {parseHotel} from "../mapping/hotel-parser";
+import {parseHotels} from "../mapping/hotels-pareser";
 import {produce} from 'immer';
 
 const ActionType = {
@@ -36,6 +36,11 @@ const reducer = (state = initialState, action) => {
       });
 
     case ActionType.REMOVE_FROM_FAVORITE:
+      if (state.favorites === null) {
+        return Object.assign({}, state, {
+          favorites: null,
+        });
+      }
       return produce(state, (draftState) => {
         draftState.favorites.forEach((city, index) => {
           const offers = city.offers;
@@ -66,14 +71,14 @@ const Operation = {
         dispatch(ActionCreator.getFavoritesOffers(data));
       })
       .catch((err) => {
-        throw err; // Обработать перед защитой
+        throw err;
       });
   },
 
   setFavorite: (id, status) => (dispatch, getState, api) => {
     return setFavorite(api, id, status)
       .catch((err) => {
-        throw err; // Обработать перед защитой
+        throw err;
       });
   }
 };

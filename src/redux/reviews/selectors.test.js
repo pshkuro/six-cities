@@ -1,6 +1,6 @@
 import {
   getReviews
-} from "./selectors.js";
+} from "./selectors";
 
 const mockState = {
   REVIEWS: {

@@ -1,6 +1,6 @@
 import {
   getFavoriteOffers
-} from "./selectors.js";
+} from "./selectors";
 
 const mockState = {
   OFFERS_FAVORITES: {

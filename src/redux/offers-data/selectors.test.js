@@ -4,7 +4,7 @@ import {
   getCities,
   getError,
   getPropertyOffer
-} from "./selectors.js";
+} from "./selectors";
 
 const mockState = {
   PAGE: {

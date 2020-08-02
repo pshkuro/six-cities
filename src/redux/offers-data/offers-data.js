@@ -1,6 +1,6 @@
-import {parseHotel} from "../mapping/hotel-parser.js";
-import {parseHotels} from "../mapping/hotels-pareser.js";
-import {getHotels, getNearOffers} from "../../api/clients.js";
+import {getHotels, getNearOffers} from "../../api/clients";
+import {parseHotel} from "../mapping/hotel-parser";
+import {parseHotels} from "../mapping/hotels-pareser";
 import produce from 'immer';
 
 const ActionType = {
@@ -31,10 +31,11 @@ const ActionCreator = {
     });
   },
 
-  setFavoriteOffer: (offer) => {
+  setFavoriteOffer: (offer, offerType) => {
     return ({
       type: ActionType.SET_FAVORITE_OFFER,
       offer,
+      offerType,
     });
   },
 
@@ -95,8 +96,9 @@ const reducer = (state = initialState, action) => {
       });
 
     case ActionType.SET_FAVORITE_OFFER:
+      const {offerType} = action;
       return produce(state, (draftState) => {
-        draftState.offers.forEach((city) => {
+        draftState[offerType].forEach((city) => {
           const cityOffer = city.offers.find((offer) => offer.id === action.offer.id);
           if (cityOffer) {
             cityOffer.favourite = !action.offer.favourite;
@@ -104,10 +106,10 @@ const reducer = (state = initialState, action) => {
         });
       });
 
-    case ActionType.GET_NEAR_OFFERS: // Тест
+    case ActionType.GET_NEAR_OFFERS:
       const {nearOffers} = action;
       return Object.assign({}, state, {
-        nearOffers,
+        nearOffers: Array(nearOffers),
       });
   }
 
