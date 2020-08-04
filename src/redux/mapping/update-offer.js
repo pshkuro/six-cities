@@ -3,12 +3,11 @@ export const updateOffer = (cities, id, newOffer) => {
 
   const newCities = cities.map((city) => {
     return city === cityOffers
-      ? {
-        ...city,
+      ? Object.assign({}, city, {
         offers: newOffer
           ? city.offers.map((offer) => offer.id === id ? newOffer : offer)
           : city.offers.filter((offer) => offer.id !== id)
-      }
+      })
       : city;
   });
 
