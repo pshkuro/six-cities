@@ -1,7 +1,6 @@
 import * as React from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
-import {ActionCreator as OffersDataActionCreator} from "../../redux/offers-data/offers-data";
 import {AppRoute} from "../../routing/routes";
 import {AuthorizationStatus} from "../../constants/page";
 import {CardClasses} from "../../constants/page";
@@ -11,7 +10,7 @@ import {getReviews} from "../../redux/reviews/selectors";
 import Map from "../map/map";
 import {Operation as OfferOperation} from "../../redux/offers-data/offers-data";
 import {Operation as ReviewsOperation} from "../../redux/reviews/reviews";
-import {Operation as FavoriteOperation, ActionCreator as FavoriteCreator} from "../../redux/offers-favorites/offers-favorites";
+import {Operation as FavoriteOperation} from "../../redux/offers-favorites/offers-favorites";
 import {Offer, CityOffers, Review, AuthorizationStatus as AuthorizationStatusType} from "../../types/types";
 import PlaceList from "../places-list/place-list";
 import {RatingStars} from "../../constants/offer";
@@ -28,8 +27,7 @@ interface Props {
   };
   getPropertyOfferInfo: (id: number) => void;
   getPropertyNearOffers: (id: number) => void;
-  removeFromFavorite: (id: number) => void;
-  setPropertyFavorite: (id: number, status: number, offer: Offer, offerType: string) => void;
+  setPropertyFavorite: (id: number, status: number) => void;
   authorizationStatus: AuthorizationStatusType;
 }
 
@@ -39,8 +37,8 @@ export class PlaceProperty extends React.PureComponent<Props, {}> {
     this._getOfferInfo();
   }
 
-  componentDidUpdate(prevPorps) {
-    if (this.props.offer.id !== prevPorps.offer.id) {
+  componentDidUpdate(prevProps) {
+    if (this.props.offer.id !== prevProps.offer.id) {
       this._getOfferInfo();
     }
   }
@@ -59,7 +57,6 @@ export class PlaceProperty extends React.PureComponent<Props, {}> {
       nearOffers,
       reviews,
       setPropertyFavorite,
-      removeFromFavorite,
       authorizationStatus
     } = this.props;
 
@@ -88,14 +85,13 @@ export class PlaceProperty extends React.PureComponent<Props, {}> {
       zoom,
     };
 
-    const isOfferFavorite = favourite ? 0 : 1;
+    const isOfferFavorite = Number(!favourite);
     const handlePropertyButtonClick = () => {
-      setPropertyFavorite(id, isOfferFavorite, offer, `offers`);
+      setPropertyFavorite(id, isOfferFavorite);
     };
 
     const handleRemoveFavoritePropertyButtonClick = () => {
-      removeFromFavorite(id);
-      setPropertyFavorite(id, 0, offer, `offers`);
+      setPropertyFavorite(id, 0);
     };
 
     return (
@@ -105,7 +101,7 @@ export class PlaceProperty extends React.PureComponent<Props, {}> {
             <div className="property__gallery">
               {pictures.map((picture: string) => {
                 return (
-                  <div className="property__image-wrapper" key={Math.random()}>
+                  <div className="property__image-wrapper" key={picture}>
                     <img className="property__image" src={picture} alt="Photo studio"/>
                   </div>
                 );
@@ -242,7 +238,7 @@ const mapStateToProps = (state, props) => ({
   authorizationStatus: getAuthorizationStatus(state),
 });
 
-export const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({
   getPropertyOfferInfo(offerId) {
     dispatch(ReviewsOperation.getReviews(offerId));
   },
@@ -251,14 +247,10 @@ export const mapDispatchToProps = (dispatch) => ({
     dispatch(OfferOperation.getNearOffers(id));
   },
 
-  setPropertyFavorite(id, status, offer, offerType) {
-    dispatch(OffersDataActionCreator.setFavoriteOffer(offer, offerType));
+  setPropertyFavorite(id, status) {
     dispatch(FavoriteOperation.setFavorite(id, status));
   },
 
-  removeFromFavorite(id) {
-    dispatch(FavoriteCreator.removeFromFavorite(id));
-  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlaceProperty);

@@ -24,7 +24,7 @@ export default function withSorting(Component) {
     }
 
     componentDidUpdate(prevProps) {
-      if (this.props.offers !== prevProps.offers) {
+      if (this.props.city !== prevProps.city) {
         this.setState({sortingType: SortingType.DEFAULT});
       }
     }

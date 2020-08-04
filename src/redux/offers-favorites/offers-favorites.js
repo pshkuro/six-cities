@@ -1,11 +1,12 @@
+import {ActionCreator as DataOffersActionCreator} from "../offers-data/offers-data";
 import {getFavorites, setFavorite} from "../../api/clients";
 import {parseHotel} from "../mapping/hotel-parser";
-import {parseHotels} from "../mapping/hotels-pareser";
-import {produce} from 'immer';
+import {parseHotels} from "../mapping/hotels-parser";
+import {updateOffer} from "../mapping/update-offer";
 
 const ActionType = {
   GET_FAVORITES: `GET_FAVORITES`,
-  REMOVE_FROM_FAVORITE: `REMOVE_FROM_FAVORITE`,
+  REMOVE_FROM_FAVORITES: `REMOVE_FROM_FAVORITES`,
 };
 
 const initialState = {
@@ -20,10 +21,10 @@ const ActionCreator = {
     };
   },
 
-  removeFromFavorite: (id) => {
+  removeFromFavorite: (favoriteOffers) => {
     return {
-      type: ActionType.REMOVE_FROM_FAVORITE,
-      id,
+      type: ActionType.REMOVE_FROM_FAVORITES,
+      favoriteOffers,
     };
   },
 };
@@ -35,25 +36,10 @@ const reducer = (state = initialState, action) => {
         favorites: action.favorites,
       });
 
-    case ActionType.REMOVE_FROM_FAVORITE:
-      if (state.favorites === null) {
-        return Object.assign({}, state, {
-          favorites: null,
-        });
-      }
-      return produce(state, (draftState) => {
-        draftState.favorites.forEach((city, index) => {
-          const offers = city.offers;
-          const offerIndex = offers.findIndex((offer) => offer.id === action.id);
-
-          if (offerIndex !== -1) {
-            offers.splice(offerIndex, 1);
-
-            if (offers.length === 0) {
-              draftState.favorites.splice(index, 1);
-            }
-          }
-        });
+    case ActionType.REMOVE_FROM_FAVORITES:
+      const {favoriteOffers} = action;
+      return Object.assign({}, state, {
+        favorites: favoriteOffers,
       });
   }
 
@@ -75,8 +61,29 @@ const Operation = {
       });
   },
 
+
   setFavorite: (id, status) => (dispatch, getState, api) => {
+    const state = getState();
+    const cities = state.OFFERS_DATA.offers;
+    const nearCities = state.OFFERS_DATA.nearOffers;
+    const favoriteCities = state.OFFERS_FAVORITES.favorites;
+
     return setFavorite(api, id, status)
+      .then((response) => parseHotel(response.data))
+      .then((offer) => {
+        const newCities = updateOffer(cities, id, offer);
+        dispatch(DataOffersActionCreator.setOffers(newCities));
+
+        if (nearCities) {
+          const newNearOffers = updateOffer(nearCities, id, offer);
+          dispatch(DataOffersActionCreator.setNearOffers(newNearOffers));
+        }
+
+        if (favoriteCities) {
+          const newFavoriteCities = updateOffer(favoriteCities, id, null);
+          dispatch(ActionCreator.removeFromFavorite(newFavoriteCities));
+        }
+      })
       .catch((err) => {
         throw err;
       });

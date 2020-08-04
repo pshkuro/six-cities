@@ -87,7 +87,6 @@ exports[`CitiesPlaces render tests CitiesPlaces render 1`] = `
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
     >
-      
       <div
         className="cities__image-wrapper place-card__image-wrapper"
       >
@@ -187,7 +186,6 @@ exports[`CitiesPlaces render tests CitiesPlaces render 1`] = `
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
     >
-      
       <div
         className="cities__image-wrapper place-card__image-wrapper"
       >
@@ -287,7 +285,6 @@ exports[`CitiesPlaces render tests CitiesPlaces render 1`] = `
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
     >
-      
       <div
         className="cities__image-wrapper place-card__image-wrapper"
       >

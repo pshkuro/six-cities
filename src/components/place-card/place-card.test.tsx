@@ -37,7 +37,6 @@ const props = {
   },
   setFavorite: jest.fn(),
   authorizationStatus: AuthorizationStatusType.AUTH,
-  removeFromFavorite: jest.fn(),
   onAdvertCardMouseOver: jest.fn(),
   onAdvertCardMouseOut: jest.fn(),
 };

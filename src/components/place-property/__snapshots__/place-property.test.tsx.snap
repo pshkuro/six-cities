@@ -404,7 +404,6 @@ exports[`Render PlaceProperty 1`] = `
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
-          
           <div
             className="near-places__image-wrapper place-card__image-wrapper"
           >

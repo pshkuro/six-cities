@@ -46,7 +46,6 @@ Array [
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
               >
-                
                 <div
                   className="favorites__image-wrapper place-card__image-wrapper"
                 >

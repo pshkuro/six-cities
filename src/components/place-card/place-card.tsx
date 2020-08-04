@@ -2,24 +2,12 @@ import * as React from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {ActionCreator} from "../../redux/page/page";
-import {ActionCreator as DataOffersActionCreator} from "../../redux/offers-data/offers-data";
-import {ActionCreator as FavoriteCreator} from "../../redux/offers-favorites/offers-favorites";
 import {AppRoute} from "../../routing/routes";
-import {AuthorizationStatus, CardClasses} from "../../constants/page";
+import {AuthorizationStatus} from "../../constants/page";
 import {getAuthorizationStatus} from "../../redux/user/selectors";
 import {Operation} from "../../redux/offers-favorites/offers-favorites";
 import {Offer, AuthorizationStatus as AuthorizationStatusType, Classes} from "../../types/types";
 import {RatingStars} from "../../constants/offer";
-
-
-const getOfferType = (offerClasses: Classes) => {
-  switch (offerClasses.card) {
-    case CardClasses.PROPERTY.card:
-      return `nearOffers`;
-  }
-
-  return `offers`;
-};
 
 interface Props {
   offer: Offer;
@@ -27,8 +15,7 @@ interface Props {
   onAdvertCardMouseOver: (offer: Offer) => void;
   onAdvertCardMouseOut: () => void;
   authorizationStatus: AuthorizationStatusType;
-  setFavorite: (id: number, isOfferFavorite: number, offer: Offer, offerType: string) => void;
-  removeFromFavorite: (id: number) => void;
+  setFavorite: (id: number, isOfferFavorite: number) => void;
 }
 
 export function PlaceCard({
@@ -38,40 +25,33 @@ export function PlaceCard({
   onAdvertCardMouseOut,
   authorizationStatus,
   setFavorite,
-  removeFromFavorite
 }: Props): JSX.Element {
   const {previewImage, premium, favourite, cost, title, type, rating, id} = offer;
 
-  const offerType = getOfferType(classes);
-  const isOfferFavorite = favourite ? 0 : 1;
+  const isOfferFavorite = Number(!favourite);
   const handleOnAdvertCardMouse = () => onAdvertCardMouseOver(offer);
   const handleSetFavoriteClick = () => {
-    setFavorite(id, isOfferFavorite, offer, offerType);
-    if (offerType === `nearOffers`) {
-      setFavorite(id, isOfferFavorite, offer, `offers`);
-    }
+    setFavorite(id, isOfferFavorite);
   };
   const handleRemoveFavoriteClick = () => {
-    removeFromFavorite(id);
-    setFavorite(id, 0, offer, offerType);
+    setFavorite(id, 0);
   };
 
   const isFavorite = classes.wrapper === `favorites`;
   const imageWidth = isFavorite ? 150 : 260;
-  const imaheHeight = isFavorite ? 200 : 110;
+  const imageHeight = isFavorite ? 200 : 110;
 
   return (
     <article className={`${classes.card}card place-card`}
       onMouseEnter={onAdvertCardMouseOver && handleOnAdvertCardMouse}
       onMouseLeave={onAdvertCardMouseOut}>
-      {premium ?
+      {premium &&
         <div className="place-card__mark">
           <span>Premium</span>
-        </div>
-        : ``}
+        </div>}
       <div className={`${classes.wrapper ? `${classes.wrapper}__image-wrapper` : ``} place-card__image-wrapper`}>
         <a href="#">
-          <img className="place-card__image" src={previewImage} width={imageWidth} height={imaheHeight} alt="Place image" />
+          <img className="place-card__image" src={previewImage} width={imageWidth} height={imageHeight} alt="Place image" />
         </a>
       </div>
       <div className={`${classes.info ? `${classes.info}__card-info` : ``} place-card__info`}>
@@ -92,7 +72,7 @@ export function PlaceCard({
                 <span className="visually-hidden">To bookmarks</span>
               </Link>
               : <button
-                onClick={isFavorite ? handleRemoveFavoriteClick : handleSetFavoriteClick}
+                onClick={favourite ? handleRemoveFavoriteClick : handleSetFavoriteClick}
                 className={`place-card__bookmark-button button ${favourite && `place-card__bookmark-button--active`}`}
                 type="button">
                 <svg className="place-card__bookmark-icon" width="18" height="19">
@@ -135,14 +115,10 @@ export const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.makeOfferInactive());
   },
 
-  setFavorite(id, status, offer, offerType) {
-    dispatch(DataOffersActionCreator.setFavoriteOffer(offer, offerType));
+  setFavorite(id, status) {
     dispatch(Operation.setFavorite(id, status));
   },
 
-  removeFromFavorite(id) {
-    dispatch(FavoriteCreator.removeFromFavorite(id));
-  }
 });
 
 

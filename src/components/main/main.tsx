@@ -18,7 +18,7 @@ const CitiesPlacesWrapped = withSorting(CitiesPlaces);
 export default function Main({offers, activeOffer}: Props): JSX.Element {
   const {offers: cityOffers, cityCoordinates, city} = offers;
 
-  const isOffersEmpty = !cityOffers || (cityOffers && cityOffers.length === 0);
+  const isOffersEmpty = !cityOffers || cityOffers.length === 0;
   const pins = !isOffersEmpty ? cityOffers.map((offer: Offer) => ({
     coordinates: offer.coordinates,
     isActive: offer === activeOffer,

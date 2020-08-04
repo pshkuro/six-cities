@@ -5,7 +5,6 @@ import configureStore from "redux-mock-store";
 import {BrowserRouter} from "react-router-dom";
 import {PlaceProperty} from "./place-property";
 import Map from "../map/map";
-import {mapDispatchToProps} from "./place-property";
 import {AuthorizationStatus} from "../../types/types";
 import {noop} from "../../utils/common";
 
@@ -73,7 +72,6 @@ const props = {
   setPropertyFavorite: jest.fn((x) => x),
   setLocalPropertyFavorite: jest.fn((x) => x),
   getPropertyNearOffers: jest.fn((x)=> x),
-  removeFromFavorite: jest.fn((x) => x),
   authorizationStatus: AuthorizationStatus.AUTH,
 };
 
@@ -119,7 +117,6 @@ const propsWithoutOffer = {
   getPropertyOfferInfo: jest.fn((x) => x),
   setPropertyFavorite: jest.fn((x) => x),
   getPropertyNearOffers: jest.fn((x)=> x),
-  removeFromFavorite: jest.fn((x) => x),
   authorizationStatus: AuthorizationStatus.AUTH,
 };
 
@@ -214,7 +211,7 @@ describe(`Place property work tests`, () => {
     });
 
     expect(props.setPropertyFavorite).toHaveBeenCalledTimes(1);
-    expect(props.setPropertyFavorite).toHaveBeenCalledWith(props.offer.id, Number(!props.offer.favourite), props.offer, `offers`);
+    expect(props.setPropertyFavorite).toHaveBeenCalledWith(props.offer.id, Number(!props.offer.favourite));
   });
 
   it(`Place property not render when offers null`, () => {
@@ -245,17 +242,4 @@ describe(`Place property work tests`, () => {
 
 
 });
-
-describe(`Place property dispatch actions tests`, () => {
-  it(`Click on favorite button dispatch action with favorite offer`, () => {
-    const dispatch = jest.fn();
-    mapDispatchToProps(dispatch).setPropertyFavorite(8989, 1, props.offer, `offers`);
-    expect(dispatch.mock.calls[0][0]).toEqual({
-      type: `SET_FAVORITE_OFFER`,
-      offer: props.offer,
-      offerType: `offers`
-    });
-  });
-});
-
 

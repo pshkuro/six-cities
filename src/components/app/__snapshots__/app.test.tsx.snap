@@ -198,7 +198,6 @@ exports[`Render App 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
             >
-              
               <div
                 className="cities__image-wrapper place-card__image-wrapper"
               >
@@ -298,7 +297,6 @@ exports[`Render App 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
             >
-              
               <div
                 className="cities__image-wrapper place-card__image-wrapper"
               >
@@ -398,7 +396,6 @@ exports[`Render App 1`] = `
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
             >
-              
               <div
                 className="cities__image-wrapper place-card__image-wrapper"
               >

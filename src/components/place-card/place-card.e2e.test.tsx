@@ -39,7 +39,6 @@ const props = {
     map: `cities`,
   },
   setFavorite: jest.fn((z) => z),
-  removeFromFavorite: jest.fn((z) => z),
   authorizationStatus: AuthorizationStatusType.AUTH,
 };
 
@@ -70,7 +69,7 @@ describe(`PlaceCard work tests`, () => {
     favoriteButton.simulate(`click`);
 
     expect(props.setFavorite).toHaveBeenCalledTimes(1);
-    expect(props.setFavorite).toHaveBeenCalledWith(props.offer.id, 0, props.offer, `offers`);
+    expect(props.setFavorite).toHaveBeenCalledWith(props.offer.id, 0);
   });
 
   it(`Click on favorite button set offer unfavorite`, () => {
@@ -90,9 +89,7 @@ describe(`PlaceCard work tests`, () => {
 
 
     expect(props.setFavorite).toHaveBeenCalled();
-    expect(props.removeFromFavorite).toHaveBeenCalled();
-    expect(props.setFavorite).toHaveBeenCalledWith(props.offer.id, 0, props.offer, `offers`);
-    expect(props.removeFromFavorite).toHaveBeenCalledWith(props.offer.id);
+    expect(props.setFavorite).toHaveBeenCalledWith(props.offer.id, 0);
   });
 });
 
@@ -115,24 +112,4 @@ describe(`PlaceCard dispatch actions tests`, () => {
       activeOffer: null,
     });
   });
-
-  it(`Click on favorite button dispatch action with delete favorite offer id`, () => {
-    const dispatch = jest.fn();
-    mapDispatchToProps(dispatch).removeFromFavorite(5);
-    expect(dispatch.mock.calls[0][0]).toEqual({
-      type: `REMOVE_FROM_FAVORITE`,
-      id: 5,
-    });
-  });
-
-  it(`Click on favorite button dispatch actions with favorite offer`, () => {
-    const dispatch = jest.fn();
-    mapDispatchToProps(dispatch).setFavorite(5, 1, props.offer, `offers`);
-    expect(dispatch.mock.calls[0][0]).toEqual({
-      type: `SET_FAVORITE_OFFER`,
-      offer: props.offer,
-      offerType: `offers`,
-    });
-  });
-
 });

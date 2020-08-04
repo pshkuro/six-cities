@@ -139,7 +139,6 @@ exports[`Render Main 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
           >
-            
             <div
               className="cities__image-wrapper place-card__image-wrapper"
             >
@@ -239,7 +238,6 @@ exports[`Render Main 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
           >
-            
             <div
               className="cities__image-wrapper place-card__image-wrapper"
             >
@@ -339,7 +337,6 @@ exports[`Render Main 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
           >
-            
             <div
               className="cities__image-wrapper place-card__image-wrapper"
             >

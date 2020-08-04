@@ -1,13 +1,13 @@
 import {getHotels, getNearOffers} from "../../api/clients";
 import {parseHotel} from "../mapping/hotel-parser";
-import {parseHotels} from "../mapping/hotels-pareser";
-import produce from 'immer';
+import {parseHotels} from "../mapping/hotels-parser";
 
 const ActionType = {
   GET_OFFERS: `GET_OFFERS`,
   LOAD_ERROR: `LOAD_ERROR`,
-  SET_FAVORITE_OFFER: `SET_FAVORITE_OFFER`,
+  SET_OFFERS: `SET_OFFERS`,
   GET_NEAR_OFFERS: `GET_NEAR_OFFERS`,
+  SET_NEAR_OFFERS: `SET_NEAR_OFFERS`,
 };
 
 const initialState = {
@@ -24,6 +24,13 @@ const ActionCreator = {
     });
   },
 
+  setOffers: (offers) => {
+    return ({
+      type: ActionType.SET_OFFERS,
+      offers,
+    });
+  },
+
   offersLoadError: () => {
     return ({
       type: ActionType.LOAD_ERROR,
@@ -31,17 +38,16 @@ const ActionCreator = {
     });
   },
 
-  setFavoriteOffer: (offer, offerType) => {
-    return ({
-      type: ActionType.SET_FAVORITE_OFFER,
-      offer,
-      offerType,
-    });
-  },
-
   getNearOffer: (nearOffers) => {
     return ({
       type: ActionType.GET_NEAR_OFFERS,
+      nearOffers,
+    });
+  },
+
+  setNearOffers: (nearOffers) => {
+    return ({
+      type: ActionType.SET_NEAR_OFFERS,
       nearOffers,
     });
   },
@@ -89,21 +95,16 @@ const reducer = (state = initialState, action) => {
         offers: availableOffers,
       });
 
+    case ActionType.SET_OFFERS:
+      const {offers} = action;
+      return Object.assign({}, state, {
+        offers,
+      });
+
     case ActionType.LOAD_ERROR:
       const {error} = action;
       return Object.assign({}, state, {
         error,
-      });
-
-    case ActionType.SET_FAVORITE_OFFER:
-      const {offerType} = action;
-      return produce(state, (draftState) => {
-        draftState[offerType].forEach((city) => {
-          const cityOffer = city.offers.find((offer) => offer.id === action.offer.id);
-          if (cityOffer) {
-            cityOffer.favourite = !action.offer.favourite;
-          }
-        });
       });
 
     case ActionType.GET_NEAR_OFFERS:
@@ -111,6 +112,13 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         nearOffers: Array(nearOffers),
       });
+
+    case ActionType.SET_NEAR_OFFERS:
+      const {nearOffers: nearFavoriteOffers} = action;
+      return Object.assign({}, state, {
+        nearOffers: nearFavoriteOffers,
+      });
+
   }
 
   return state;

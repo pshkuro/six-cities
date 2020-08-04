@@ -324,7 +324,6 @@ describe(`Offers favorite reducer work correctly`, () => {
   });
 
   it(`The reducer remove favorite when user unfavorite offer`, () => {
-    const mockId = 8989;
     const favoritesWithoutUnfavoriteOffer = [
       {
         city: `Paris`,
@@ -452,8 +451,8 @@ describe(`Offers favorite reducer work correctly`, () => {
     ];
 
     expect(reducer(mockState, {
-      type: ActionType.REMOVE_FROM_FAVORITE,
-      id: mockId,
+      type: ActionType.REMOVE_FROM_FAVORITES,
+      favoriteOffers: favoritesWithoutUnfavoriteOffer,
     })).toEqual(Object.assign(mockState, {
       favorites: favoritesWithoutUnfavoriteOffer,
     }));
@@ -488,10 +487,9 @@ describe(`Offers favorites reducer actions work correctly`, () => {
   });
 
   it(`Action creators of remove from favorite offers work correctly`, () => {
-    const mockId = 8989;
-    expect(ActionCreator.removeFromFavorite(mockId)).toEqual({
-      type: ActionType.REMOVE_FROM_FAVORITE,
-      id: mockId,
+    expect(ActionCreator.removeFromFavorite(favorites)).toEqual({
+      type: ActionType.REMOVE_FROM_FAVORITES,
+      favoriteOffers: favorites,
     });
   });
 });

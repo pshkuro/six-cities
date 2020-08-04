@@ -6,7 +6,6 @@ exports[`Render PlaceCard 1`] = `
   onMouseEnter={[Function]}
   onMouseLeave={[MockFunction]}
 >
-  
   <div
     className="cities__image-wrapper place-card__image-wrapper"
   >

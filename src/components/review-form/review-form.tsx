@@ -38,7 +38,7 @@ export default class ReviewForm extends React.PureComponent<Props, {}> {
       return null;
     }
 
-    const isSubmtButtonDisabled = !isReviewInfoCorrect || isSending ? true : false;
+    const isSubmitButtonDisabled = !isReviewInfoCorrect || isSending;
     const handleFieldChange = (evt: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => onFieldChange(evt);
 
     if (isError) {
@@ -87,7 +87,7 @@ export default class ReviewForm extends React.PureComponent<Props, {}> {
           <button
             className="reviews__submit form__submit button"
             type="submit"
-            disabled={isSubmtButtonDisabled}>Submit</button>
+            disabled={isSubmitButtonDisabled}>Submit</button>
         </div>
       </form>
     );

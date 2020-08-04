@@ -170,7 +170,9 @@ describe(`withSorting Hoc test`, () => {
     const placesSortingListItem = component.find(`.places__option`).last();
     placesSortingListItem.simulate(`click`);
 
-    wrapped.setProps(Object.assign(props, {offers: newOffers}));
+    wrapped.setProps(Object.assign(props, {
+      city: `Brussel`,
+      offers: newOffers}));
     expect(component.state().sortingType).toBe(SortingType.DEFAULT);
 
   });

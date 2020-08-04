@@ -14,7 +14,7 @@ const ReviewFormWrapped = withReviewForm(ReviewForm);
 export default function ReviewsList({reviews, offerId}: Props): JSX.Element {
   const sortedReviews = reviews && reviews.slice().sort(
       (a: Review, b: Review) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
-  const reviewsNumber = !reviews || (reviews && reviews.length === 0) ? 0 : reviews.length;
+  const reviewsNumber = !reviews || reviews.length === 0 ? 0 : reviews.length;
   return (
     <section className="property__reviews reviews">
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewsNumber}</span></h2>

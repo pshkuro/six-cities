@@ -297,73 +297,6 @@ const offers = [
   },
 ];
 
-const offersWithoutFavorites = [
-  {
-    city: `Paris`,
-    cityCoordinates: {
-      coordinates: [52.3909553943508, 4.85309666406198],
-      zoom: 12,
-    },
-    offers: [
-      {
-        previewImage: `img/apartment-01.jpg`,
-        pictures: [`img/apartment-01.jpg`],
-        title: `good rererer`,
-        description: [`Wood and stone place`],
-        premium: false,
-        favourite: false,
-        type: `Apartment`,
-        rating: 1.8,
-        bedrooms: 5,
-        guests: 1,
-        cost: 120,
-        conveniences: [`Cool vary cool place`],
-        coordinates: [52.3909553943508, 4.85309666406198],
-        owner: {
-          avatar: `img/avatar-angelina.jpg`,
-          name: `Lolo`,
-          pro: true,
-          id: 12,
-        },
-        id: 8989,
-      }
-    ],
-  }
-];
-
-const offersWithOneFavorite = [
-  {
-    city: `Paris`,
-    cityCoordinates: {
-      coordinates: [52.3909553943508, 4.85309666406198],
-      zoom: 12,
-    },
-    offers: [
-      {
-        previewImage: `img/apartment-01.jpg`,
-        pictures: [`img/apartment-01.jpg`],
-        title: `good rererer`,
-        description: [`Wood and stone place`],
-        premium: false,
-        favourite: true,
-        type: `Apartment`,
-        rating: 1.8,
-        bedrooms: 5,
-        guests: 1,
-        cost: 120,
-        conveniences: [`Cool vary cool place`],
-        coordinates: [52.3909553943508, 4.85309666406198],
-        owner: {
-          avatar: `img/avatar-angelina.jpg`,
-          name: `Lolo`,
-          pro: true,
-          id: 12,
-        },
-        id: 8989,
-      }
-    ],
-  }
-];
 
 const initialState = {
   offers: null,
@@ -391,18 +324,13 @@ describe(`Data Reducer Actions to get data work correctly`, () => {
     }));
   });
 
-  it(`The reducer set favorite return correct offers`, () => {
-    const stateWithoutFavoriteOffers = Object.assign({}, initialState, {offers: offersWithoutFavorites});
-    const stateWithOneFavoriteOffer = Object.assign({}, initialState, {offers: offersWithOneFavorite});
-    const notFavoriteOffer = stateWithoutFavoriteOffers.offers[0].offers[0];
-    const setFavoriteOfferAction = {
-      type: ActionType.SET_FAVORITE_OFFER,
-      offer: notFavoriteOffer,
-      offerType: `offers`
-    };
-    const newStateWithOneFavoriteOffer = reducer(stateWithoutFavoriteOffers, setFavoriteOfferAction);
-
-    expect(newStateWithOneFavoriteOffer).toEqual(stateWithOneFavoriteOffer);
+  it(`The reducer set offers return correct offers`, () => {
+    expect(reducer(initialState, {
+      type: ActionType.SET_OFFERS,
+      offers,
+    })).toEqual(Object.assign(initialState, {
+      offers,
+    }));
   });
 
   it(`The reducer get near offers return correct offers`, () => {
@@ -411,6 +339,15 @@ describe(`Data Reducer Actions to get data work correctly`, () => {
       nearOffers: cityOffers[0],
     })).toEqual(Object.assign(initialState, {
       nearOffers: Array(cityOffers[0]),
+    }));
+  });
+
+  it(`The reducer set near offers return correct offers`, () => {
+    expect(reducer(initialState, {
+      type: ActionType.SET_NEAR_OFFERS,
+      nearOffers: offers,
+    })).toEqual(Object.assign(initialState, {
+      nearOffers: offers,
     }));
   });
 
@@ -430,6 +367,13 @@ describe(`Data Reducer Actions to get data work correctly`, () => {
     });
   });
 
+  it(`Action creators set offers returna correct action`, () => {
+    expect(ActionCreator.setOffers(offers)).toEqual({
+      type: ActionType.SET_OFFERS,
+      offers,
+    });
+  });
+
   it(`Action creators of error returns correct action`, () => {
     expect(ActionCreator.offersLoadError()).toEqual({
       type: ActionType.LOAD_ERROR,
@@ -437,39 +381,17 @@ describe(`Data Reducer Actions to get data work correctly`, () => {
     });
   });
 
-  it(`Action set favorite offer returna correct action`, () => {
-    const offer = {
-      previewImage: `img/apartment-01.jpg`,
-      pictures: [`img/apartment-01.jpg`],
-      title: `good rererer`,
-      description: [`Wood and stone place`],
-      premium: false,
-      favourite: false,
-      type: `Apartment`,
-      rating: 1.8,
-      bedrooms: 5,
-      guests: 1,
-      cost: 120,
-      conveniences: [`Cool vary cool place`],
-      coordinates: [52.3909553943508, 4.85309666406198],
-      owner: {
-        avatar: `img/avatar-angelina.jpg`,
-        name: `Lolo`,
-        pro: true,
-        id: 12,
-      },
-      id: 8989,
-    };
-    expect(ActionCreator.setFavoriteOffer(offer)).toEqual({
-      type: ActionType.SET_FAVORITE_OFFER,
-      offer,
-    });
-  });
-
   it(`Action get near offers return a correct action`, () => {
     expect(ActionCreator.getNearOffer(cityOffers[0])).toEqual({
       type: ActionType.GET_NEAR_OFFERS,
       nearOffers: cityOffers[0],
+    });
+  });
+
+  it(`Action set near offers return a correct action`, () => {
+    expect(ActionCreator.setNearOffers(offers)).toEqual({
+      type: ActionType.SET_NEAR_OFFERS,
+      nearOffers: offers,
     });
   });
 });
