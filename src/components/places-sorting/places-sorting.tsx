@@ -38,7 +38,6 @@ interface Props {
   handleChangeToggleClick: () => void;
 }
 
-
 export default function PlacesSorting(props: Props): JSX.Element {
   const {onSortingListItemClick,
     activeSortingType,
